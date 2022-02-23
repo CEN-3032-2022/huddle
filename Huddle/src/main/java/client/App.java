@@ -21,7 +21,7 @@ public class App extends Application {
         stage.setTitle("Huddle");
         stage.setScene(scene);
         stage.setMaximized(true);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
