@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.textfield.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<GridPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" fx:controller="client.FailedResetController" hgap="20" vgap="20"> 
+	  <padding><Insets top="10" right="30" bottom="10" left="30"/></padding>
+      <Text text="UserName" Fill="darkgoldenrod" GridPane.rowIndex = "1" GridPane.columnIndex = "0"/>
+      <Text text="Bio Text Goes Here" wrappingWidth = "200" Fill="darkgoldenrod" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "8"/>
+      <Button fx:id="SearchButton" text="Search" onAction="#switchToLogin" GridPane.rowIndex = "1" GridPane.columnIndex = "21" GridPane.columnSpan = "1"/>
+      <TextArea fx:id="Search" prefHeight = "10" prefWidth = "1550" GridPane.rowIndex = "1" GridPane.columnIndex = "2" GridPane.columnSpan = "19"/>
+      <ScrollPane fx:id="Scroll" prefWidth = "1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "45"/>
+      <style>
+            -fx-background-color:"Black";
+            -fx-font-size: 20;
+      </style>
+</GridPane>
