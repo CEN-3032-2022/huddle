@@ -32,15 +32,15 @@ public class AccountCreationController {
     	if(matcher1.find())
     		req1.setFill(Color.GREEN);
     	else
-    		req1.setFill(Color.DARKGOLDENROD);
+    		req1.setFill(Color.BLACK);
     	if(matcher2.find())
     		req2.setFill(Color.GREEN);
     	else
-    		req2.setFill(Color.DARKGOLDENROD);
+    		req2.setFill(Color.BLACK);
     	if(matcher3.find())
     		req3.setFill(Color.GREEN);
     	else
-    		req3.setFill(Color.DARKGOLDENROD);
+    		req3.setFill(Color.BLACK);
     	
     }
 }

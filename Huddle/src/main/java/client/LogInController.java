@@ -2,7 +2,9 @@ package client;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -10,6 +12,10 @@ public class LogInController {
 	@FXML Text wrongLogin;
 	@FXML TextArea password;
 	@FXML TextArea userName;
+	@FXML
+	public void initialize() {
+		App.setUserAgentStylesheet("file:src/main/resources/Group7/Huddle/UserInterface/theme1.css");
+	}
     @FXML
     private void switchToNew() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/CreateAcc");
