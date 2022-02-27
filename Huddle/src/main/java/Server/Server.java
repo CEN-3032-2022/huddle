@@ -12,8 +12,7 @@ public class Server {
 
 		try {
 			
-//			DatabaseOperations dbOperations = new DatabaseOperations();
-//			dbOperations.initializeDatabase();
+			// Initialize Database connection here probably
 			
 			ServerSocket huddleServer = new ServerSocket(HUDDLE_PORT);
 			System.out.println("Waiting for clients to connect ...");
@@ -22,9 +21,9 @@ public class Server {
 		    	Socket huddleSocket = huddleServer.accept();
 		    	System.out.println("A client has connected.");
 		    	
-//		    	ServerRequest serverRequest = new ServerRequest(huddleSocket);
-//		    	Thread requestBusinessLogic = new Thread(serverRequest);
-//		    	requestBusinessLogic.start();
+		    	ServerRequest serverRequest = new ServerRequest(huddleSocket);
+		    	Thread requestBusinessLogic = new Thread(serverRequest);
+		    	requestBusinessLogic.start();
 		    }
 		    
 		} catch (IOException e) {

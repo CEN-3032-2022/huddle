@@ -1,16 +1,21 @@
 package Server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Scanner;
+
+import org.json.JSONObject;
 
 public class ServerRequest implements Runnable {
 	
 	private Socket huddleSocket;
-	
-	private Scanner clientInput;
-	private PrintWriter clientOutput;
+	private InputStreamReader clientInput;
+	private BufferedReader streamReader;
+	private OutputStreamWriter clientOutput;
 	
 	public ServerRequest(Socket huddleSocket) {
 		this.huddleSocket = huddleSocket;
@@ -20,70 +25,47 @@ public class ServerRequest implements Runnable {
 	public void run() {
 		try {
 			try {
-				clientInput = new Scanner(huddleSocket.getInputStream());
-	            clientOutput = new PrintWriter(huddleSocket.getOutputStream());
-	            doRequest();           
+				setUpCommunications();
+	            doRequests();           
 			}
-			finally {
-				huddleSocket.close();
-			}
+			finally { huddleSocket.close(); }
 		}
-		catch (IOException exception)
-		{
-			exception.printStackTrace();
+		catch (IOException exception) { exception.printStackTrace(); }
+	}
+	
+	public void setUpCommunications() throws IOException {
+		InputStream instream = huddleSocket.getInputStream();
+		OutputStream outstream = huddleSocket.getOutputStream();
+		this.clientInput = new InputStreamReader(instream);
+        this.clientOutput = new OutputStreamWriter(outstream);
+        this.streamReader = new BufferedReader(clientInput);
+	}
+	
+	public void doRequests() throws IOException {
+		while (true) {  
+			if (!clientInput.ready()) {
+				return;
+			}
+			handleServerRequest(getClientJSONResponse());
 		}
 	}
 	
-	public void doRequest() throws IOException {
-		
-//		while (true) {  
-//			if (!clientInput.hasNextLine()) {
-//				return;
-//			}
-//			
-//			String command = clientInput.nextLine();  
-//			handleServerRequest(command);
-//		}
-		
+	public JSONObject getClientJSONResponse() {
+		StringBuilder responseStringBuilder = new StringBuilder();
+		String inputString;
+		try {
+			while ((inputString = streamReader.readLine()) != null) {
+			    responseStringBuilder.append(inputString);
+			}
+		} catch (IOException e) { e.printStackTrace(); }
+		return new JSONObject(responseStringBuilder.toString());
 	}
 	
-	public void handleServerRequest(String command) {
+	public void handleServerRequest(JSONObject jsonRequest) {
 		
-//		dbOperations.getDbRequestLock().lock();
-//		
-//		System.out.println("**Command sent by client is [" + command +"]");
-//		
-//		if (command.equals("print")) {
-//			musicTables.printAllTableData();
-//			clientOutput.println("print command recieved");
-//			clientOutput.flush();
-//		}
-//		else if (command.contains("query")) {
-//			String queryParameters = command.substring(6);
-//			
-//			String queryResults = "";
-//			
-//			try {
-//				queryResults = dbOperations.getMusicSelectionQueryResultsString(musicTables, queryParameters);
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//			
-//			System.out.println("**Sending Back To Client:[\n" + queryResults.replace("<newline>", "\n") + "]");
-//			
-//			clientOutput.println(queryResults);
-//			clientOutput.flush();
-//			return;
-//			
-//		}
-//		else {
-//			clientOutput.println("Invalid command recieved");
-//			clientOutput.flush();
-//			return;
-//		}
-//		
-//		dbOperations.getDbRequestLock().unlock();
+		System.out.println(jsonRequest.toString());
 		
+		return;
 	}
 	
 }

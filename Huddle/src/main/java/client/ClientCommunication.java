@@ -15,8 +15,8 @@ public class ClientCommunication {
 
     public static final int HUDDLE_PORT = 8888;
 	
-	private InputStreamReader input;
-	private OutputStreamWriter output;
+	private InputStreamReader serverInput;
+	private OutputStreamWriter serverOutput;
 	private Socket clientSocket;
 	
 	public ClientCommunication() {
@@ -30,14 +30,14 @@ public class ClientCommunication {
 	public void setUpCommunications() throws IOException{
 		InputStream instream = clientSocket.getInputStream();
 		OutputStream outstream = clientSocket.getOutputStream();
-		this.input = new InputStreamReader(instream, StandardCharsets.UTF_8);
-		this.output = new OutputStreamWriter(outstream, StandardCharsets.UTF_8);
+		this.serverInput = new InputStreamReader(instream, StandardCharsets.UTF_8);
+		this.serverOutput = new OutputStreamWriter(outstream, StandardCharsets.UTF_8);
 	}
 	
 	public void closeCommunications() {
     	try {
-        	input.close();
-        	output.close();
+    		serverInput.close();
+    		serverOutput.close();
     		clientSocket.close();
     	} catch (Exception e) { System.out.println("Could not close connections"); }
 	}
@@ -64,8 +64,9 @@ public class ClientCommunication {
 	
 	public void sendTestJSON() {
 		JSONObject testJSON = getTestJSON();
-		try { output.write(testJSON.toString()); }
+		try { serverOutput.write(testJSON.toString()); }
 		catch (IOException e) { e.printStackTrace(); }
 	}
 	// End Of Testing Methods
+	
 }
