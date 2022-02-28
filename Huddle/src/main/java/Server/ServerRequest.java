@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ServerRequest implements Runnable {
@@ -32,13 +33,6 @@ public class ServerRequest implements Runnable {
 		catch (IOException exception) { exception.printStackTrace(); }
 	}
 	
-	public void setUpCommunications() throws IOException {
-		InputStream instream = huddleSocket.getInputStream();
-		OutputStream outstream = huddleSocket.getOutputStream();
-		this.clientInput = new Scanner(instream, StandardCharsets.UTF_8);
-        this.clientOutput = new PrintWriter(outstream);
-	}
-	
 	public void doRequests() throws IOException {
 		while (true) { 
 			if (!clientInput.hasNextLine()) return;
@@ -47,13 +41,11 @@ public class ServerRequest implements Runnable {
 	}
 	
 	public void handleServerRequest(JSONObject jsonRequest) {
+		
 		if(jsonRequest.getString("type").equals("testRequest")) {
-			JSONObject testJSONResponse = new JSONObject();
-			testJSONResponse.put("type", "testResponse");
-			testJSONResponse.put("data", "2 + 2 = 4");
-			testJSONResponse.put("isTest", true);
-			sendJSONResponseToClient(testJSONResponse);
+			sendJSONResponseToClient(getTestJSONResponse());
 		}
+		
 		return;
 	}
 	
@@ -68,5 +60,27 @@ public class ServerRequest implements Runnable {
 		clientOutput.println(jsonClientResponse.toString());
 		clientOutput.flush();
 	}
+	
+	public void setUpCommunications() throws IOException {
+		InputStream instream = huddleSocket.getInputStream();
+		OutputStream outstream = huddleSocket.getOutputStream();
+		this.clientInput = new Scanner(instream, StandardCharsets.UTF_8);
+        this.clientOutput = new PrintWriter(outstream);
+	}
+	
+	// ---------------- Testing Methods	----------------
+	public JSONObject getTestJSONResponse() {
+		JSONObject testJSONResponse = new JSONObject();
+		testJSONResponse.put("type", "testResponse");
+		testJSONResponse.put("isTest", true);
+		testJSONResponse.put("number", 12345);
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i < 10; ++i) {
+			jsonArray.put(i);
+		}
+		testJSONResponse.put("array", jsonArray);
+		return testJSONResponse;
+	}
+	// ------------ End Of Testing Methods -------------
 	
 }

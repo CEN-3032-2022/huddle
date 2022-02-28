@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ClientCommunication {
@@ -24,7 +23,10 @@ public class ClientCommunication {
 			clientSocket = new Socket("localhost", HUDDLE_PORT);
 			setUpCommunications();
 		}
-		catch (IOException e) { System.out.println("Could not connect to the server"); }
+		catch (IOException e) {
+			System.out.println("Could not connect to the server");
+			e.printStackTrace();
+		}
 	}
 	
 	public void setUpCommunications() throws IOException {
@@ -39,11 +41,14 @@ public class ClientCommunication {
     		serverInput.close();
     		serverOutput.close();
     		clientSocket.close();
-    	} catch (Exception e) { System.out.println("Could not close connections"); }
+    	} catch (Exception e) {
+    		System.out.println("Could not close connections");
+    		e.printStackTrace();
+    	}
 	}
 	
 	public JSONObject getServerJSONResponse() {
-		String jsonResponse = serverInput.nextLine(); 
+		String jsonResponse = serverInput.nextLine();
 //	    System.out.println("Recieved From Server: " + jsonResponse.toString());
 		return new JSONObject(jsonResponse);
 	}
@@ -54,30 +59,17 @@ public class ClientCommunication {
 		serverOutput.flush();
 	}
 	
-	// Testing Methods
-    public static void main(String[] args) {
-    	ClientCommunication cc = new ClientCommunication();
-    	cc.sendTestJSON();
-    }
-	
-	public JSONObject getTestJSON() {
+	// ---------------- Testing Methods	----------------
+	public JSONObject getTestJSONRequest() {
 		JSONObject testJSON = new JSONObject();
 		testJSON.put("type", "testRequest");
 		testJSON.put("isTest", true);
-		testJSON.put("number", 12345);
-		JSONArray jsonArray = new JSONArray();
-		for(int i = 0; i < 10; ++i) {
-			jsonArray.put(i);
-		}
-		testJSON.put("array", jsonArray);
 		return testJSON;
 	}
 	
 	public void sendTestJSON() {
-		JSONObject testJSON = getTestJSON();
+		JSONObject testJSON = getTestJSONRequest();
 		sendJSONRequestToServer(testJSON);
-		JSONObject testResponseJSON = getServerJSONResponse();
 	}
-	// End Of Testing Methods
-	
+	// ------------ End Of Testing Methods -------------
 }

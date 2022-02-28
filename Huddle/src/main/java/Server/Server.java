@@ -11,6 +11,7 @@ public class Server {
 	public static void main(String[] args) {
 
 		try {
+			
 			// Initialize Database connection here probably
 			
 			ServerSocket huddleServer = new ServerSocket(HUDDLE_PORT);
