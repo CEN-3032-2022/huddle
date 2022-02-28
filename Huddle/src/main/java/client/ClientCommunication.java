@@ -1,5 +1,6 @@
 package client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,9 +16,19 @@ public class ClientCommunication {
 
     public static final int HUDDLE_PORT = 8888;
 	
-	private InputStreamReader serverInput;
-	private OutputStreamWriter serverOutput;
 	private Socket clientSocket;
+	private InputStreamReader serverInput;
+	private BufferedReader streamReader;
+	private OutputStreamWriter serverOutput;
+	
+	// TESTING
+    public static void main(String[] args) {
+        // testing main
+    	ClientCommunication cc = new ClientCommunication();
+    	cc.sendTestJSON();
+//    	cc.closeCommunications();
+    }
+    // TESTING
 	
 	public ClientCommunication() {
 		try {
@@ -32,6 +43,8 @@ public class ClientCommunication {
 		OutputStream outstream = clientSocket.getOutputStream();
 		this.serverInput = new InputStreamReader(instream, StandardCharsets.UTF_8);
 		this.serverOutput = new OutputStreamWriter(outstream, StandardCharsets.UTF_8);
+        this.streamReader = new BufferedReader(serverInput);
+        System.out.println("Communications set up");
 	}
 	
 	public void closeCommunications() {
@@ -40,6 +53,18 @@ public class ClientCommunication {
     		serverOutput.close();
     		clientSocket.close();
     	} catch (Exception e) { System.out.println("Could not close connections"); }
+	}
+	
+	public JSONObject getServerJSONResponse() {
+		StringBuilder responseStringBuilder = new StringBuilder();
+		String inputString;
+		try {
+			while ((inputString = streamReader.readLine()) != null) {
+			    responseStringBuilder.append(inputString);
+			}
+			System.out.println("Response String Builder: " + responseStringBuilder.toString());
+		} catch (IOException e) { e.printStackTrace(); }
+		return new JSONObject(responseStringBuilder.toString());
 	}
 	
 	// Testing Methods
@@ -64,8 +89,14 @@ public class ClientCommunication {
 	
 	public void sendTestJSON() {
 		JSONObject testJSON = getTestJSON();
+		System.out.println("Sending: " + testJSON.toString());
 		try { serverOutput.write(testJSON.toString()); }
 		catch (IOException e) { e.printStackTrace(); }
+		
+		try { Thread.sleep(25000); }
+		catch (InterruptedException e) { e.printStackTrace(); }
+//		JSONObject jsonResponse = getServerJSONResponse();
+//		System.out.println(jsonResponse.toString());
 	}
 	// End Of Testing Methods
 	

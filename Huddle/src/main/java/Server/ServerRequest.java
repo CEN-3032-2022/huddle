@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 import org.json.JSONObject;
 
@@ -14,6 +16,7 @@ public class ServerRequest implements Runnable {
 	
 	private Socket huddleSocket;
 	private InputStreamReader clientInput;
+//	private Scanner clientInputScanner;
 	private BufferedReader streamReader;
 	private OutputStreamWriter clientOutput;
 	
@@ -36,17 +39,24 @@ public class ServerRequest implements Runnable {
 	public void setUpCommunications() throws IOException {
 		InputStream instream = huddleSocket.getInputStream();
 		OutputStream outstream = huddleSocket.getOutputStream();
-		this.clientInput = new InputStreamReader(instream);
-        this.clientOutput = new OutputStreamWriter(outstream);
+		this.clientInput = new InputStreamReader(instream, StandardCharsets.UTF_8);
+//		this.clientInputScanner = new Scanner(instream, StandardCharsets.UTF_8);
+        this.clientOutput = new OutputStreamWriter(outstream, StandardCharsets.UTF_8);
         this.streamReader = new BufferedReader(clientInput);
 	}
 	
 	public void doRequests() throws IOException {
-		while (true) {  
+		while (true) { 
 			if (!clientInput.ready()) {
-				return;
+				try {
+					System.out.println("Sleeping");
+					Thread.sleep(1000);
+				} catch (InterruptedException e) { e.printStackTrace(); }
 			}
-			handleServerRequest(getClientJSONResponse());
+			else {
+				System.out.println("Hello");
+				handleServerRequest(getClientJSONResponse());
+			}
 		}
 	}
 	
@@ -56,7 +66,9 @@ public class ServerRequest implements Runnable {
 		try {
 			while ((inputString = streamReader.readLine()) != null) {
 			    responseStringBuilder.append(inputString);
+			    System.out.println("Input String: " + inputString);
 			}
+			System.out.println(responseStringBuilder.toString());
 		} catch (IOException e) { e.printStackTrace(); }
 		return new JSONObject(responseStringBuilder.toString());
 	}
@@ -64,6 +76,16 @@ public class ServerRequest implements Runnable {
 	public void handleServerRequest(JSONObject jsonRequest) {
 		
 		System.out.println(jsonRequest.toString());
+		if(jsonRequest.get("type") == "testJSONObject") {
+			JSONObject testJSONResponse = new JSONObject();
+			testJSONResponse.put("type", "testJSONObject");
+			testJSONResponse.put("helloWho", "HelloWorld");
+			testJSONResponse.put("number", 12345);
+			testJSONResponse.put("isTest", true);
+		    System.out.println("Sending Back: " + testJSONResponse.toString());
+			try { clientOutput.write(testJSONResponse.toString()); }
+			catch (IOException e) { e.printStackTrace(); }
+		}
 		
 		return;
 	}
