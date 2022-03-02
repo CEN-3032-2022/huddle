@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import client.ClientCommunication;
 
-public class TestClientCommunication {
+public class ClientCommunicationTest {
 	
 	// Must start the server before running tests
 	

@@ -1,10 +1,14 @@
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+package client_tests;
 
-class DateTest {
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import client.Date;
+
+public class DateTest {
 
 	@Test
-	void testConstructors() {
+	public void testConstructors() {
 		//test default constructor
 		Date date1 = new Date();
 		
@@ -23,7 +27,7 @@ class DateTest {
 	}
 	
 	@Test
-	void testGetters() {
+	public void testGetters() {
 		//test getters
 		Date date1 = new Date(12, 8, 1956);
 
@@ -35,7 +39,7 @@ class DateTest {
 	}
 	
 	@Test
-	void testSetters() {
+	public void testSetters() {
 		//test setters
 		Date date1 = new Date();
 		

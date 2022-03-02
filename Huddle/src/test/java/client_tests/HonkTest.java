@@ -1,11 +1,15 @@
-import static org.junit.jupiter.api.Assertions.*;
+package client_tests;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
-class HonkTest {
+import client.Honk;
+import client.Date;
+
+public class HonkTest {
 
 	@Test
-	void testConstructors() {
+	public void testConstructors() {
 		//test default constructor
 		Honk honk1 = new Honk();
 		
@@ -38,7 +42,7 @@ class HonkTest {
 	}
 	
 	@Test
-	void testGetters() {
+	public void testGetters() {
 		//test getters
 		Honk honk1 = new Honk(7, "testing testing 1 2 3", new Date(5, 7, 2001));
 
@@ -49,7 +53,7 @@ class HonkTest {
 	}
 	
 	@Test
-	void testSetters() {
+	public void testSetters() {
 		//test setters
 		Honk honk1 = new Honk();
 			
