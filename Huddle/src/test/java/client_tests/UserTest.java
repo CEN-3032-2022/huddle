@@ -1,16 +1,15 @@
 package client_tests;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-
-import client.User;
-import client.Honk;
 import client.Date;
+import client.Honk;
+import client.User;
 
-public class UserTest {
+class UserTest {
 
 	@Test
-	public void testConstructors() {
+	void testConstructors() {
 		//test default constructor
 		User user1 = new User();
 		
@@ -35,7 +34,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void testGetters() {
+	void testGetters() {
 		//test getters
 		User user1 = new User();
 
@@ -48,7 +47,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void testSetters() {
+	void testSetters() {
 		//test setters
 		User user1 = new User();
 		
@@ -65,7 +64,7 @@ public class UserTest {
 	}
 	
 	@Test
-	public void testHonkRelatedFunctions() {
+	void testHonkRelatedFunctions() {
 		//test honk related functions
 		User user1 = new User();
 		

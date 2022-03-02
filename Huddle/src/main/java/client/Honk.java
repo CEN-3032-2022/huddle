@@ -1,5 +1,4 @@
 package client;
-
 public class Honk {
 	private int id;
 	private String content;
