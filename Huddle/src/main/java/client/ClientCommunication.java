@@ -58,18 +58,4 @@ public class ClientCommunication {
 		serverOutput.println(jsonServerRequest.toString());
 		serverOutput.flush();
 	}
-	
-	// ---------------- Testing Methods	----------------
-	public JSONObject getTestJSONRequest() {
-		JSONObject testJSON = new JSONObject();
-		testJSON.put("type", "testRequest");
-		testJSON.put("isTest", true);
-		return testJSON;
-	}
-	
-	public void sendTestJSON() {
-		JSONObject testJSON = getTestJSONRequest();
-		sendJSONRequestToServer(testJSON);
-	}
-	// ------------ End Of Testing Methods -------------
 }

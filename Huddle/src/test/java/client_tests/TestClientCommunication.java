@@ -9,11 +9,19 @@ public class TestClientCommunication {
 	
 	// Must start the server before running tests
 	
+	public JSONObject getTestJSONRequest() {
+		JSONObject testJSON = new JSONObject();
+		testJSON.put("type", "testRequest");
+		testJSON.put("isTest", true);
+		return testJSON;
+	}
+	
 	@Test
 	public void testJSON() {
 		ClientCommunication sut = new ClientCommunication();
 		
-		sut.sendTestJSON();
+		JSONObject testJSON = getTestJSONRequest();
+		sut.sendJSONRequestToServer(testJSON);
 		JSONObject testJSONResponse = sut.getServerJSONResponse();
 		
 		assert(testJSONResponse.getString("type").equals("testResponse"));

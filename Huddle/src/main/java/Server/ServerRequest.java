@@ -42,6 +42,7 @@ public class ServerRequest implements Runnable {
 	
 	public void handleServerRequest(JSONObject jsonRequest) {
 		
+		// Test response to test request
 		if(jsonRequest.getString("type").equals("testRequest")) {
 			sendJSONResponseToClient(getTestJSONResponse());
 		}
@@ -68,7 +69,7 @@ public class ServerRequest implements Runnable {
         this.clientOutput = new PrintWriter(outstream);
 	}
 	
-	// ---------------- Testing Methods	----------------
+	// ---------- Temporary Testing Method	------------
 	public JSONObject getTestJSONResponse() {
 		JSONObject testJSONResponse = new JSONObject();
 		testJSONResponse.put("type", "testResponse");
