@@ -16,7 +16,7 @@
       <Text text="Password:" GridPane.rowIndex = "3" GridPane.columnIndex = "0" GridPane.columnSpan = "1"/>
       <Button fx:id="Create" text="Create Account" onAction="#switchToNew" GridPane.rowIndex = "5" GridPane.columnIndex = "1" GridPane.columnSpan = "1" styleClass="button"/>
       <Button fx:id="LogIn" text="Sign In" onAction="#check" GridPane.rowIndex = "5" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
-      <!--Button fx:id="Recover" text="Recover Account" onAction="#switchToReset" GridPane.rowIndex = "5" GridPane.columnIndex = "2" GridPane.columnSpan = "1" styleClass="button"/-->
+      <Button fx:id="Recover" text="Recover Account" onAction="#switchToReset" GridPane.rowIndex = "5" GridPane.columnIndex = "2" GridPane.columnSpan = "1" styleClass="button"/>
       <TextArea fx:id="userName" onKeyReleased="#limit" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "2" GridPane.columnIndex = "1" GridPane.columnSpan = "2" styleClass="textArea"/>
       <TextArea fx:id="password" onKeyReleased="#limit" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "3" GridPane.columnIndex = "1" GridPane.columnSpan = "2" styleClass="textArea"/>
       <ImageView fx:id="Logo" GridPane.rowIndex = "0" GridPane.columnIndex = "0" GridPane.columnSpan = "3"> 
