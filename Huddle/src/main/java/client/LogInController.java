@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -14,7 +15,6 @@ public class LogInController {
 	@FXML TextArea userName;
 	@FXML
 	public void initialize() {
-		App.setUserAgentStylesheet("file:src/main/resources/Group7/Huddle/UserInterface/theme1.css");
 	}
     @FXML
     private void switchToNew() throws IOException {
@@ -38,6 +38,17 @@ public class LogInController {
     	else {
     		wrongLogin.setFill(Color.RED);
     		wrongLogin.setVisible(true);
+    	}
+    }
+    @FXML
+    private void limit() throws IOException{
+    	if(password.getText().length()>20) {
+    		password.setText(password.getText().substring(0, 20));
+    		password.positionCaret(20);
+    	}
+    	if(userName.getText().length()>20) {
+    		userName.setText(userName.getText().substring(0, 20));
+    		userName.positionCaret(20);
     	}
     }
 }

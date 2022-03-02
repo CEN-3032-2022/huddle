@@ -17,6 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
+    	App.setUserAgentStylesheet("file:src/main/resources/Group7/Huddle/UserInterface/theme1.css");
         scene = new Scene(loadFXML("/Group7/Huddle/UserInterface/Login"), 640, 480);
         stage.setTitle("Huddle");
         stage.setScene(scene);

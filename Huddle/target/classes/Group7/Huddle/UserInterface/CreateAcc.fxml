@@ -10,18 +10,19 @@
 <?import javafx.scene.image.ImageView?>
 <GridPane fx:id="pane" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="client.AccountCreationController" hgap="10" vgap="10" styleClass="gridPane"> 
       <Text text="Welcome to Huddle enter a username and password to start honking" GridPane.rowIndex = "1" GridPane.columnIndex = "0" />
-      <Text text="UserName:" GridPane.rowIndex = "2" GridPane.columnIndex = "0" />
+      <Text text="UserName (5-20 characters):" GridPane.rowIndex = "2" GridPane.columnIndex = "0" />
       <Text text="Password:" GridPane.rowIndex = "4" GridPane.columnIndex = "0" />
-      <Button fx:id="Confirm" text="Confirm" onAction="#switchToPrimary" GridPane.rowIndex = "13" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
+      <Button fx:id="Confirm" text="Confirm" onAction="#Confirm" GridPane.rowIndex = "14" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
       <TextArea fx:id="userName" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "3" GridPane.columnIndex = "0" GridPane.columnSpan = "2" onKeyReleased="#handleOnKeyReleasedUsrName" styleClass="textArea"/>
       <TextArea fx:id="password" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "5" GridPane.columnIndex = "0" GridPane.columnSpan = "2" onKeyReleased="#handleOnKeyReleasedPassword" styleClass="textArea"/>
       <Text text="Security Question 1: Where Did You Go To School?" GridPane.rowIndex = "9" GridPane.columnIndex = "0" />
       <Text text="Security Question 2: What Was Your First Car?" GridPane.rowIndex = "11" GridPane.columnIndex = "0" />
-      <TextArea fx:id="Q1" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "10" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="textArea"/>
-      <TextArea fx:id="Q2" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "12" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="textArea"/> 
+      <TextArea fx:id="Q1" onKeyReleased="#limit" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "10" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="textArea"/>
+      <TextArea fx:id="Q2" onKeyReleased="#limit" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "12" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="textArea"/> 
       <Text fx:id="req1" text="Password Must contain one or more captital letter" GridPane.rowIndex = "6" GridPane.columnIndex = "0" />
       <Text fx:id="req2" text="Password Must contain one or more numeric character" GridPane.rowIndex = "7" GridPane.columnIndex = "0" />
-      <Text fx:id="req3" text="Password Must be between 7-15 characters" GridPane.rowIndex = "8" GridPane.columnIndex = "0" />
+      <Text fx:id="req3" text="Password Must be between 7-20 characters" GridPane.rowIndex = "8" GridPane.columnIndex = "0" />
+      <Text fx:id="taken" text="Username is invalid" GridPane.rowIndex = "13" GridPane.columnIndex = "0" visible="false"/>
       <ImageView fx:id="Img" GridPane.rowIndex = "0">
       <Image  url="file:src/main/resources/Group7/Huddle/UserInterface/HudleEgg1.png" requestedWidth="250" requestedHeight="250" />
       </ImageView>
