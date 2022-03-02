@@ -36,7 +36,10 @@ public class LogInController {
         	App.setRoot("/Group7/Huddle/UserInterface/HomeScreenUsr");
     	}
     	else {
-    		wrongLogin.setFill(Color.RED);
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			wrongLogin.setFill(Color.BLACK);
+    		else
+    			wrongLogin.setFill(Color.DARKRED);
     		wrongLogin.setVisible(true);
     	}
     }

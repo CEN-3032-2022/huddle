@@ -52,24 +52,49 @@ public class AccountCreationController {
         Matcher matcher1 = pattern1.matcher(password.getText());
         Matcher matcher2 = pattern2.matcher(password.getText());
         Matcher matcher3 = pattern3.matcher(password.getText());
-    	if(matcher1.find())
-    		req1.setFill(Color.GREEN);
-    	else
-    		req1.setFill(Color.BLACK);
-    	if(matcher2.find())
-    		req2.setFill(Color.GREEN);
-    	else
-    		req2.setFill(Color.BLACK);
-    	if(matcher3.find())
-    		req3.setFill(Color.GREEN);
-    	else
-    		req3.setFill(Color.BLACK);
+    	if(matcher1.find()) {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req1.setVisible(false);
+    		else
+    			req1.setFill(Color.DARKGREEN);
+    		}
+    	else {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req1.setVisible(true);
+    		else
+    			req1.setFill(Color.BLACK);
+    	}
+    	if(matcher2.find()) {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req2.setVisible(false);
+    		else
+    			req2.setFill(Color.DARKGREEN);
+    	}
+    	else {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req2.setVisible(true);
+    		else
+    			req2.setFill(Color.BLACK);
+    	}
+    	if(matcher3.find()) {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req3.setVisible(false);
+    		else
+    			req3.setFill(Color.DARKGREEN);
+    	}
+    	else {
+    		if(App.getUserAgentStylesheet().contains("2"))
+    			req3.setVisible(true);
+    		else
+    			req3.setFill(Color.BLACK);
+    	}
     	
     }
     @FXML
     private void Confirm() throws IOException{
     	if((userName.getText().length()>=5&&userName.getText().length()<=20)) {
-    		taken.setFill(Color.RED);
+    		if(App.getUserAgentStylesheet().contains("1"))
+    			taken.setFill(Color.RED);
     		taken.setVisible(true);
     	}
     	else

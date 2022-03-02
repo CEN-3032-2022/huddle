@@ -1,6 +1,10 @@
+package client_tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import client.Date;
+import client.Honk;
 
 class HonkTest {
 
