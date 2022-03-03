@@ -54,4 +54,16 @@ public class DateTest {
 		assertEquals(date1.getYear(), 2001);
 		assertEquals(date1.getMonthName(), "May");
 	}
+	
+	@Test
+	public void testSettingCurrentTime() {
+		//test setters
+		Date currDate = new Date();
+		currDate.setToCurrentDate();
+		System.out.println(currDate.toString());
+		
+		assertEquals(currDate.getMonth(), java.time.LocalDateTime.now().getMonthValue());
+		assertEquals(currDate.getDay(), java.time.LocalDateTime.now().getDayOfMonth());
+		assertEquals(currDate.getYear(), java.time.LocalDateTime.now().getYear());
+	}
 }

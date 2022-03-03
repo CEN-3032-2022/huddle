@@ -16,6 +16,12 @@ public class Date {
 		this.year = year;
 	}
 	
+	public void setToCurrentDate() {
+		this.month = java.time.LocalDateTime.now().getMonthValue();
+		this.day = java.time.LocalDateTime.now().getDayOfMonth();
+		this.year = java.time.LocalDateTime.now().getYear();
+	}
+	
 	public int getMonth() {
 		return month;
 	}
