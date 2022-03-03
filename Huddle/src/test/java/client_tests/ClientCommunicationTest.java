@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 import client.ClientCommunication;
+import client.User;
 
 public class ClientCommunicationTest {
 	
@@ -17,7 +18,7 @@ public class ClientCommunicationTest {
 	}
 	
 	@Test
-	public void testJSON() {
+	public void sendingTestJSONToServer() {
 		ClientCommunication sut = new ClientCommunication();
 		
 		JSONObject testJSON = getTestJSONRequest();
@@ -33,4 +34,15 @@ public class ClientCommunicationTest {
 		
 		sut.closeCommunications();
 	}
+
+	@Test
+	public void sendingUserDataToServer() {
+		ClientCommunication sut = new ClientCommunication();
+		User testUser = new User(1, "user1", "user1pw!", "test user with id 1");
+		
+		JSONObject testUserJSON = new JSONObject(testUser);
+		testUserJSON.put("type", "userData");
+		System.out.println(testUserJSON);
+	}
+	
 }

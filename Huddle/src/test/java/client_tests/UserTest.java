@@ -1,15 +1,19 @@
 package client_tests;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.Test;
 
 import client.Date;
 import client.Honk;
 import client.User;
 
-class UserTest {
+public class UserTest {
 
 	@Test
-	void testConstructors() {
+	public void testConstructors() {
 		//test default constructor
 		User user1 = new User();
 		
@@ -34,7 +38,7 @@ class UserTest {
 	}
 	
 	@Test
-	void testGetters() {
+	public void testGetters() {
 		//test getters
 		User user1 = new User();
 
@@ -47,7 +51,7 @@ class UserTest {
 	}
 	
 	@Test
-	void testSetters() {
+	public void testSetters() {
 		//test setters
 		User user1 = new User();
 		
@@ -64,7 +68,7 @@ class UserTest {
 	}
 	
 	@Test
-	void testHonkRelatedFunctions() {
+	public void testHonkRelatedFunctions() {
 		//test honk related functions
 		User user1 = new User();
 		
@@ -84,15 +88,15 @@ class UserTest {
 
 		
 		//test getHonks
-		Honk[] honks = user1.getHonks();
+		ArrayList<Honk> honks = user1.getHonks();
 		int numHonks = user1.getNumHonks();
 		
 		for(int i = 0; i < numHonks; i++) {
-			System.out.println(honks[i].toString());
+			System.out.println(honks.get(i).toString());
 		}
 		
-		assertEquals(honks[0].toString(), honk1.toString());
-		assertEquals(honks[1].toString(), honk2.toString());
-		assertEquals(honks[2].toString(), honk3.toString());
+		assertEquals(honks.get(0).toString(), honk1.toString());
+		assertEquals(honks.get(1).toString(), honk2.toString());
+		assertEquals(honks.get(2).toString(), honk3.toString());
 	}
 }
