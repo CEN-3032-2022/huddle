@@ -1,10 +1,13 @@
 package client;
+
+import java.util.ArrayList;
+
 public class User {
 	private int id;
 	private String username;
 	private String password;
 	private String bio;
-	private Honk[] honks;
+	private ArrayList<Honk> honks;
 	private int numHonks;
 	
 	public User(){
@@ -12,7 +15,7 @@ public class User {
 		username = "unnamed user";
 		password = "password";
 		bio = "unwritten bio";
-		honks = new Honk[1000];
+		honks = new ArrayList<Honk>();
 		numHonks = 0;
 	}
 	
@@ -21,7 +24,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.bio = bio;
-		honks = new Honk[1000];
+		honks = new ArrayList<Honk>();
 		numHonks = 0;
 	}
 	
@@ -41,12 +44,12 @@ public class User {
 		return bio;
 	}
 	
-	public Honk[] getHonks() {
+	public ArrayList<Honk> getHonks() {
 		return honks;
 	}
 	
 	public Honk getHonk(int index) {
-		return honks[index];
+		return honks.get(index);
 	}
 	
 	public int getNumHonks() {
@@ -70,17 +73,17 @@ public class User {
 	}
 	
 	public void addHonk(Honk honk) {
-		honks[numHonks] = honk;
+		honks.add(honk);
 		numHonks++;
 	}
 	
 	public void addHonk(int id, String content, Date publishDate) {
-		honks[numHonks] = new Honk(id, content, publishDate);
+		honks.add(new Honk(id, content, publishDate));
 		numHonks++;
 	}
 	
 	public void addHonk(int id, String content, int month, int day, int year) {
-		honks[numHonks] = new Honk(id, content, month, day, year);
+		honks.add(new Honk(id, content, month, day, year));
 		numHonks++;
 	}
 	

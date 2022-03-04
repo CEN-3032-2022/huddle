@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 import client.ClientCommunication;
+import client.User;
 
 public class ClientCommunicationTest {
 	
@@ -17,7 +18,7 @@ public class ClientCommunicationTest {
 	}
 	
 	@Test
-	public void testJSON() {
+	public void sendingTestJSONToServer() {
 		ClientCommunication sut = new ClientCommunication();
 		
 		JSONObject testJSON = getTestJSONRequest();
@@ -33,4 +34,30 @@ public class ClientCommunicationTest {
 		
 		sut.closeCommunications();
 	}
+
+	@Test
+	public void sendingUserDataToServer() {
+		ClientCommunication sut = new ClientCommunication();
+		User testUser = new User(1, "user1", "user1pw!", "test user with id 1");
+		
+		JSONObject testUserJSON = new JSONObject(testUser);
+		testUserJSON.put("type", "userData");
+		
+		System.out.println(testUserJSON.toString());
+		
+		assert(testUserJSON.get("id").equals(1));
+		assert(testUserJSON.get("numHonks").equals(0));
+		assert(testUserJSON.get("username").equals("user1"));
+		assert(testUserJSON.get("password").equals("user1pw!"));
+		assert(testUserJSON.get("bio").equals("test user with id 1"));
+		
+		sut.sendJSONRequestToServer(testUserJSON);
+		JSONObject testUserDataJSONResponse = sut.getServerJSONResponse();
+				
+		assert(testUserDataJSONResponse.getString("type").equals("userDataResponse"));
+		assert(testUserDataJSONResponse.getBoolean("isTest"));
+		
+		sut.closeCommunications();
+	}
+	
 }
