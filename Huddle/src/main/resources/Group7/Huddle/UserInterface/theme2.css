@@ -3,6 +3,43 @@
       -fx-font-size: 20;
       -color: #000000;
 }
+
+/* For Account Creation Page */
+.header-text{
+	-fx-fill: white;
+	-fx-font-weight: bold;
+	-fx-font-size: 42pt;
+}
+.info-text{
+	-fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+  	-fx-border-radius: 12px;
+  	-fx-padding: 5 5 5 5;
+  	-fx-max-width: 800;
+    -fx-min-width: 600;
+    -fx-max-height: 40;
+    -fx-min-height: 40;
+}
+.text-field:focused {
+/*    -fx-effect: dropshadow(gaussian, white, 1, 0.5, 0.0, 0.0);*/
+}
+.hatching-image {
+  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatching-penguin.png');
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+	-fx-max-width: 250;
+  -fx-min-width: 250;
+  -fx-max-height: 272;
+  -fx-min-height: 272;
+}
+/* End of account creation page */
+
 .textArea{
 	-fx-background-color:#FFFFFF;
       -fx-font-size: 20;
