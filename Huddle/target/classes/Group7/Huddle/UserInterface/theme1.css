@@ -185,50 +185,50 @@
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
-  -fx-background-color: steelblue;
+  -fx-background-color: #6c757d;
 }
 #masterWallButton:hover {
-    -fx-background-color: royalblue;
+    -fx-background-color: #5a6268;
 }
 
 #likedHonksButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
-  -fx-background-color: steelblue;
+  -fx-background-color: #6c757d;
 }
 #likedHonksButton:hover {
-    -fx-background-color: royalblue;
+    -fx-background-color: #5a6268;
 }
 
 #taggedHonksButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
-  -fx-background-color: steelblue;
+  -fx-background-color: #6c757d;
 }
 #taggedHonksButton:hover {
-    -fx-background-color: royalblue;
+    -fx-background-color: #5a6268;
 }
 
 #editBioButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
-  -fx-background-color: steelblue;
+  -fx-background-color: #6c757d;
 }
 #editBioButton:hover {
-    -fx-background-color: royalblue;
+    -fx-background-color: #5a6268;
 }
 
 #changeThemeButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
-  -fx-background-color: steelblue;
+  -fx-background-color: #6c757d;
 }
 #changeThemeButton:hover {
-    -fx-background-color: royalblue;
+    -fx-background-color: #5a6268;
 }
 
 #logoutButton {
@@ -278,6 +278,24 @@
   -fx-background-color: green;
 }
 #postButton:hover {
+    -fx-background-color: darkgreen;
+}
+
+/* Bio page */
+#writeBioTextArea {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 5px;
+}
+
+#changeBioButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#changeBioButton:hover {
     -fx-background-color: darkgreen;
 }
 
