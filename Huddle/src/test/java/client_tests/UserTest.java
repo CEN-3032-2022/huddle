@@ -35,6 +35,9 @@ public class UserTest {
 		
 		System.out.println(user2.toString());
 		assertEquals(user2.toString(), correctParameterizedConstructorToString);
+		String jsonT="{\"honks\":[{\"date\":\"1/1/11\",\"UserName\":\"Test1\",\"id\":1,\"content\":\"Hi\"}],\"password\":\"user1pw!\",\"bio\":\"test user with id 1\",\"id\":1,\"numHonks\":1,\"type\":\"userData\",\"username\":\"user1\"}";
+		User user3=new User(jsonT);
+		assertEquals(user3.getPassword(),"user1pw!");
 	}
 	
 	@Test

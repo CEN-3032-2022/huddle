@@ -23,12 +23,29 @@
 	-fx-background-color:#FFFFFF;
       -fx-font-size: 20;
       -color: #000000;
-	-fx-border-width: 5px;
+	-fx-border-width: 10px;
 	-fx-border-style: solid;
 	-fx-border-color: #FFFFFF;
+	scrollbar-gutter: stable;
 }
 .logoText{
 	-fx-background-color:#FF5555;
       -fx-font-size: 64;
       -color: #000000;
+}
+.replyButton{
+	-fx-background-color:#d303fc;
+      -fx-font-size: 20;
+      -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #d303fc;
+}
+.likeButton{
+	-fx-background-color:#d303fc;
+      -fx-font-size: 20;
+      -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #d303fc;
 }

@@ -40,6 +40,9 @@ public class HonkTest {
 		
 		System.out.println(honk3.toString());
 		assertEquals(honk3.toString(), correctParameterizedConstructor2ToString);
+		String x="{\"date\":\"1/1/11\",\"UserName\":\"Test1\",\"id\":1,\"content\":\"Hi\"}";
+		Honk honk4=new Honk(x);
+		assertEquals(honk4.getUserName(),"Test1");
 	}
 	
 	@Test
