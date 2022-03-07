@@ -11,6 +11,15 @@
 	-fx-border-style: solid;
 	-fx-border-color: #FFFFFF;
 }
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 5px;
+}
+.text-field:focused {
+    -fx-effect: dropshadow(gaussian, #00c8e3, 5, 0.5, 0.0, 0.0);
+}
 .button{
 	-fx-background-color: #FFFFFF;
   -fx-font-size: 20;
@@ -28,11 +37,59 @@
 	-fx-border-style: solid;
 	-fx-border-color: #FFFFFF;
 }
-.logoText{
-	-fx-background-color: #6f6f6f;
-  -fx-font-size: 64;
-  -color: #000000;
+
+/* For Login Page */
+.huddle-header-text{
+  -fx-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 68pt;
+  -fx-min-height: 180px;
 }
+
+.running-image {
+  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/group-of-penguins.png');
+    -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-max-width: 800px;
+  -fx-min-width: 800px;
+  -fx-max-height: 250px;
+  -fx-min-height: 250px;
+}
+
+#loginButton{
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#loginButton:hover {
+  -fx-background-color: darkgreen;
+}
+#goToCreateAccountButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: steelblue;
+}
+#goToCreateAccountButton:hover {
+    -fx-background-color: royalblue;
+}
+#recoverAccountButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+/*  -fx-background-color: #d1820a;*/
+/*  -fx-background-color: #6d22b3;*/
+  -fx-background-color: steelblue;
+}
+#recoverAccountButton:hover {
+/*  -fx-background-color: #8c5606;*/
+/*  -fx-background-color: #5b1ca3;*/
+    -fx-background-color: royalblue;
+}
+/* End of For Login Page */
 
 /* For Account Creation Page */
 
@@ -45,15 +102,6 @@
   -fx-font-size: 16pt;
     -fx-font-weight: bold;
     -fx-fill: white;
-}
-.text-field {
-    -fx-background-color: white;
-    -fx-background-radius: 12px;
-    -fx-border-radius: 12px;
-    -fx-padding: 5 5 5 5;
-}
-.text-field:focused {
-/*    -fx-effect: dropshadow(gaussian, white, 1, 0.5, 0.0, 0.0);*/
 }
 .hatching-image {
   -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatching-penguin.png');
@@ -73,15 +121,6 @@
   -fx-font-size: 16pt;
   -fx-fill: #f24b4e;
 }
-#createAccountButton {
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-min-width: 185px;
-  -fx-background-color: steelblue;
-}
-#createAccountButton:hover {
-    -fx-background-color: royalblue;
-}
 #returnToLoginPageButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
@@ -90,6 +129,15 @@
 }
 #returnToLoginPageButton:hover {
     -fx-background-color: darkred;
+}
+#createAccountButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#createAccountButton:hover {
+    -fx-background-color: darkgreen;
 }
 
 /* End of account creation page */

@@ -2,17 +2,15 @@ package client;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 public class LogInController {
 	@FXML Text wrongLogin;
-	@FXML TextArea password;
-	@FXML TextArea userName;
+	@FXML PasswordField password;
+	@FXML TextField userName;
+	
 	@FXML
 	public void initialize() {
 	}

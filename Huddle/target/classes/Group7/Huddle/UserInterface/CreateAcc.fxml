@@ -10,7 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <GridPane fx:id="pane" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="client.AccountCreationController" hgap="10" vgap="10" styleClass="gridPane"> 
       <Region GridPane.rowIndex = "0" styleClass="hatching-image" GridPane.halignment="CENTER" GridPane.valignment="CENTER" GridPane.columnSpan = "2"></Region>
-      <Text text="Welcome to Huddle!" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="header-text"/>
+      <Text text="Welcome to Huddle!" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="huddle-header-text"/>
       <Text text="UserName (5-20 characters):" GridPane.rowIndex = "2" GridPane.columnIndex = "0" styleClass="info-text"/>
       <Text text="Password:" GridPane.rowIndex = "4" GridPane.columnIndex = "0" styleClass="info-text"/>
       <TextField fx:id="userName" prefHeight = "10" prefWidth = "250" GridPane.rowIndex = "3" GridPane.columnIndex = "0" GridPane.columnSpan = "2" onKeyReleased="#handleOnKeyReleasedUsrName"/>
@@ -22,7 +22,7 @@
       <Text fx:id="req1" text="Password Must contain one or more captital letter" GridPane.rowIndex = "6" GridPane.columnIndex = "0" styleClass="password-req-text"/>
       <Text fx:id="req2" text="Password Must contain one or more numeric character" GridPane.rowIndex = "7" GridPane.columnIndex = "0" styleClass="password-req-text"/>
       <Text fx:id="req3" text="Password Must be between 7-20 characters" GridPane.rowIndex = "8" GridPane.columnIndex = "0" styleClass="password-req-text"/>
-      <Text fx:id="taken" text="Username is invalid" GridPane.rowIndex = "10" GridPane.columnIndex = "0" visible="false" styleClass="username-req-text"/>
-      <Button fx:id="createAccountButton" text="Create Account" onAction="#createAccount" GridPane.rowIndex = "11" GridPane.columnIndex = "1" GridPane.columnSpan = "1" styleClass="button"/>
-      <Button fx:id="returnToLoginPageButton" text="Return To Login" onAction="#returnToLoginPage" GridPane.rowIndex = "11" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button" GridPane.halignment="RIGHT"/>
+      <Text fx:id="taken" text="Username is invalid" GridPane.rowIndex = "13" GridPane.columnIndex = "0" visible="false" styleClass="username-req-text"/>
+      <Button fx:id="createAccountButton" text="Create Account" onAction="#createAccount" GridPane.rowIndex = "14" GridPane.columnIndex = "1" GridPane.columnSpan = "1" styleClass="button"/>
+      <Button fx:id="returnToLoginPageButton" text="Return To Login" onAction="#returnToLoginPage" GridPane.rowIndex = "14" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button" GridPane.halignment="RIGHT"/>
 </GridPane>
