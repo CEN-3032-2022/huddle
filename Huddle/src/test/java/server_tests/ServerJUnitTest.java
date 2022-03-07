@@ -26,9 +26,6 @@ public class ServerJUnitTest {
 		sut.sendJSONRequestToServer(testJSON);
 		assert((value=sut.getServerHonkListJSONResponse())!=null);
 		System.out.println(value);
-		String testArr[]=value.split("}");
-		Honk c=new Honk(testArr[0]+="}");
-		System.out.print(c.toString());
 	}
 	@Test
 	public void testNotFalse() {

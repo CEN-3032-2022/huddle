@@ -2,6 +2,7 @@ package client_tests;
 
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
 import org.junit.Test;
 
 import client.Date;
@@ -22,7 +23,7 @@ public class HonkTest {
 		assertEquals(honk1.toString(), correctDefaultConstructorToString);
 			
 		//test parameterized constructor 1
-		Honk honk2 = new Honk(1, "testing parameterized constructor 1", new Date(12, 8, 1956));
+		Honk honk2 = new Honk(1, "testing parameterized constructor 1", new Date(12, 8, 1956),"Ben");
 		
 		String correctParameterizedConstructor1ToString = "id: 1\n" +
 				"content: testing parameterized constructor 1\n" +
@@ -32,7 +33,7 @@ public class HonkTest {
 		assertEquals(honk2.toString(), correctParameterizedConstructor1ToString);
 		
 		//test parameterized constructor 2
-		Honk honk3 = new Honk(2, "testing parameterized constructor 2", new Date(2,11, 2001));
+		Honk honk3 = new Honk(2, "testing parameterized constructor 2", new Date(2,11, 2001),"Dan");
 		
 		String correctParameterizedConstructor2ToString = "id: 2\n" +
 				"content: testing parameterized constructor 2\n" +
@@ -40,7 +41,8 @@ public class HonkTest {
 		
 		System.out.println(honk3.toString());
 		assertEquals(honk3.toString(), correctParameterizedConstructor2ToString);
-		String x="{\"date\":\"1/1/11\",\"UserName\":\"Test1\",\"id\":1,\"content\":\"Hi\"}";
+		String y="{\"date\":\"1/1/11\",\"UserName\":\"Test1\",\"id\":1,\"content\":\"Hi\"}";
+		JSONObject x=new JSONObject(y);
 		Honk honk4=new Honk(x);
 		assertEquals(honk4.getUserName(),"Test1");
 	}
@@ -48,7 +50,7 @@ public class HonkTest {
 	@Test
 	public void testGetters() {
 		//test getters
-		Honk honk1 = new Honk(7, "testing testing 1 2 3", new Date(5, 7, 2001));
+		Honk honk1 = new Honk(7, "testing testing 1 2 3", new Date(5, 7, 2001),"Chris");
 
 		System.out.println(honk1.toString());
 		assertEquals(honk1.getId(), 7);

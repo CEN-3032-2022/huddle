@@ -50,7 +50,7 @@ public class ServerRequest implements Runnable {
 			sendJSONResponseToClient(getTestUserDataJSONResponse());
 		}
 		else if(jsonRequest.getString("type").equals("HonkList")) {
-			sendJSONHonkResponseToClient(getHonkList());
+			sendJSONHonkResponseToClient(getHonkList().toString());
 		}
 		
 		return;
@@ -101,20 +101,17 @@ public class ServerRequest implements Runnable {
 		testJSONResponse.put("array", jsonArray);
 		return testJSONResponse;
 	}
-	public String getHonkList() {
-		String x="[";
+	public JSONArray getHonkList() {
+		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i < 10; ++i) {
 			JSONObject Response = new JSONObject();
 			Response.put("id", 1);
 			Response.put("content","Hi");
 			Response.put("date", "1/1/11");
 			Response.put("UserName", "Test"+i);
-			x+=Response.toString();
-			if(i<9)
-				x+=",";
+			jsonArray.put(Response);
 		}
-		x+="]";
-		return x;
+		return jsonArray;
 	}
 	// ------------ End Of Testing Methods -------------
 	

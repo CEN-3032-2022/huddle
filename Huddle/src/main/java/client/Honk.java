@@ -1,4 +1,7 @@
 package client;
+
+import org.json.JSONObject;
+
 public class Honk {
 	private int id;
 	private String content;
@@ -9,44 +12,26 @@ public class Honk {
 		id = -1;
 		content = "unwritten honk";
 		publishDate = new Date();
+		UserName="";
 	}
 	
-	public Honk(int id, String content, Date publishDate){
+	public Honk(int id, String content, Date publishDate,String username){
 		this.id = id;
 		this.content = content;
 		this.publishDate = publishDate;
+		this.UserName=username;
 	}
-	public Honk(String json){
-		try {
-		StringBuilder tempBuilder = new StringBuilder();
-		tempBuilder.append(json);
-		while(tempBuilder.charAt(0)=='{'||tempBuilder.charAt(0)=='['||tempBuilder.charAt(0)==',')
-			tempBuilder.deleteCharAt(0);
-		while(tempBuilder.charAt(tempBuilder.length()-1)=='}'||tempBuilder.charAt(tempBuilder.length()-1)==']')
-			tempBuilder.deleteCharAt(tempBuilder.length()-1);
-		for(int i =0;i<tempBuilder.length();i++)
-			if(tempBuilder.charAt(i)=='"')
-				tempBuilder.deleteCharAt(i);
-		json=tempBuilder.toString();
-		String[] jsonVals=json.split(",");
-		String[] tempVals=jsonVals[2].split(":");
-		id=Integer.parseInt(tempVals[1]);
-		tempVals=jsonVals[3].split(":");
-		content=tempVals[1];
-		tempVals=jsonVals[0].split(":");
-		String[] tempVals2=tempVals[1].split("/");
-		publishDate=new Date(Integer.parseInt(tempVals2[0].replaceAll("\"","")),Integer.parseInt(tempVals2[1].replaceAll("\"","")),Integer.parseInt(tempVals2[2].replaceAll("\"","")));
-		tempVals=jsonVals[1].split(":");
-		UserName=tempVals[1];
-		}
-		catch(Exception E) {
-			E.printStackTrace();
-		}
+	public Honk(JSONObject json){
+		UserName=json.getString("UserName");
+		content=json.getString("content");
+		id=json.getInt("id");
+		publishDate=new Date(Integer.parseInt(json.getString("date").split("/")[0]),Integer.parseInt(json.getString("date").split("/")[1]),Integer.parseInt(json.getString("date").split("/")[2]));
 	}
-	public Honk(int id, String content, int month, int day, int year) {
+	public Honk(int id, String content, int month, int day, int year,String username) {
 		this.id = id;
 		this.content = content;
 		this.publishDate = new Date(month, day, year);
+		this.UserName=username;
 	}
 	public int getId() {
 		return id;
