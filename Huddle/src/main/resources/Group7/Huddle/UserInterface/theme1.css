@@ -159,4 +159,99 @@
     -fx-background-color: darkgreen;
 }
 
-/* End of account creation page */
+/* For User Home Screen */
+#bioText {
+  min-width: 200px;
+}
+
+#honkScrollPaneContainer {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 5px;
+}
+
+#postHonkButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: green;
+}
+#postHonkButton:hover {
+    -fx-background-color: darkgreen;
+}
+
+#masterWallButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: steelblue;
+}
+#masterWallButton:hover {
+    -fx-background-color: royalblue;
+}
+
+#likedHonksButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: steelblue;
+}
+#likedHonksButton:hover {
+    -fx-background-color: royalblue;
+}
+
+#taggedHonksButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: steelblue;
+}
+#taggedHonksButton:hover {
+    -fx-background-color: royalblue;
+}
+
+#editBioButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: steelblue;
+}
+#editBioButton:hover {
+    -fx-background-color: royalblue;
+}
+
+#changeThemeButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: steelblue;
+}
+#changeThemeButton:hover {
+    -fx-background-color: royalblue;
+}
+
+#logoutButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: firebrick;
+}
+#logoutButton:hover {
+    -fx-background-color: darkred;
+}
+
+#searchButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 100px;
+  -fx-min-height: 40px;
+  -fx-padding: 5px;
+  -fx-background-color: green;
+}
+#searchButton:hover {
+    -fx-background-color: darkgreen;
+}
+
+
+
