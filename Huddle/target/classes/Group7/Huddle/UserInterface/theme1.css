@@ -58,6 +58,11 @@
   -fx-min-height: 250px;
 }
 
+.warning-text {
+  -fx-font-size: 16pt;
+  -fx-fill: #f24b4e;
+}
+
 #loginButton{
   -fx-text-fill: white;
   -fx-font-weight: bold;
