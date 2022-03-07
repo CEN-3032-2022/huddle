@@ -48,7 +48,7 @@
 
 .running-image {
   -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/group-of-penguins.png');
-    -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;
   -fx-background-position: center;
@@ -80,16 +80,35 @@
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 185px;
-/*  -fx-background-color: #d1820a;*/
-/*  -fx-background-color: #6d22b3;*/
   -fx-background-color: steelblue;
 }
 #recoverAccountButton:hover {
-/*  -fx-background-color: #8c5606;*/
-/*  -fx-background-color: #5b1ca3;*/
     -fx-background-color: royalblue;
 }
-/* End of For Login Page */
+
+/* For Reset Password Page */
+#resetPasswordButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#resetPasswordButton:hover {
+  -fx-background-color: darkgreen;
+}
+
+/* For Reset Fail Page */
+.looking-down-image {
+  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/looking-down-penguin.png');
+  -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-max-width: 400px;
+  -fx-min-width: 400px;
+  -fx-max-height: 500px;
+  -fx-min-height: 500px;
+}
 
 /* For Account Creation Page */
 
