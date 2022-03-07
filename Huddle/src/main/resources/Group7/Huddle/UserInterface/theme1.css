@@ -253,5 +253,31 @@
     -fx-background-color: darkgreen;
 }
 
+/* Post Honk Page */
+#writeHonkTextArea {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 5px;
+}
 
+#returnToHomeButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: firebrick;
+}
+#returnToHomeButton:hover {
+    -fx-background-color: darkred;
+}
+
+#postButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#postButton:hover {
+    -fx-background-color: darkgreen;
+}
 
