@@ -56,7 +56,6 @@ public class ClientCommunicationTest {
 				
 		assert(testUserDataJSONResponse.getString("type").equals("userDataResponse"));
 		assert(testUserDataJSONResponse.getBoolean("isTest"));
-		
 		sut.closeCommunications();
 	}
 	

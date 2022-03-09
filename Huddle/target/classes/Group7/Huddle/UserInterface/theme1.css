@@ -2,6 +2,10 @@
 	-fx-background-color: #2e2e2e;
   -fx-font-size: 20;
   -color: #000000;
+  -fx-border-width: 10px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
+  scrollbar-gutter: stable;
 }
 .textArea{
 	-fx-background-color: #FFFFFF;
@@ -304,3 +308,20 @@
     -fx-background-color: darkgreen;
 }
 
+/* Honks */
+.replyButton{
+	-fx-background-color:#6f6f6f;
+      -fx-font-size: 20;
+      -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #6f6f6f;
+}
+.likeButton{
+	-fx-background-color:#6f6f6f;
+      -fx-font-size: 20;
+      -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #6f6f6f;
+}

@@ -1,7 +1,11 @@
 .gridPane{
 	-fx-background-color:#1e319e;
-      -fx-font-size: 20;
-      -color: #000000;
+  -fx-font-size: 20;
+  -color: #000000;
+  -fx-border-width: 10px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
+  scrollbar-gutter: stable;
 }
 
 .textArea{
@@ -303,4 +307,21 @@
 }
 #changeBioButton:hover {
     -fx-background-color: darkgreen;
+}
+
+.replyButton{
+	-fx-background-color:#d303fc;
+      -fx-font-size: 20;
+      -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #d303fc;
+}
+.likeButton{
+	-fx-background-color:#d303fc;
+  -fx-font-size: 20;
+  -color: #000000;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: #d303fc;
 }

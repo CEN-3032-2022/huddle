@@ -25,7 +25,7 @@ public class LogInController {
     @FXML
     private void check() throws IOException {
     	boolean correct;
-    	if(password.getText().equals("Test")&&userName.getText().equals("Test"))
+    	if(password.getText().equals("")&&userName.getText().equals(""))
     		correct=true;
     	else
     		correct=false;

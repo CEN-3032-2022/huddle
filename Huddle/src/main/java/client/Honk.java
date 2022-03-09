@@ -1,27 +1,38 @@
 package client;
+
+import org.json.JSONObject;
+
 public class Honk {
 	private int id;
 	private String content;
+	private String UserName;
 	private Date publishDate;
 	
 	public Honk(){
 		id = -1;
 		content = "unwritten honk";
 		publishDate = new Date();
+		UserName="";
 	}
 	
-	public Honk(int id, String content, Date publishDate){
+	public Honk(int id, String content, Date publishDate,String username){
 		this.id = id;
 		this.content = content;
 		this.publishDate = publishDate;
+		this.UserName=username;
 	}
-	
-	public Honk(int id, String content, int month, int day, int year) {
+	public Honk(JSONObject json){
+		UserName=json.getString("UserName");
+		content=json.getString("content");
+		id=json.getInt("id");
+		publishDate=new Date(Integer.parseInt(json.getString("date").split("/")[0]),Integer.parseInt(json.getString("date").split("/")[1]),Integer.parseInt(json.getString("date").split("/")[2]));
+	}
+	public Honk(int id, String content, int month, int day, int year,String username) {
 		this.id = id;
 		this.content = content;
 		this.publishDate = new Date(month, day, year);
+		this.UserName=username;
 	}
-	
 	public int getId() {
 		return id;
 	}
@@ -34,6 +45,14 @@ public class Honk {
 		return publishDate;
 	}
 	
+	public String getUserName() {
+		return UserName;
+	}
+
+	public void setUserName(String userName) {
+		UserName = userName;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
