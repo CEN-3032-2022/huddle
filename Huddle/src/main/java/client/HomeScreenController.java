@@ -17,7 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 public class HomeScreenController {
-	@FXML ScrollPane Scroll;
+	@FXML ScrollPane honkScrollPaneContainer;
     @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/Login");
@@ -46,7 +46,7 @@ public class HomeScreenController {
 			tPane.add(new Label(" "), 2, (i*7)+6);
 			tPane.add(Reply, 0, (i*7)+6);
 		}
-		Scroll.setContent(tPane);
+		honkScrollPaneContainer.setContent(tPane);
     }
     @FXML
     private void switchToLiked() throws IOException {
