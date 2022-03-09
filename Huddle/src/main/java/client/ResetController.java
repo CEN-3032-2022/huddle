@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class ResetController {
-	@FXML TextArea password;
-	@FXML TextArea q1;
-	@FXML TextArea q2;
+	@FXML TextField password;
+	@FXML TextField q1;
+	@FXML TextField q2;
+	
     @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/Login");
@@ -28,4 +29,11 @@ public class ResetController {
         else
         	switchToErr();
     }
+    
+    @FXML
+    private void returnToLoginPage() throws IOException{
+    	switchToLogin();
+    }
+    
+    
  }

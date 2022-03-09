@@ -9,17 +9,17 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <GridPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" fx:controller="client.HomeScreenController" hgap="20" vgap="20" styleClass="gridPane"> 
-	  <padding><Insets top="10" right="30" bottom="10" left="30"/></padding>
-      <Text text="UserName" GridPane.rowIndex = "1" GridPane.columnIndex = "0"/>
-      <Text text="Bio Text Goes Here" wrappingWidth = "175" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "8"/>
-      <Button fx:id="Wall" text="Master Wall" onAction="#switchToWall" GridPane.rowIndex = "24" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
-      <Button fx:id="Liked" text="Liked" onAction="#switchToTagged" GridPane.rowIndex = "25" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
-      <Button fx:id="Tagged" text="Tagged In" onAction="#switchToTagged" GridPane.rowIndex = "26" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
-      <Button fx:id="LogOut" text="Log-Out" onAction="#switchToLogin" GridPane.rowIndex = "29" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
-      <Button fx:id="SearchButton" text="Search" onAction="#search" GridPane.rowIndex = "1" GridPane.columnIndex = "21" GridPane.columnSpan = "2" styleClass="button"/>
-      <TextArea fx:id="Search" prefHeight = "10" prefWidth = "1550" GridPane.rowIndex = "1" GridPane.columnIndex = "2" GridPane.columnSpan = "19" styleClass="textArea"/>
-      <ScrollPane fx:id="Scroll" prefWidth = "1550" prefHeight="1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "28" styleClass="scrollPane"/>
-      <Button fx:id="Theme" Text="Change Theme" onAction="#switchTheme" GridPane.rowIndex = "27" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
-      <Button fx:id="Post" Text="Post" onAction="#switchToPost" GridPane.rowIndex = "28" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
-      <Button fx:id="Bio" Text="Edit Bio" onAction="#switchToBio" GridPane.rowIndex = "23" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
+	<padding><Insets top="10" right="15" bottom="15" left="25"/></padding>
+      <Text text="UserName" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="info-text"/>
+      <Text fx:id="bioText" text="Example Bio Text Example Bio Text Example Bio Text" wrappingWidth = "200" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
+      <Button fx:id="postHonkButton" Text="Post" onAction="#switchToPost" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
+      <Button fx:id="masterWallButton" text="Master Wall" onAction="#switchToWall" GridPane.rowIndex = "16" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
+      <Button fx:id="likedHonksButton" text="Liked" onAction="#switchToTagged" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
+      <Button fx:id="taggedHonksButton" text="Tagged In" onAction="#switchToTagged" GridPane.rowIndex = "18" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
+      <Button fx:id="editBioButton" Text="Edit Bio" onAction="#switchToBio" GridPane.rowIndex = "19" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
+      <Button fx:id="changeThemeButton" Text="Change Theme" onAction="#switchTheme" GridPane.rowIndex = "20" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
+      <Button fx:id="logoutButton" text="Log-Out" onAction="#switchToLogin" GridPane.rowIndex = "23" GridPane.columnIndex = "0" GridPane.columnSpan = "2" GridPane.valignment="BOTTOM" styleClass="button"/>
+      <Button fx:id="searchButton" text="Search" onAction="#search" GridPane.rowIndex = "1" GridPane.columnIndex = "21" GridPane.columnSpan = "2" styleClass="button"/>
+      <TextField fx:id="Search" prefHeight = "10" prefWidth = "1550" GridPane.rowIndex = "1" GridPane.columnIndex = "2" GridPane.columnSpan = "19" styleClass="textArea"/>
+      <ScrollPane fx:id="honkScrollPaneContainer" prefWidth = "1550" prefHeight="1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "22" styleClass="scrollPane"/>
 </GridPane>
