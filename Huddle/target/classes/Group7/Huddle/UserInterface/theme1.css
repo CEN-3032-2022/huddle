@@ -1,11 +1,7 @@
 .gridPane{
 	-fx-background-color: #2e2e2e;
-  -fx-font-size: 20;
-  -color: #000000;
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: #FFFFFF;
-  scrollbar-gutter: stable;
+	-fx-font-size: 20;
+	-color: #000000;
 }
 .textArea{
 	-fx-background-color: #FFFFFF;
@@ -309,6 +305,12 @@
 }
 
 /* Honks */
+#honkScrollPaneContainer {
+  -fx-border-width: 10px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
+  scrollbar-gutter: stable;
+}
 .replyButton{
 	-fx-background-color:#6f6f6f;
       -fx-font-size: 20;
