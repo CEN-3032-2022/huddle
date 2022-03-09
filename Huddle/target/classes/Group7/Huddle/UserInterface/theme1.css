@@ -116,6 +116,12 @@
 }
 
 /* For Account Creation Page */
+.huddle-welcome-header-text{
+  -fx-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 68pt;
+  -fx-min-height: 180px;
+}
 
 .header-text{
   -fx-fill: white;

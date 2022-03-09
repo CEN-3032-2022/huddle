@@ -14,11 +14,13 @@ public class AccountCreationController {
 	@FXML TextField Q1;
 	@FXML TextField Q2;
 	
+	@FXML Text usernameReq1Text;
 	@FXML Text pwReq1Text;
 	@FXML Text pwReq2Text;
 	@FXML Text pwReq3Text;
 	@FXML Text takenUsernameWarningText;
 	@FXML Text invalidAccountInfoText;
+	@FXML Text blankRecoveryAnswersWarningText;
 	
 	private int MAX_USERNAME_CHAR_LENGTH = 20;
 	private int MAX_PASSWORD_CHAR_LENGTH = 20;
@@ -35,6 +37,14 @@ public class AccountCreationController {
 	
     @FXML
     private void createAccountButtonOnClick() throws IOException{
+    	
+    	if(isRecoveryAnswersBlank()) {
+    		blankRecoveryAnswersWarningText.setFill(Color.web(LIGHT_RED));
+    		blankRecoveryAnswersWarningText.setVisible(true);
+    		return;
+    	}
+    	else blankRecoveryAnswersWarningText.setVisible(false);
+
     	if(accValidator.isValidAccount(username.getText(), password.getText())) {
     		invalidAccountInfoText.setVisible(false);
     		takenUsernameWarningText.setVisible(false);
@@ -60,6 +70,11 @@ public class AccountCreationController {
     @FXML
     private void handleOnKeyReleasedUsername() throws IOException{
     	clearExtraCharsFromTextField(username, MAX_USERNAME_CHAR_LENGTH);
+    	
+    	if(accValidator.isUsernameMeetingCharLengthReq(username.getText()))
+    		usernameReq1Text.setFill(Color.web(LIGHT_GREEN));
+    	else
+    		usernameReq1Text.setFill(Color.web(LIGHT_RED));
     }
     
     @FXML
@@ -99,5 +114,9 @@ public class AccountCreationController {
     		textField.setText(textField.getText().substring(0, maxCharLength));
     		textField.positionCaret(maxCharLength);
     	}
+    }
+    
+    private boolean isRecoveryAnswersBlank() {
+    	return (Q1.getText().isEmpty() || Q2.getText().isEmpty());
     }
 }
