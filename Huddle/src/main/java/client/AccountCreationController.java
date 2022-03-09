@@ -10,105 +10,94 @@ import java.util.regex.Pattern;
 
 public class AccountCreationController {
 	@FXML TextField password;
-	@FXML TextField userName;
+	@FXML TextField username;
 	@FXML TextField Q1;
 	@FXML TextField Q2;
-	@FXML Text req1;
-	@FXML Text req2;
-	@FXML Text req3;
-	@FXML Text taken;
-	@FXML int pass;
 	
-	public String LIGHT_RED = "#f24b4e";
-	public String LIGHT_GREEN = "#6eff72";
+	@FXML Text pwReq1Text;
+	@FXML Text pwReq2Text;
+	@FXML Text pwReq3Text;
+	@FXML Text takenUsernameWarningText;
+	@FXML Text invalidAccountInfoText;
+	
+	private int MAX_USERNAME_CHAR_LENGTH = 20;
+	private int MAX_PASSWORD_CHAR_LENGTH = 20;
+	private int MAX_REC_ANSWER_CHAR_LENTH = 30;
+	
+	private String LIGHT_RED = "#f24b4e";
+	private String LIGHT_GREEN = "#6eff72";
+	
+	private AccountCreationValidator accValidator;
+	
+	public AccountCreationController() {
+		accValidator = new AccountCreationValidator();
+	}
 	
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+    private void createAccountButtonOnClick() throws IOException{
+    	if(accValidator.isValidAccount(username.getText(), password.getText())) {
+    		invalidAccountInfoText.setVisible(false);
+    		takenUsernameWarningText.setVisible(false);
+    		// save user info
+    	}
+    	else {
+    		if(!accValidator.isUsernameAvailable(username.getText())) {
+    			takenUsernameWarningText.setFill(Color.web(LIGHT_RED));
+    			takenUsernameWarningText.setVisible(true);
+    		}
+    		else {
+    			invalidAccountInfoText.setFill(Color.web(LIGHT_RED));
+    			invalidAccountInfoText.setVisible(true);
+    		}
+    	}
     }
     
     @FXML
-    private void handleOnKeyReleasedUsrName() throws IOException{
-    	if(userName.getText().length() > 20) {
-    		userName.setText(userName.getText().substring(0, 20));
-    		userName.positionCaret(20);
-    	}
+    private void returnToLoginButtonOnClick() throws IOException {
+    	switchToLoginPage();
     }
     
     @FXML
-    private void limit() {
-    	if(Q2.getText().length() > 30) {
-    		Q2.setText(Q2.getText().substring(0, 30));
-    		Q2.positionCaret(30);
-    	}
-    	if(Q1.getText().length() > 30) {
-    		Q1.setText(Q1.getText().substring(0, 30));
-    		Q1.positionCaret(30);
-    	}
+    private void handleOnKeyReleasedUsername() throws IOException{
+    	clearExtraCharsFromTextField(username, MAX_USERNAME_CHAR_LENGTH);
     }
     
     @FXML
     private void handleOnKeyReleasedPassword() throws IOException{
-    	if(password.getText().length()>20) {
-    		password.setText(password.getText().substring(0, 20));
-    		password.positionCaret(20);
-    	}
-    	Pattern pattern1 = Pattern.compile("[A-Z]");
-    	Pattern pattern2 = Pattern.compile("[0-9]");
-    	Pattern pattern3 = Pattern.compile("^([A-Z]|[0-9]|[a-z]|[/*,/@,/$,/!]){7,20}$");
-        Matcher matcher1 = pattern1.matcher(password.getText());
-        Matcher matcher2 = pattern2.matcher(password.getText());
-        Matcher matcher3 = pattern3.matcher(password.getText());
-    	if(matcher1.find()) {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req1.setVisible(false);
-    		else
-    			req1.setFill(Color.web(LIGHT_GREEN));
-    	} else {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req1.setVisible(true);
-    		else
-    			req1.setFill(Color.web(LIGHT_RED));
-    	}
+    	clearExtraCharsFromTextField(password, MAX_PASSWORD_CHAR_LENGTH);
     	
-    	if(matcher2.find()) {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req2.setVisible(false);
-    		else
-    			req2.setFill(Color.web(LIGHT_GREEN));
-    	} else {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req2.setVisible(true);
-    		else
-    			req2.setFill(Color.web(LIGHT_RED));
-    	}
+        String passwordStr = password.getText();
+        
+    	if(accValidator.isPwMeetingCapLetterReq(passwordStr))
+    		pwReq1Text.setFill(Color.web(LIGHT_GREEN));
+    	else
+    		pwReq1Text.setFill(Color.web(LIGHT_RED));
     	
-    	if(matcher3.find()) {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req3.setVisible(false);
-    		else
-    			req3.setFill(Color.web(LIGHT_GREEN));
-    	} else {
-    		if(App.getUserAgentStylesheet().contains("2"))
-    			req3.setVisible(true);
-    		else
-    			req3.setFill(Color.web(LIGHT_RED));
-    	}
+    	if(accValidator.isPwMeetingDigitReq(passwordStr))
+    		pwReq2Text.setFill(Color.web(LIGHT_GREEN));
+    	else
+    		pwReq2Text.setFill(Color.web(LIGHT_RED));
+    	
+    	if(accValidator.isPwMeetingCharLengthReq(passwordStr))
+    		pwReq3Text.setFill(Color.web(LIGHT_GREEN));
+    	else
+    		pwReq3Text.setFill(Color.web(LIGHT_RED));
     }
     
     @FXML
-    private void createAccount() throws IOException{
-    	if((userName.getText().length() >=5 && userName.getText().length() <= 20)) {
-    		taken.setVisible(false);
-    	}
-    	else {
-    		taken.setFill(Color.web(LIGHT_RED));
-    		taken.setVisible(true);
-    	}
+    private void handleOnKeyReleasedRecoveryAnswer() {
+    	clearExtraCharsFromTextField(Q1, MAX_REC_ANSWER_CHAR_LENTH);
+    	clearExtraCharsFromTextField(Q2, MAX_REC_ANSWER_CHAR_LENTH);
     }
     
-    @FXML
-    private void returnToLoginPage() throws IOException{
-    	switchToPrimary();
+    private void switchToLoginPage() throws IOException {
+        App.setRoot("/Group7/Huddle/UserInterface/Login");
+    }
+    
+    private void clearExtraCharsFromTextField(TextField textField, int maxCharLength) {
+    	if(textField.getText().length() > maxCharLength) {
+    		textField.setText(textField.getText().substring(0, maxCharLength));
+    		textField.positionCaret(maxCharLength);
+    	}
     }
 }
