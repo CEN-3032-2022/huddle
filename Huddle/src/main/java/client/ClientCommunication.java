@@ -52,7 +52,11 @@ public class ClientCommunication {
 //	    System.out.println("Recieved From Server: " + jsonResponse.toString());
 		return new JSONObject(jsonResponse);
 	}
-	
+	public String getServerHonkListJSONResponse() {
+		String jsonResponse = serverInput.nextLine();
+//	    System.out.println("Recieved From Server: " + jsonResponse.toString());
+		return jsonResponse;
+	}
 	public void sendJSONRequestToServer(JSONObject jsonServerRequest) {
 //	    System.out.println("Sending To Server: " + jsonServerRequest.toString());
 		serverOutput.println(jsonServerRequest.toString());

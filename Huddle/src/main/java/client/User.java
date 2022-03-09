@@ -2,6 +2,10 @@ package client;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import client.Honk;
 public class User {
 	private int id;
 	private String username;
@@ -18,7 +22,18 @@ public class User {
 		honks = new ArrayList<Honk>();
 		numHonks = 0;
 	}
-	
+	public User(JSONObject json){
+		id = json.getInt("id");
+		honks=new ArrayList<Honk>();
+		username = json.getString("username");;
+		password = json.getString("password");
+		bio = json.getString("bio");
+		numHonks = json.getInt("numHonks");
+		JSONArray array=new JSONArray(json.getJSONArray("honks").toString());
+		for(int i=0;i<array.length();i++) {
+			honks.add(new Honk(array.getJSONObject(i)));
+		}
+	}
 	public User(int id, String username, String password, String bio){
 		this.id = id;
 		this.username = username;
@@ -78,12 +93,12 @@ public class User {
 	}
 	
 	public void addHonk(int id, String content, Date publishDate) {
-		honks.add(new Honk(id, content, publishDate));
+		honks.add(new Honk(id, content, publishDate, username));
 		numHonks++;
 	}
 	
 	public void addHonk(int id, String content, int month, int day, int year) {
-		honks.add(new Honk(id, content, month, day, year));
+		honks.add(new Honk(id, content, month, day, year,username));
 		numHonks++;
 	}
 	
