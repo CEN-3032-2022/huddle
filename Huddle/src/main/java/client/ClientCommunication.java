@@ -12,10 +12,10 @@ import org.json.JSONObject;
 
 public class ClientCommunication {
 
-    private static ClientCommunication clientComm;
-	
     public static final int HUDDLE_PORT = 8888;
 	
+    private static ClientCommunication clientComm;
+    
 	private Socket clientSocket;
 	private Scanner serverInput;
 	private PrintWriter serverOutput;
@@ -67,6 +67,11 @@ public class ClientCommunication {
 		String jsonResponse = serverInput.nextLine();
 //	    System.out.println("Recieved From Server: " + jsonResponse.toString());
 		return new JSONObject(jsonResponse);
+	}
+	public String getServerUsersJSONResponse() {
+		String jsonResponse = serverInput.nextLine();
+//	    System.out.println("Recieved From Server: " + jsonResponse.toString());
+		return jsonResponse;
 	}
 	public String getServerHonkListJSONResponse() {
 		String jsonResponse = serverInput.nextLine();

@@ -14,6 +14,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    public static String currentUser; 
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
