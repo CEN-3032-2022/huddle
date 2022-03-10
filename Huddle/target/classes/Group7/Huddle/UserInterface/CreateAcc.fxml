@@ -31,6 +31,7 @@
       <Text fx:id="takenUsernameWarningText" text="Username is unavailable" GridPane.rowIndex = "3" GridPane.columnIndex = "0" visible="false" styleClass="username-req-text"/>
       <Text fx:id="invalidAccountInfoText" text="Username or password is invalid" GridPane.rowIndex = "4" GridPane.columnIndex = "0" visible="false" styleClass="username-req-text"/>
       <Text fx:id="blankRecoveryAnswersWarningText" text="You must answer the recovery questions" GridPane.rowIndex = "3" GridPane.columnIndex = "1" visible="false" styleClass="username-req-text"/>
+      <Text fx:id="errorDuringSavingDataWarningText" text="Error occured during saving account data. Please try again." GridPane.rowIndex = "4" GridPane.columnIndex = "1" visible="false" styleClass="username-req-text"/>
       <HBox alignment="center_right" GridPane.rowIndex = "5" GridPane.columnIndex = "1" GridPane.columnSpan = "1" GridPane.halignment="RIGHT">
             <GridPane hgap="10" vgap="5" >
                   <Button fx:id="returnToLoginPageButton" text="Return To Login" onAction="#returnToLoginButtonOnClick" GridPane.rowIndex = "0" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>

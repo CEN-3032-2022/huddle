@@ -170,6 +170,30 @@
     -fx-background-color: darkgreen;
 }
 
+/* For account creation success page */
+.hatched-penguin-image {
+  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatched-penguin.png');
+  -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-max-width: 400px;
+  -fx-min-width: 400px;
+  -fx-max-height: 492px;
+  -fx-min-height: 492px;
+}
+
+#successReturnToLoginPageButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+
+#successReturnToLoginPageButton:hover {
+    -fx-background-color: darkgreen;
+}
+
 /* For User Home Screen */
 #bioText {
   min-width: 200px;

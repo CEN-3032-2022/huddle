@@ -12,7 +12,4 @@
 	  <Region GridPane.rowIndex = "0" styleClass="looking-down-image" GridPane.halignment="CENTER" GridPane.columnSpan = "3"></Region>
       <Text text="Password Reset Failed!" GridPane.rowIndex = "1" GridPane.columnIndex = "0" GridPane.columnSpan = "3" GridPane.halignment="CENTER" styleClass="info-text"/>
       <Button fx:id="returnToLoginPageButton" text="Return To Login" onAction="#switchToLogin" GridPane.rowIndex = "4" GridPane.columnIndex = "0" GridPane.columnSpan = "3" GridPane.halignment="CENTER" styleClass="button"/>
-<!--       <ImageView fx:id="Img" GridPane.rowIndex = "0">
-      <Image  url="file:src/main/resources/Group7/Huddle/UserInterface/SadMan2.png" requestedWidth="250" requestedHeight="250" />
-      </ImageView> -->
 </GridPane>

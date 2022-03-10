@@ -21,6 +21,7 @@ public class AccountCreationController {
 	@FXML Text takenUsernameWarningText;
 	@FXML Text invalidAccountInfoText;
 	@FXML Text blankRecoveryAnswersWarningText;
+	@FXML Text errorDuringSavingDataWarningText;
 	
 	private int MAX_USERNAME_CHAR_LENGTH = 20;
 	private int MAX_PASSWORD_CHAR_LENGTH = 20;
@@ -36,7 +37,7 @@ public class AccountCreationController {
 	}
 	
     @FXML
-    private void createAccountButtonOnClick() throws IOException{
+    private void createAccountButtonOnClick() throws IOException {
     	
     	if(isRecoveryAnswersBlank()) {
     		blankRecoveryAnswersWarningText.setVisible(true);
@@ -47,6 +48,7 @@ public class AccountCreationController {
     	if(accValidator.isValidAccount(username.getText(), password.getText())) {
     		invalidAccountInfoText.setVisible(false);
     		takenUsernameWarningText.setVisible(false);
+    		errorDuringSavingDataWarningText.setVisible(false);
     		saveUserInformation();
     	}
     	else {
@@ -58,18 +60,14 @@ public class AccountCreationController {
     }
     
     @FXML
-    private void saveUserInformation() {
-		// save user info
+    private void saveUserInformation() throws IOException {
 		AccountSaver accSaver = new AccountSaver(username.getText(), password.getText(), Q1.getText(), Q2.getText());
 		boolean isAccountSavingSuccess = accSaver.saveAccount();
-		if(isAccountSavingSuccess) {
-			// show success screen
-		}
-		else {
-			// show error message
-		}    	
+		if(isAccountSavingSuccess)
+			switchToAccountCreationSuccessPage();
+		else
+			errorDuringSavingDataWarningText.setVisible(true);  	
     }
-
     
     @FXML
     private void returnToLoginButtonOnClick() throws IOException {
@@ -116,6 +114,10 @@ public class AccountCreationController {
     
     private void switchToLoginPage() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/Login");
+    }
+    
+    private void switchToAccountCreationSuccessPage() throws IOException {
+        App.setRoot("/Group7/Huddle/UserInterface/CreateAccSuccess");
     }
     
     private void clearExtraCharsFromTextField(TextField textField, int maxCharLength) {

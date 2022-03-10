@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<GridPane fx:id="pane" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="client.AccountCreationController" hgap="10" vgap="10" styleClass="gridPane"> 
+	  <Region GridPane.rowIndex = "0" styleClass="hatched-penguin-image" GridPane.halignment="CENTER" GridPane.columnSpan = "3"></Region>
+      <Text text="Account Created Successfully!" GridPane.rowIndex = "1" GridPane.columnIndex = "0" GridPane.columnSpan = "3" GridPane.halignment="CENTER" styleClass="info-text"/>
+      <Button fx:id="successReturnToLoginPageButton" text="Return To Login" onAction="#returnToLoginButtonOnClick" GridPane.rowIndex = "4" GridPane.columnIndex = "0" GridPane.columnSpan = "3" GridPane.halignment="CENTER" styleClass="button"/>
+</GridPane>
