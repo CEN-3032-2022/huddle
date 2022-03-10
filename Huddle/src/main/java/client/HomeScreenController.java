@@ -32,7 +32,6 @@ public class HomeScreenController {
 		value=ClientCommunication.getInstance().getServerHonkListJSONResponse();
 		JSONArray Arr=new JSONArray(value);
 		GridPane tPane=new GridPane();
-		System.out.println(Arr.getJSONObject(0).toString());
 		for(int i=0;i<Arr.length()-1;i++) {
 			Button Like=new Button("Like");
 			Like.getStyleClass().add("likeButton");

@@ -66,7 +66,7 @@ public class AccountCreationController {
 		if(isAccountSavingSuccess)
 			switchToAccountCreationSuccessPage();
 		else
-			errorDuringSavingDataWarningText.setVisible(true);  	
+			errorDuringSavingDataWarningText.setVisible(true);
     }
     
     @FXML
