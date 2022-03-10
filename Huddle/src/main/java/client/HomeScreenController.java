@@ -25,15 +25,13 @@ public class HomeScreenController {
     @FXML
     private void switchToWall() throws IOException {
     	String value="";
-    	ClientCommunication sut = new ClientCommunication();
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "HonkList");
 		JSON.put("isTest", false);
-		sut.sendJSONRequestToServer(JSON);
-		value=sut.getServerHonkListJSONResponse();
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		value=ClientCommunication.getInstance().getServerHonkListJSONResponse();
 		JSONArray Arr=new JSONArray(value);
 		GridPane tPane=new GridPane();
-		System.out.println(Arr.getJSONObject(0).toString());
 		for(int i=0;i<Arr.length()-1;i++) {
 			Button Like=new Button("Like");
 			Like.getStyleClass().add("likeButton");

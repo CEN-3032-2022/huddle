@@ -1,11 +1,7 @@
 .gridPane{
 	-fx-background-color: #2e2e2e;
-  -fx-font-size: 20;
-  -color: #000000;
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: #FFFFFF;
-  scrollbar-gutter: stable;
+	-fx-font-size: 20;
+	-color: #000000;
 }
 .textArea{
 	-fx-background-color: #FFFFFF;
@@ -120,6 +116,12 @@
 }
 
 /* For Account Creation Page */
+.huddle-welcome-header-text{
+  -fx-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-size: 68pt;
+  -fx-min-height: 180px;
+}
 
 .header-text{
   -fx-fill: white;
@@ -165,6 +167,30 @@
   -fx-background-color: green;
 }
 #createAccountButton:hover {
+    -fx-background-color: darkgreen;
+}
+
+/* For account creation success page */
+.hatched-penguin-image {
+  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatched-penguin.png');
+  -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-max-width: 400px;
+  -fx-min-width: 400px;
+  -fx-max-height: 492px;
+  -fx-min-height: 492px;
+}
+
+#successReturnToLoginPageButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+
+#successReturnToLoginPageButton:hover {
     -fx-background-color: darkgreen;
 }
 
@@ -309,6 +335,12 @@
 }
 
 /* Honks */
+#honkScrollPaneContainer {
+  -fx-border-width: 10px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
+  scrollbar-gutter: stable;
+}
 .replyButton{
 	-fx-background-color:#6f6f6f;
       -fx-font-size: 20;

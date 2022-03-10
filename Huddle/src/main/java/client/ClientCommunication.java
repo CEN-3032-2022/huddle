@@ -12,11 +12,27 @@ import org.json.JSONObject;
 
 public class ClientCommunication {
 
+    private static ClientCommunication clientComm;
+	
     public static final int HUDDLE_PORT = 8888;
 	
 	private Socket clientSocket;
 	private Scanner serverInput;
 	private PrintWriter serverOutput;
+	
+	public static ClientCommunication getInstance() {
+		if(clientComm == null) {
+			clientComm = new ClientCommunication();
+		}
+		return clientComm;
+	}
+	
+	public static void closeInstance() {
+		if(clientComm != null) {
+			clientComm.closeCommunications();
+			clientComm = null;
+		}
+	}
 	
 	public ClientCommunication() {
 		try {
