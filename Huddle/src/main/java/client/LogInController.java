@@ -1,6 +1,10 @@
 package client;
 
 import java.io.IOException;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -24,11 +28,31 @@ public class LogInController {
     }
     @FXML
     private void check() throws IOException {
-    	boolean correct;
-    	if(password.getText().equals("")&&userName.getText().equals(""))
-    		correct=true;
-    	else
-    		correct=false;
+    	boolean correct = false;
+    	
+    	String value = "";
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "UserList");
+		JSON.put("isTest", false);
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
+		JSONArray Arr=new JSONArray(value);
+		System.out.println(Arr.getJSONObject(0).toString());
+		
+		for(int i = 0; i < Arr.length(); i++) {
+			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
+				if(Arr.getJSONObject(i).getString("Password").equals(password.getText())) {
+					correct=true;
+					App.currentUser = userName.getText();
+					break;
+				}
+			}
+		}
+				
+//    	if(password.getText().equals("")&&userName.getText().equals(""))
+//    		correct=true;
+//    	else
+//    		correct=false;
     	if(correct) {
     		wrongLogin.setVisible(false);
         	App.setRoot("/Group7/Huddle/UserInterface/HomeScreenUsr");

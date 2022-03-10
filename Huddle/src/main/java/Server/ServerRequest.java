@@ -51,6 +51,8 @@ public class ServerRequest implements Runnable {
 		}
 		else if(jsonRequest.getString("type").equals("HonkList")) {
 			sendJSONHonkResponseToClient(getHonkList().toString());
+		} else if(jsonRequest.getString("type").equals("UserList")) {
+			sendJSONUsersResponseToClient(getUsers().toString());
 		}
 		
 		return;
@@ -59,6 +61,12 @@ public class ServerRequest implements Runnable {
 	private void sendJSONHonkResponseToClient(String honkList) {
 		// TODO Auto-generated method stub
 		clientOutput.println(honkList);
+		clientOutput.flush();
+	}
+	
+	private void sendJSONUsersResponseToClient(String userList) {
+		// TODO Auto-generated method stub
+		clientOutput.println(userList);
 		clientOutput.flush();
 	}
 
@@ -111,6 +119,19 @@ public class ServerRequest implements Runnable {
 			Response.put("UserName", "Test"+i);
 			jsonArray.put(Response);
 		}
+		return jsonArray;
+	}
+	
+	
+	public JSONArray getUsers() {
+			JSONArray jsonArray = new JSONArray();
+			JSONObject Response = new JSONObject();
+			
+			Response.put("id", 1);
+			Response.put("UserName", "daniel");
+			Response.put("Password", "password");
+			jsonArray.put(Response);
+	
 		return jsonArray;
 	}
 	// ------------ End Of Testing Methods -------------
