@@ -19,11 +19,11 @@ public class ClientCommunicationTest {
 	
 	@Test
 	public void sendingTestJSONToServer() {
-		ClientCommunication sut = new ClientCommunication();
-		
 		JSONObject testJSON = getTestJSONRequest();
-		sut.sendJSONRequestToServer(testJSON);
-		JSONObject testJSONResponse = sut.getServerJSONResponse();
+		ClientCommunication.getInstance().sendJSONRequestToServer(testJSON);
+		JSONObject testJSONResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		
+		System.out.println(testJSONResponse);
 		
 		assert(testJSONResponse.getString("type").equals("testResponse"));
 		assert(testJSONResponse.getBoolean("isTest"));
@@ -31,19 +31,14 @@ public class ClientCommunicationTest {
 		assert(testJSONResponse.getJSONArray("array").getInt(0) == 0);
 		assert(testJSONResponse.getJSONArray("array").getInt(4) == 4);
 		assert(testJSONResponse.getJSONArray("array").getInt(9) == 9);
-		
-		sut.closeCommunications();
 	}
 
 	@Test
 	public void sendingUserDataToServer() {
-		ClientCommunication sut = new ClientCommunication();
 		User testUser = new User(1, "user1", "user1pw!", "test user with id 1");
 		
 		JSONObject testUserJSON = new JSONObject(testUser);
 		testUserJSON.put("type", "userData");
-		
-		System.out.println(testUserJSON.toString());
 		
 		assert(testUserJSON.get("id").equals(1));
 		assert(testUserJSON.get("numHonks").equals(0));
@@ -51,12 +46,11 @@ public class ClientCommunicationTest {
 		assert(testUserJSON.get("password").equals("user1pw!"));
 		assert(testUserJSON.get("bio").equals("test user with id 1"));
 		
-		sut.sendJSONRequestToServer(testUserJSON);
-		JSONObject testUserDataJSONResponse = sut.getServerJSONResponse();
-				
+		ClientCommunication.getInstance().sendJSONRequestToServer(testUserJSON);
+		JSONObject testUserDataJSONResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		
 		assert(testUserDataJSONResponse.getString("type").equals("userDataResponse"));
 		assert(testUserDataJSONResponse.getBoolean("isTest"));
-		sut.closeCommunications();
 	}
 	
 }

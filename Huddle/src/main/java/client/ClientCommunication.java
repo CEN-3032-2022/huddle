@@ -30,6 +30,7 @@ public class ClientCommunication {
 	public static void closeInstance() {
 		if(clientComm != null) {
 			clientComm.closeCommunications();
+			clientComm = null;
 		}
 	}
 	
