@@ -39,7 +39,6 @@ public class AccountCreationController {
     private void createAccountButtonOnClick() throws IOException{
     	
     	if(isRecoveryAnswersBlank()) {
-    		blankRecoveryAnswersWarningText.setFill(Color.web(LIGHT_RED));
     		blankRecoveryAnswersWarningText.setVisible(true);
     		return;
     	}
@@ -48,19 +47,29 @@ public class AccountCreationController {
     	if(accValidator.isValidAccount(username.getText(), password.getText())) {
     		invalidAccountInfoText.setVisible(false);
     		takenUsernameWarningText.setVisible(false);
-    		// save user info
+    		saveUserInformation();
     	}
     	else {
-    		if(!accValidator.isUsernameAvailable(username.getText())) {
-    			takenUsernameWarningText.setFill(Color.web(LIGHT_RED));
+    		if(!accValidator.isUsernameAvailable(username.getText()))
     			takenUsernameWarningText.setVisible(true);
-    		}
-    		else {
-    			invalidAccountInfoText.setFill(Color.web(LIGHT_RED));
+    		else
     			invalidAccountInfoText.setVisible(true);
-    		}
     	}
     }
+    
+    @FXML
+    private void saveUserInformation() {
+		// save user info
+		AccountSaver accSaver = new AccountSaver(username.getText(), password.getText(), Q1.getText(), Q2.getText());
+		boolean isAccountSavingSuccess = accSaver.saveAccount();
+		if(isAccountSavingSuccess) {
+			// show success screen
+		}
+		else {
+			// show error message
+		}    	
+    }
+
     
     @FXML
     private void returnToLoginButtonOnClick() throws IOException {

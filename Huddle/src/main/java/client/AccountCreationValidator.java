@@ -3,6 +3,8 @@ package client;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONObject;
+
 public class AccountCreationValidator {
 
 	private Pattern usernameCharLengthPattern;
@@ -10,11 +12,21 @@ public class AccountCreationValidator {
 	private Pattern pwDigitPattern;
 	private Pattern pwCharLengthPattern;
 	
+	private JSONObject getCheckUsernameJSONRequest(String username) {
+		JSONObject checkUsernameJSON = new JSONObject();
+		
+		checkUsernameJSON.put("type", "checkUsernameRequest");
+		checkUsernameJSON.put("isTest", false);
+		checkUsernameJSON.put("username", username);
+		
+		return checkUsernameJSON;
+	}
+	
 	public AccountCreationValidator() {
-		setUsernameCharLengthPattern(".{5,20}");
-		setPwCapLetterPattern("[A-Z]");
-		setPwDigitPattern("[0-9]");
-		setPwCharLengthPattern(".{7,20}$");
+		setUsernameCharLengthPattern("^.{5,20}$");
+		setPwCapLetterPattern("[A-Z]+");
+		setPwDigitPattern("[0-9]+");
+		setPwCharLengthPattern("^.{7,20}$");
 	}
 	
 	public boolean isValidAccount(String username, String password) {
@@ -22,7 +34,7 @@ public class AccountCreationValidator {
 	}
 	
 	public boolean isValidUsername(String username) {
-		return isUsernameMeetingCharLengthReq(username);
+		return (isUsernameMeetingCharLengthReq(username) && isUsernameAvailable(username));
 	}
 	
 	public boolean isValidPassword(String password) {
@@ -32,7 +44,11 @@ public class AccountCreationValidator {
 	}
 	
 	public boolean isUsernameAvailable(String username) {
-		// TODO
+		
+		JSONObject checkUsernameJSON = getCheckUsernameJSONRequest(username);
+		
+		// TODO: Send checkUsername request and retrieve response
+		
 		return true;
 	}
 
