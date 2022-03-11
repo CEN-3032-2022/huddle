@@ -15,9 +15,6 @@ public class LogInController {
 	@FXML PasswordField password;
 	@FXML TextField userName;
 	
-	@FXML
-	public void initialize() {
-	}
     @FXML
     private void switchToNew() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/CreateAcc");

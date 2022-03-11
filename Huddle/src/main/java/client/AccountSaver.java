@@ -18,6 +18,7 @@ public class AccountSaver {
 	
 	public boolean saveAccount() {
 		
+		@SuppressWarnings("unused")
 		JSONObject saveUserAccountJSON = getSaveUserAccountJSONRequest();
 		
 		// TODO: Send save user request and retrieve response
