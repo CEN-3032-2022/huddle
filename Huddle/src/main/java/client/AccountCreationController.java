@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONObject;
+
 public class AccountCreationController {
 	@FXML TextField password;
 	@FXML TextField username;
@@ -63,6 +65,20 @@ public class AccountCreationController {
     private void saveUserInformation() throws IOException {
 		AccountSaver accSaver = new AccountSaver(username.getText(), password.getText(), Q1.getText(), Q2.getText());
 		boolean isAccountSavingSuccess = accSaver.saveAccount();
+		
+		String username = this.username.getText();
+    	String password = this.password.getText();
+		JSONObject JSON = new JSONObject();
+    	ClientCommunication sut = new ClientCommunication();
+    	JSON.put("id", 7);
+    	JSON.put("UserName", username);
+    	JSON.put("Password", password);
+    	JSONObject JSON2=new JSONObject();
+    	JSON2.put("type", "NewUser");
+		JSON2.put("isTest", false);
+		JSON2.put("User", JSON.toString());
+		sut.sendJSONRequestToServer(JSON2);
+		
 		if(isAccountSavingSuccess)
 			switchToAccountCreationSuccessPage();
 		else
