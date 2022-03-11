@@ -27,13 +27,13 @@ public class PostController {
     	String value = "";
     	
 		JSONObject JSON = new JSONObject();
-    	ClientCommunication sut = new ClientCommunication();
     	JSON.put("id", 7);
     	JSON.put("UserName", App.currentUser);
     	JSON.put("text", content);
     	JSON.put("publish_date", publishDate.toString());
+    	JSON.put("type", "honkPost");
     	
-		sut.sendJSONRequestToServer(JSON);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		System.out.println(JSON);
 		
 		switchToHome();

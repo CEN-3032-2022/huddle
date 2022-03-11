@@ -42,37 +42,33 @@ public class ServerRequest implements Runnable {
 	
 	public void handleServerRequest(JSONObject jsonRequest) {
 		
-		// Test responses to test requests
-		if(jsonRequest.getString("type").equals("testRequest")) {
-			sendJSONResponseToClient(getTestJSONResponse());
+		ServerResponse serverResponse = new ServerResponse();
+		String jsonRequestType = jsonRequest.getString("type");
+		
+		if(jsonRequestType.equals("testRequest")) {
+			sendJSONResponseToClient(serverResponse.getTestJSONResponse());
 		}
-		else if(jsonRequest.getString("type").equals("userData")) {
-			sendJSONResponseToClient(getTestUserDataJSONResponse());
+		else if(jsonRequestType.equals("userData")) {
+			sendJSONResponseToClient(serverResponse.getTestUserDataJSONResponse());
 		}
-		else if(jsonRequest.getString("type").equals("HonkList")) {
-			sendJSONHonkResponseToClient(getHonkList().toString());
-		} else if(jsonRequest.getString("type").equals("UserList")) {
-			sendJSONUsersResponseToClient(getUsers().toString());
+		else if(jsonRequestType.equals("HonkList")) {
+			sendJSONArrayResponseToClient(serverResponse.getHonkList());
+		} else if(jsonRequestType.equals("UserList")) {
+			sendJSONArrayResponseToClient(serverResponse.getUsers());
 		}
 		
 		return;
 	}
 	
-	private void sendJSONHonkResponseToClient(String honkList) {
-		// TODO Auto-generated method stub
-		clientOutput.println(honkList);
-		clientOutput.flush();
-	}
-	
-	private void sendJSONUsersResponseToClient(String userList) {
-		// TODO Auto-generated method stub
-		clientOutput.println(userList);
+	private void sendJSONArrayResponseToClient(JSONArray jsonArrayResponse) {
+//	    System.out.println("Sending To Client: " + jsonArrayResponse.toString());
+		clientOutput.println(jsonArrayResponse.toString());
 		clientOutput.flush();
 	}
 
 	public JSONObject getClientJSONResponse() {
 		String jsonResponse = clientInput.nextLine();
-//		System.out.println("Recieved From Client: " + jsonResponse);
+//		System.out.println("Received From Client: " + jsonResponse);
 		return new JSONObject(jsonResponse);
 	}
 	
@@ -88,52 +84,5 @@ public class ServerRequest implements Runnable {
 		this.clientInput = new Scanner(instream, StandardCharsets.UTF_8);
         this.clientOutput = new PrintWriter(outstream);
 	}
-	
-	// ---------- Temporary Testing Methods	------------
-	public JSONObject getTestUserDataJSONResponse() {
-		JSONObject testJSONResponse = new JSONObject();
-		testJSONResponse.put("type", "userDataResponse");
-		testJSONResponse.put("isTest", true);
-		return testJSONResponse;
-	}
-	
-	public JSONObject getTestJSONResponse() {
-		JSONObject testJSONResponse = new JSONObject();
-		testJSONResponse.put("type", "testResponse");
-		testJSONResponse.put("isTest", true);
-		testJSONResponse.put("number", 12345);
-		JSONArray jsonArray = new JSONArray();
-		for(int i = 0; i < 10; ++i) {
-			jsonArray.put(i);
-		}
-		testJSONResponse.put("array", jsonArray);
-		return testJSONResponse;
-	}
-	public JSONArray getHonkList() {
-		JSONArray jsonArray = new JSONArray();
-		for(int i = 0; i < 10; ++i) {
-			JSONObject Response = new JSONObject();
-			Response.put("id", 1);
-			Response.put("content","Hi");
-			Response.put("date", "1/1/11");
-			Response.put("UserName", "Test"+i);
-			jsonArray.put(Response);
-		}
-		return jsonArray;
-	}
-	
-	
-	public JSONArray getUsers() {
-			JSONArray jsonArray = new JSONArray();
-			JSONObject Response = new JSONObject();
-			
-			Response.put("id", 1);
-			Response.put("UserName", "daniel");
-			Response.put("Password", "password");
-			jsonArray.put(Response);
-	
-		return jsonArray;
-	}
-	// ------------ End Of Testing Methods -------------
 	
 }
