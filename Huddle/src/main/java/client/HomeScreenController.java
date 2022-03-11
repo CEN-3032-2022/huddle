@@ -13,7 +13,6 @@ public class HomeScreenController{
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML
 	public static Text UserName= new Text();
-	private ClientCommunication sut = new ClientCommunication();
     @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/Login");
@@ -24,8 +23,8 @@ public class HomeScreenController{
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "HonkList");
 		JSON.put("isTest", false);
-    	sut.sendJSONRequestToServer(JSON);
-    	value=sut.getServerUsersJSONResponse();
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	value=ClientCommunication.getInstance().getServerUsersJSONResponse();
 		JSONArray Arr=new JSONArray(value);
 		GridPane tPane=new GridPane();
 		for(int i=0;i<Arr.length();i++) {
@@ -45,7 +44,6 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToLogOut() throws IOException {
-    	sut.closeCommunications();
         App.setRoot("/Group7/Huddle/UserInterface/Login");
     }
     @FXML

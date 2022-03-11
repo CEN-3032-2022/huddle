@@ -69,7 +69,6 @@ public class AccountCreationController {
 		String username = this.username.getText();
     	String password = this.password.getText();
 		JSONObject JSON = new JSONObject();
-    	ClientCommunication sut = new ClientCommunication();
     	JSON.put("id", 7);
     	JSON.put("UserName", username);
     	JSON.put("Password", password);
@@ -77,7 +76,7 @@ public class AccountCreationController {
     	JSON2.put("type", "NewUser");
 		JSON2.put("isTest", false);
 		JSON2.put("User", JSON.toString());
-		sut.sendJSONRequestToServer(JSON2);
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
 		
 		if(isAccountSavingSuccess)
 			switchToAccountCreationSuccessPage();

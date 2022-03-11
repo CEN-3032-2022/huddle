@@ -25,7 +25,6 @@ public class PostController {
     	Date publishDate = new Date();
     	publishDate.setToCurrentDate();
 		JSONObject JSON = new JSONObject();
-    	ClientCommunication sut = new ClientCommunication();
     	JSON.put("id", 7);
     	JSON.put("UserName", App.currentUser);
     	JSON.put("content", content);
@@ -34,7 +33,7 @@ public class PostController {
     	JSON2.put("type", "Post");
 		JSON2.put("isTest", false);
 		JSON2.put("Honk", JSON.toString());
-		sut.sendJSONRequestToServer(JSON2);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
 		
 		switchToHome();
     }
