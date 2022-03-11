@@ -10,8 +10,8 @@
 <?import javafx.scene.image.ImageView?>
 <GridPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" fx:controller="client.HomeScreenController" hgap="20" vgap="20" styleClass="gridPane"> 
 	<padding><Insets top="10" right="15" bottom="15" left="25"/></padding>
-      <Text text="UserName" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="info-text"/>
-      <Text fx:id="bioText" text="Example Bio Text Example Bio Text Example Bio Text" wrappingWidth = "200" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
+      <Text fx:id="UserName" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="info-text"/>
+      <Text fx:id="bioText"  wrappingWidth = "200" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
       <Button fx:id="postHonkButton" Text="Post" onAction="#switchToPost" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
       <Button fx:id="masterWallButton" text="Master Wall" onAction="#switchToWall" GridPane.rowIndex = "16" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
       <Button fx:id="likedHonksButton" text="Liked" onAction="#switchToTagged" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>

@@ -24,17 +24,17 @@ public class PostController {
     	String content = writeHonkTextArea.getText();
     	Date publishDate = new Date();
     	publishDate.setToCurrentDate();
-    	String value = "";
-    	
 		JSONObject JSON = new JSONObject();
     	ClientCommunication sut = new ClientCommunication();
     	JSON.put("id", 7);
     	JSON.put("UserName", App.currentUser);
-    	JSON.put("text", content);
-    	JSON.put("publish_date", publishDate.toString());
-    	
-		sut.sendJSONRequestToServer(JSON);
-		System.out.println(JSON);
+    	JSON.put("content", content);
+    	JSON.put("date", publishDate.toString());
+    	JSONObject JSON2=new JSONObject();
+    	JSON2.put("type", "Post");
+		JSON2.put("isTest", false);
+		JSON2.put("Honk", JSON.toString());
+		sut.sendJSONRequestToServer(JSON2);
 		
 		switchToHome();
     }

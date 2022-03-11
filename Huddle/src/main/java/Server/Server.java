@@ -7,7 +7,6 @@ import java.net.Socket;
 public class Server {
 
     public static final int HUDDLE_PORT = 8888;
-
 	public static void main(String[] args) {
 
 		try {
@@ -24,12 +23,14 @@ public class Server {
 		    	ServerRequest serverRequest = new ServerRequest(huddleSocket);
 		    	Thread requestBusinessLogic = new Thread(serverRequest);
 		    	requestBusinessLogic.start();
+		    	
 		    }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		finally {
 			// Any closing statements
+			
 		}
 		
 	}
