@@ -5,21 +5,14 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-public class HomeScreenController {
+public class HomeScreenController{
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML
-	static String UserName=App.currentUser;
+	public static Text UserName= new Text();
 	private ClientCommunication sut = new ClientCommunication();
     @FXML
     private void switchToLogin() throws IOException {

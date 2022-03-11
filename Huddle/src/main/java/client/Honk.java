@@ -1,6 +1,5 @@
 package client;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Honk {
@@ -22,6 +21,7 @@ public class Honk {
 		this.publishDate = publishDate;
 		this.UserName=username;
 	}
+	@SuppressWarnings("exports")
 	public Honk(JSONObject json){
 		UserName=json.getString("UserName");
 		content=json.getString("content");

@@ -1,5 +1,8 @@
 package Server;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +29,7 @@ public class ServerRequest implements Runnable {
 	
 	public ServerRequest(Socket huddleSocket) {
 		this.huddleSocket = huddleSocket;
+		read();
 	}
 	public void writeToFile() {
 		try {
@@ -50,7 +54,27 @@ public class ServerRequest implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+	public void read(){
+		try {
+			Honks.clear();
+			Users.clear();
+			BufferedReader Reader = new BufferedReader(new FileReader("honks.txt"));
+			String val;
+			while((val=Reader.readLine())!=null) {
+				Honks.add(new JSONObject(val));
+			}
+			BufferedReader Reader2 = new BufferedReader(new FileReader("users.txt"));
+			String val2;
+			while((val2=Reader2.readLine())!=null) {
+				Users.add(new JSONObject(val2));
+			}
+			Reader.close();
+			Reader2.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void run() {
 		try {
