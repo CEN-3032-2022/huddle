@@ -18,31 +18,27 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 public class HomeScreenController {
 	@FXML ScrollPane honkScrollPaneContainer;
+	@FXML
+	static String UserName=App.currentUser;
+	private ClientCommunication sut = new ClientCommunication();
     @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/Group7/Huddle/UserInterface/Login");
     }
     @FXML
     private void switchToWall() throws IOException {
-    	String value="";
+    	String value=""; 
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "HonkList");
 		JSON.put("isTest", false);
-    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		value=ClientCommunication.getInstance().getServerHonkListJSONResponse();
+    	sut.sendJSONRequestToServer(JSON);
+    	value=sut.getServerUsersJSONResponse();
 		JSONArray Arr=new JSONArray(value);
 		GridPane tPane=new GridPane();
-		for(int i=0;i<Arr.length()-1;i++) {
-			Button Like=new Button("Like");
-			Like.getStyleClass().add("likeButton");
-			Button Reply=new Button("Reply");
-			Reply.getStyleClass().add("replyButton");
-			tPane.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, (i*7)+0);
-			tPane.add(new Text(Arr.getJSONObject(i).getString("date")), 3, (i*7)+0);
-			tPane.add(new Text(Arr.getJSONObject(i).getString("content")), 1, (i*7)+1,6,5);
-			tPane.add(Like,4, (i*7)+6);
-			tPane.add(new Label(" "), 2, (i*7)+6);
-			tPane.add(Reply, 0, (i*7)+6);
+		for(int i=0;i<Arr.length();i++) {
+			tPane.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
+			tPane.add(new Text(Arr.getJSONObject(i).getString("date")), 3, (i*4)+0);
+			tPane.add(new Text(Arr.getJSONObject(i).getString("content")), 1, (i*4)+1);
 		}
 		honkScrollPaneContainer.setContent(tPane);
     }
@@ -56,6 +52,7 @@ public class HomeScreenController {
     }
     @FXML
     private void switchToLogOut() throws IOException {
+    	sut.closeCommunications();
         App.setRoot("/Group7/Huddle/UserInterface/Login");
     }
     @FXML

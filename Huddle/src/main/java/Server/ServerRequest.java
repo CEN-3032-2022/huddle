@@ -1,24 +1,54 @@
 package Server;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import client.Honk;
+import client.User;
 
 public class ServerRequest implements Runnable {
 	
 	private Socket huddleSocket;
 	private Scanner clientInput;
 	private PrintWriter clientOutput;
+	static private ArrayList<JSONObject> Honks=new ArrayList<JSONObject>();
+    static private ArrayList<JSONObject> Users=new ArrayList<JSONObject>();
 	
 	public ServerRequest(Socket huddleSocket) {
 		this.huddleSocket = huddleSocket;
+	}
+	public void writeToFile() {
+		try {
+		FileWriter outHonk=new FileWriter("honks.txt",false);
+		FileWriter outUser=new FileWriter("users.txt",false);
+		for(int i=0;i<Honks.size();i++) {
+			if(i==0)
+				outHonk.write(Honks.get(i).toString()+"\n");
+			else
+				outHonk.append(Honks.get(i).toString()+"\n");
+		}
+		for(int i=0;i<Users.size();i++) {
+			if(i==0)
+				outUser.write(Users.get(i).toString()+"\n");
+			else
+				outUser.append(Users.get(i).toString()+"\n");
+			}
+		outUser.close();
+		outHonk.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -53,11 +83,18 @@ public class ServerRequest implements Runnable {
 			sendJSONHonkResponseToClient(getHonkList().toString());
 		} else if(jsonRequest.getString("type").equals("UserList")) {
 			sendJSONUsersResponseToClient(getUsers().toString());
+		}else if(jsonRequest.getString("type").equals("Post")) {
+			Post(new JSONObject(jsonRequest.getString("Honk")));
 		}
-		
 		return;
 	}
 	
+	private void Post(JSONObject jsonObject) {
+		// TODO Auto-generated method stub
+		Honks.add(jsonObject);
+		writeToFile();
+		//System.out.print(Honks.toString());
+	}
 	private void sendJSONHonkResponseToClient(String honkList) {
 		// TODO Auto-generated method stub
 		clientOutput.println(honkList);
@@ -88,7 +125,24 @@ public class ServerRequest implements Runnable {
 		this.clientInput = new Scanner(instream, StandardCharsets.UTF_8);
         this.clientOutput = new PrintWriter(outstream);
 	}
+	public JSONArray getHonkList() {
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Honks.size(); i++) {
+			jsonArray.put(Honks.get(i));
+		}
+		return jsonArray;
+	}
 	
+	
+	public JSONArray getUsers() {
+			JSONArray jsonArray = new JSONArray();
+			JSONObject Response = new JSONObject();
+			Response.put("id", 1);
+			Response.put("UserName", "daniel");
+			Response.put("Password", "password");
+			jsonArray.put(Response);
+		return jsonArray;
+	}
 	// ---------- Temporary Testing Methods	------------
 	public JSONObject getTestUserDataJSONResponse() {
 		JSONObject testJSONResponse = new JSONObject();
@@ -109,31 +163,7 @@ public class ServerRequest implements Runnable {
 		testJSONResponse.put("array", jsonArray);
 		return testJSONResponse;
 	}
-	public JSONArray getHonkList() {
-		JSONArray jsonArray = new JSONArray();
-		for(int i = 0; i < 10; ++i) {
-			JSONObject Response = new JSONObject();
-			Response.put("id", 1);
-			Response.put("content","Hi");
-			Response.put("date", "1/1/11");
-			Response.put("UserName", "Test"+i);
-			jsonArray.put(Response);
-		}
-		return jsonArray;
-	}
 	
-	
-	public JSONArray getUsers() {
-			JSONArray jsonArray = new JSONArray();
-			JSONObject Response = new JSONObject();
-			
-			Response.put("id", 1);
-			Response.put("UserName", "daniel");
-			Response.put("Password", "password");
-			jsonArray.put(Response);
-	
-		return jsonArray;
-	}
 	// ------------ End Of Testing Methods -------------
 	
 }

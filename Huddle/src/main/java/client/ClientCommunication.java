@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import org.json.JSONObject;
 
+import Server.ServerRequest;
+
 public class ClientCommunication {
 
     public static final int HUDDLE_PORT = 8888;

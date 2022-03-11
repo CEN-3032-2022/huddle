@@ -36,9 +36,7 @@ public class LogInController {
 		JSON.put("isTest", false);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray Arr=new JSONArray(value);
-		System.out.println(Arr.getJSONObject(0).toString());
-		
+		JSONArray Arr=new JSONArray(value);		
 		for(int i = 0; i < Arr.length(); i++) {
 			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
 				if(Arr.getJSONObject(i).getString("Password").equals(password.getText())) {
