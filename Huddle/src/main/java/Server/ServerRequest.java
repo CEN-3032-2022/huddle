@@ -85,10 +85,17 @@ public class ServerRequest implements Runnable {
 			sendJSONUsersResponseToClient(getUsers().toString());
 		}else if(jsonRequest.getString("type").equals("Post")) {
 			Post(new JSONObject(jsonRequest.getString("Honk")));
+		}else if (jsonRequest.getString("type").equals("NewUser")){
+			AddNewUser(new JSONObject(jsonRequest.getString("User")));
 		}
 		return;
 	}
-	
+	private void AddNewUser(JSONObject jsonObject) {
+		// TODO Auto-generated method stub
+		Users.add(jsonObject);
+		writeToFile();
+		//System.out.print(Honks.toString());
+	}
 	private void Post(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
 		Honks.add(jsonObject);
@@ -136,11 +143,10 @@ public class ServerRequest implements Runnable {
 	
 	public JSONArray getUsers() {
 			JSONArray jsonArray = new JSONArray();
-			JSONObject Response = new JSONObject();
-			Response.put("id", 1);
-			Response.put("UserName", "daniel");
-			Response.put("Password", "password");
-			jsonArray.put(Response);
+			for(int i = 0; i <Users.size(); i++) {
+				jsonArray.put(Users.get(i));
+			}
+			
 		return jsonArray;
 	}
 	// ---------- Temporary Testing Methods	------------
