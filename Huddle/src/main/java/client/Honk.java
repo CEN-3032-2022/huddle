@@ -1,5 +1,6 @@
 package client;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Honk {
@@ -75,5 +76,15 @@ public class Honk {
 					"publish date: " + getPublishDate().toString() + "\n";
 		
 		return output;
+	}
+	
+	public String toJsonString() {
+		JSONObject honkJson = new JSONObject();
+		honkJson.put("id", getId());
+		honkJson.put("UserName", getUserName());
+		honkJson.put("Content", getContent());
+		honkJson.put("PublishDate", getPublishDate());
+				
+		return honkJson.toString();
 	}
 }
