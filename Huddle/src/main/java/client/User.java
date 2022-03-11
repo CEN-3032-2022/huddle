@@ -110,4 +110,22 @@ public class User {
 		
 		return output;
 	}
+	
+	public String toJsonString() {
+		JSONObject userJson = new JSONObject();
+		userJson.put("id", getId());
+		userJson.put("UserName", getUsername());
+		userJson.put("Password", getPassword());
+		userJson.put("bio", getBio());
+		
+		JSONArray honksJson = new JSONArray();
+		
+		for(int i = 0; i < getNumHonks(); i++) {
+			honksJson.put(getHonk(i));
+		}
+		
+		userJson.put("honks", honksJson);
+		
+		return userJson.toString();
+	}
 }
