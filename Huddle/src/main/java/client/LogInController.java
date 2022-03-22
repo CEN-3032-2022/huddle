@@ -17,11 +17,11 @@ public class LogInController {
 	
     @FXML
     private void switchToNew() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/CreateAcc");
+        App.setRoot("/fxml/CreateAcc");
     }
     @FXML
     private void switchToReset() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/ResetPassword");
+        App.setRoot("/fxml/ResetPassword");
     }
     @FXML
     private void check() throws IOException {
@@ -50,7 +50,7 @@ public class LogInController {
 //    		correct=false;
     	if(correct) {
     		wrongLogin.setVisible(false);
-        	App.setRoot("/Group7/Huddle/UserInterface/HomeScreenUsr");
+        	App.setRoot("/fxml/HomeScreenUsr");
     	}
     	else {
     		wrongLogin.setVisible(true);

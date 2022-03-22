@@ -11,11 +11,11 @@ public class ResetController {
 	
     @FXML
     private void switchToLogin() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToErr() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/ResetFail");
+        App.setRoot("/fxml/ResetFail");
     }
     @FXML
     private void check() throws IOException {
