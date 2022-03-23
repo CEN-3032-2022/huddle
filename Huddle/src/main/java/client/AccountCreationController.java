@@ -128,11 +128,11 @@ public class AccountCreationController {
     }
     
     private void switchToLoginPage() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     
     private void switchToAccountCreationSuccessPage() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/CreateAccSuccess");
+        App.setRoot("/fxml/CreateAccSuccess");
     }
     
     private void clearExtraCharsFromTextField(TextField textField, int maxCharLength) {

@@ -17,7 +17,7 @@ public class PostController {
 	
     @FXML
     private void switchToHome() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/HomeScreenUsr");
+        App.setRoot("/fxml/HomeScreenUsr");
     }
     @FXML
     private void post() throws IOException{

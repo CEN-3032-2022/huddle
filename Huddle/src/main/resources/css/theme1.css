@@ -47,7 +47,7 @@
 }
 
 .running-image {
-  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/group-of-penguins.png');
+  -fx-background-image: url('file:src/main/resources/images/group-of-penguins.png');
   -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;
@@ -104,7 +104,7 @@
 
 /* For Reset Fail Page */
 .looking-down-image {
-  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/looking-down-penguin.png');
+  -fx-background-image: url('file:src/main/resources/images/looking-down-penguin.png');
   -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;
@@ -134,7 +134,7 @@
     -fx-fill: white;
 }
 .hatching-image {
-  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatching-penguin.png');
+  -fx-background-image: url('file:src/main/resources/images/hatching-penguin.png');
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;
   -fx-background-position: center;
@@ -172,7 +172,7 @@
 
 /* For account creation success page */
 .hatched-penguin-image {
-  -fx-background-image: url('file:src/main/resources/Group7/Huddle/UserInterface/hatched-penguin.png');
+  -fx-background-image: url('file:src/main/resources/images/hatched-penguin.png');
   -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;

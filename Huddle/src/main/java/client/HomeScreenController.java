@@ -15,7 +15,7 @@ public class HomeScreenController{
 	public static Text UserName= new Text();
     @FXML
     private void switchToLogin() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToWall() throws IOException {
@@ -36,30 +36,30 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToLiked() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToTagged() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToLogOut() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/Login");
+        App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToPost() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/post");
+        App.setRoot("/fxml/post");
     }
     @FXML
     private void switchToBio() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/bio");
+        App.setRoot("/fxml/bio");
     }
     @FXML
     private void switchTheme() throws IOException {
     	if(App.getUserAgentStylesheet().contains("1"))
-    		App.setUserAgentStylesheet("file:src/main/resources/Group7/Huddle/UserInterface/theme2.css");
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
     	else
-    		App.setUserAgentStylesheet("file:src/main/resources/Group7/Huddle/UserInterface/theme1.css");
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     }
     @FXML
     private void search() {

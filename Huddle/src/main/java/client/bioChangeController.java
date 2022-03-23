@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class bioChangeController {
     @FXML
     private void switchToHome() throws IOException {
-        App.setRoot("/Group7/Huddle/UserInterface/HomeScreenUsr");
+        App.setRoot("/fxml/HomeScreenUsr");
     }
     @FXML
     private void change() throws IOException{
