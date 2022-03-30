@@ -38,7 +38,7 @@ public class LogInController {
 			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
 				if(Arr.getJSONObject(i).getString("Password").equals(password.getText())) {
 					correct=true;
-					App.currentUser = userName.getText();
+					App.currentUser = Arr.getJSONObject(i);
 					break;
 				}
 			}
