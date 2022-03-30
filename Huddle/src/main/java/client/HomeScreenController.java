@@ -7,12 +7,14 @@ import org.json.JSONObject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 public class HomeScreenController{
 	@FXML ScrollPane honkScrollPaneContainer;
+	@FXML TextField searchBar;
 	@FXML
-	public static Text UserName= new Text();
+	public static Text UserName = new Text();
     @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/fxml/Login");
@@ -63,6 +65,12 @@ public class HomeScreenController{
     }
     @FXML
     private void search() {
-    	
+    	String searchText = searchBar.getText();
+    	if(searchText.startsWith("#")) {
+    		searchText.stripTrailing();
+    		HashtagHonkRetriever htHonks = new HashtagHonkRetriever(searchText);
+    		GridPane hashtagHonksPane = htHonks.getHashtagHonkPane();
+    		honkScrollPaneContainer.setContent(hashtagHonksPane);
+    	}
     }
  }

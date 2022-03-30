@@ -12,6 +12,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -111,7 +113,9 @@ public class ServerRequest implements Runnable {
 			Post(new JSONObject(jsonRequest.getString("Honk")));
 		}else if (jsonRequest.getString("type").equals("NewUser")){
 			AddNewUser(new JSONObject(jsonRequest.getString("User")));
-		}
+		}else if (jsonRequest.getString("type").equals("hashtagSearch")){
+			sendJSONHonkResponseToClient(getHashTagHonkList(jsonRequest.getString("value")).toString());
+		} 
 		return;
 	}
 	private void AddNewUser(JSONObject jsonObject) {
@@ -173,6 +177,22 @@ public class ServerRequest implements Runnable {
 			
 		return jsonArray;
 	}
+	
+	public JSONArray getHashTagHonkList(String hashtag) {
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i < Honks.size(); i++) {
+			String honkText = Honks.get(i).getString("content");
+		    Matcher hashtagMatcher = Pattern.compile("(#\\w+)\\b").matcher(honkText);
+		    while(hashtagMatcher.find()) {
+		        if(hashtag.equalsIgnoreCase(hashtagMatcher.group().strip())) {
+		        	jsonArray.put(Honks.get(i));
+		        	break;
+		        }
+		    }
+		}
+		return jsonArray;
+	}
+	
 	// ---------- Temporary Testing Methods	------------
 	public JSONObject getTestUserDataJSONResponse() {
 		JSONObject testJSONResponse = new JSONObject();
