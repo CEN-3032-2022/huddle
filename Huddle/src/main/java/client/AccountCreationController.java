@@ -72,6 +72,7 @@ public class AccountCreationController {
     	JSON.put("id", 7);
     	JSON.put("UserName", username);
     	JSON.put("Password", password);
+    	JSON.put("bio", "");
     	JSONObject JSON2=new JSONObject();
     	JSON2.put("type", "NewUser");
 		JSON2.put("isTest", false);

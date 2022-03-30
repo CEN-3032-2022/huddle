@@ -8,13 +8,15 @@ import javafx.stage.Stage;
 import client.User;
 import java.io.IOException;
 
+import org.json.JSONObject;
+
 /**
  * JavaFX App
  */
 public class App extends Application {
 
     private static Scene scene;
-    public static String currentUser; 
+    public static JSONObject currentUser;
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {
