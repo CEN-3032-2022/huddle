@@ -19,7 +19,7 @@ public class HomeScreenController{
 	@FXML Text UserName;
 	@FXML Text bioText;
 	@FXML public void initialize(){
-		searchBar.setPromptText("#hashtag to seach for honks with a hashtag");
+		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
 		UserName.setText(App.currentUser.getString("UserName"));
 		bioText.setText(App.currentUser.getString("bio"));
 	}
