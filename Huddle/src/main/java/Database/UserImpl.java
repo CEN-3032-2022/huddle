@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UserImpl {
 	public static Connection connect = null;
@@ -11,22 +12,39 @@ public class UserImpl {
 	public static String readAll = "SELECT * FROM APP.USERS";
 	
 	
-	public static String successMessage(String username) {
-		String message = username + " was created successfully.";
-		return message;
+	public static void successMessage(User user) {
+		String message = "SUCCESS: " + user.toString() + "\nsuccessfully stored.\n";
+		System.out.println(message);
 	}
 	
-	public static PreparedStatement createInsert() throws SQLException {
+	public static void createInsert(User user) throws SQLException {
 		connect = ConnectionFactory.getConnection();
-		PreparedStatement prepareStatement = connect.prepareStatement(insert);
-		return prepareStatement;
+		PreparedStatement preparedStatement = connect.prepareStatement(insert);
+		preparedStatement.setString(1, user.fetchUsername());
+		preparedStatement.setString(2, user.fetchPassword());
+		preparedStatement.setString(3, user.fetchBiography());
+		preparedStatement.executeUpdate();
 	}
 	
-	public static ResultSet createReadAll() throws SQLException {
+	public static void createReadAll() throws SQLException {
 		connect = ConnectionFactory.getConnection();
 		PreparedStatement prepareStatement = connect.prepareStatement(readAll);
-		ResultSet fetchResults = prepareStatement.executeQuery(readAll);
-		return fetchResults;
+		ResultSet resultSet = prepareStatement.executeQuery();
+		int increment = 1;
+		while (resultSet.next()) 
+		{
+			int id = resultSet.getInt("id");
+			String username = resultSet.getString("username");
+			String password = resultSet.getString("password");
+			String biography = resultSet.getString("biography");
+			User user = new User.UserBuilder(username, password)
+					.userBiography(biography)
+					.userId(id)
+					.build();
+			System.out.println("User #" + increment + "\n" + user.toString());
+			increment++;
+		}
+		connect.close();
 		}
 	
 	public static void format(int id, String username, String password, String biography) {

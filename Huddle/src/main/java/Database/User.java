@@ -1,11 +1,13 @@
 package Database;
 
 public class User  {
+	private final int id;
 	private final String username; 
 	private final String password;
 	private final String biography;
 	
 	private User(UserBuilder builder) {
+		this.id = builder.optionalUserId;
 		this.username = builder.requiredUsername;
 		this.password = builder.requiredPassword;
 		this.biography = builder.optionalBiography;
@@ -23,13 +25,16 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "User: " + this.username + ", " + this.password + ", " + this.biography;
+		return "\nUsername: " +  this.username
+			 + "\nPassword: "  + this.password
+			 + "\nBio: "       + this.biography;
 	}
 	
 	public static class UserBuilder {
 		private final String requiredUsername;
 		private final String requiredPassword;
 		private String optionalBiography;
+		private int optionalUserId;
 		
 		public UserBuilder(String username, String password) {
 			this.requiredUsername = username;
@@ -38,6 +43,11 @@ public class User  {
 		
 		public UserBuilder userBiography(String biography) {
 			this.optionalBiography = biography;
+			return this;
+		}
+		
+		public UserBuilder userId(int id) {
+			this.optionalUserId = id;
 			return this;
 		}
 		
