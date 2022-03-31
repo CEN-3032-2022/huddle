@@ -41,7 +41,7 @@ public class UserImpl {
 					.userBiography(biography)
 					.userId(id)
 					.build();
-			System.out.println("User #" + increment + "\n" + user.toString());
+			System.out.println("\nuserid: " + id + user.toString());
 			increment++;
 		}
 		connect.close();

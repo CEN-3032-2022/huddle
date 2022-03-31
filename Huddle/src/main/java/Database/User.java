@@ -12,7 +12,9 @@ public class User  {
 		this.password = builder.requiredPassword;
 		this.biography = builder.optionalBiography;
 	}
-
+	public int fetchId() {
+		return id;
+	}
 	public String fetchUsername() {
 		return username;
 	}
@@ -25,9 +27,9 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "\nUsername: " +  this.username
-			 + "\nPassword: "  + this.password
-			 + "\nBio: "       + this.biography;
+		return "\nusername: " +  this.username
+			 + "\npassword: "  + this.password
+			 + "\nbio: "       + this.biography;
 	}
 	
 	public static class UserBuilder {
