@@ -357,3 +357,30 @@
 	-fx-border-style: solid;
 	-fx-border-color: #6f6f6f;
 }
+.profileButton{
+  	-fx-text-fill: white;
+  	-fx-font-weight: bold;
+  	-fx-background-color: black;
+	-fx-border-width: 10px;
+	-fx-border-style: solid;
+	-fx-border-color: black;
+}
+/*Profile page*/
+.FollowProfileButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: green;
+}
+#FollowProfileButton:hover {
+    -fx-background-color: darkgreen;
+}
+.BackProfileButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: firebrick;
+}
+#BackProfileButton:hover {
+    -fx-background-color: darkred;
+}
