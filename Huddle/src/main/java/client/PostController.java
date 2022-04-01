@@ -26,7 +26,7 @@ public class PostController {
     	publishDate.setToCurrentDate();
 		JSONObject JSON = new JSONObject();
     	JSON.put("id", 7);
-    	JSON.put("UserName", App.currentUser);
+    	JSON.put("UserName", App.currentUser.getString("UserName"));
     	JSON.put("content", content);
     	JSON.put("date", publishDate.toString());
     	JSONObject JSON2=new JSONObject();

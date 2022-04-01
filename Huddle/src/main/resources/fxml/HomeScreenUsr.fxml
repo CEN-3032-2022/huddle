@@ -20,6 +20,6 @@
       <Button fx:id="changeThemeButton" Text="Change Theme" onAction="#switchTheme" GridPane.rowIndex = "20" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
       <Button fx:id="logoutButton" text="Log-Out" onAction="#switchToLogin" GridPane.rowIndex = "23" GridPane.columnIndex = "0" GridPane.columnSpan = "2" GridPane.valignment="BOTTOM" styleClass="button"/>
       <Button fx:id="searchButton" text="Search" onAction="#search" GridPane.rowIndex = "1" GridPane.columnIndex = "21" GridPane.columnSpan = "2" styleClass="button"/>
-      <TextField fx:id="Search" prefHeight = "10" prefWidth = "1550" GridPane.rowIndex = "1" GridPane.columnIndex = "2" GridPane.columnSpan = "19" styleClass="textArea"/>
+      <TextField fx:id="searchBar" prefHeight = "10" prefWidth = "1550" GridPane.rowIndex = "1" GridPane.columnIndex = "2" GridPane.columnSpan = "19" styleClass="textArea"/>
       <ScrollPane fx:id="honkScrollPaneContainer" prefWidth = "1550" prefHeight="1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "22" styleClass="scrollPane"/>
 </GridPane>
