@@ -27,7 +27,7 @@ public class User  {
 	
 	@Override
 	public String toString() {
-		return "\nusername: " +  this.username
+		return "\nusername: " 	+  this.username
 			 + "\npassword: "  + this.password
 			 + "\nbio: "       + this.biography;
 	}
