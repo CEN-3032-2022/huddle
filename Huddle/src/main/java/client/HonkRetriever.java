@@ -25,4 +25,16 @@ public class HonkRetriever {
 		JSONArray hashtagHonks = new JSONArray(hashtagHonksJSONArrayString);
 		return hashtagHonks;
 	}
+
+	public JSONArray getUsrHonks(String username) {
+		// TODO Auto-generated method stub
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "usrHonks");
+		JSON.put("UserName", username);
+		JSON.put("isTest", false);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	String JSONArrayString = ClientCommunication.getInstance().getServerUsersJSONResponse();
+		JSONArray Honks = new JSONArray(JSONArrayString);
+		return Honks;
+	}
 }

@@ -115,8 +115,35 @@ public class ServerRequest implements Runnable {
 			AddNewUser(new JSONObject(jsonRequest.getString("User")));
 		}else if (jsonRequest.getString("type").equals("hashtagSearch")){
 			sendJSONHonkResponseToClient(getHashTagHonkList(jsonRequest.getString("value")).toString());
-		} 
+		}else if (jsonRequest.getString("type").equals("verify")){
+			sendJSONHonkResponseToClient(verify(jsonRequest.getString("UserName"),jsonRequest.getString("Password")).toString());
+		}else if (jsonRequest.getString("type").equals("getUsr")){
+			sendJSONHonkResponseToClient(getUser(jsonRequest.getString("UserName")));
+		}else if (jsonRequest.getString("type").equals("usrHonks")){
+			sendJSONHonkResponseToClient(getUserHonks(jsonRequest.getString("UserName")));
+		}    
 		return;
+	}
+	private String getUserHonks(String username) {
+		// TODO Auto-generated method stub
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Honks.size(); i++) {
+			if(username.equals(Honks.get(i).getString("UserName")))
+				jsonArray.put(Honks.get(i));
+		}
+		return jsonArray.toString();
+	}
+	private String getUser(String username) {
+		// TODO Auto-generated method stub
+		JSONObject json = new JSONObject();
+		for(int i = 0; i <Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				json=new JSONObject(Users.get(i).toString());
+				json.remove("Password");
+				break;
+			}
+		}
+		return json.toString();
 	}
 	private void AddNewUser(JSONObject jsonObject) {
 		// TODO Auto-generated method stub
@@ -172,12 +199,26 @@ public class ServerRequest implements Runnable {
 	public JSONArray getUsers() {
 			JSONArray jsonArray = new JSONArray();
 			for(int i = 0; i <Users.size(); i++) {
-				jsonArray.put(Users.get(i));
+				JSONObject x=new JSONObject(Users.get(i).toString());
+				x.remove("Password");
+				jsonArray.put(x);
 			}
 			
 		return jsonArray;
 	}
-	
+	public JSONArray verify(String userName,String password) {
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Users.size(); i++) {
+			if(userName.equals(Users.get(i).getString("UserName"))&&password.equals(Users.get(i).getString("Password"))) {
+				JSONObject x=new JSONObject(Users.get(i).toString());
+				x.remove("Password");
+				jsonArray.put(x);
+				break;
+			}
+		}
+		
+	return jsonArray;
+}
 	public JSONArray getHashTagHonkList(String hashtag) {
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i < Honks.size(); i++) {

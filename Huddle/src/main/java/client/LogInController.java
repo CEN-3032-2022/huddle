@@ -29,25 +29,20 @@ public class LogInController {
     	
     	String value = "";
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "UserList");
+		JSON.put("type", "verify");
 		JSON.put("isTest", false);
+		JSON.put("Password", password.getText());
+		JSON.put("UserName", userName.getText());
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
 		JSONArray Arr=new JSONArray(value);		
 		for(int i = 0; i < Arr.length(); i++) {
 			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
-				if(Arr.getJSONObject(i).getString("Password").equals(password.getText())) {
 					correct=true;
 					App.currentUser = Arr.getJSONObject(i);
 					break;
-				}
 			}
 		}
-				
-//    	if(password.getText().equals("")&&userName.getText().equals(""))
-//    		correct=true;
-//    	else
-//    		correct=false;
     	if(correct) {
     		wrongLogin.setVisible(false);
         	App.setRoot("/fxml/HomeScreenUsr");
