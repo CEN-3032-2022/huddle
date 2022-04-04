@@ -11,7 +11,7 @@ public class ConnectionFactory {
 	static Connection connect = null;
 	static Connection shutdown = null;
 	
-	static Connection getConnection() {
+	public static Connection getConnection() {
 		
 			try {
 				connect = DriverManager.getConnection(connectURL);
