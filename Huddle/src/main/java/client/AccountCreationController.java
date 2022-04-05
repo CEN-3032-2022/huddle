@@ -73,11 +73,13 @@ public class AccountCreationController {
     	JSON.put("UserName", username);
     	JSON.put("Password", password);
     	JSON.put("bio", "");
-    	JSONObject JSON2=new JSONObject();
-    	JSON2.put("type", "NewUser");
+    	JSONObject JSON2 = new JSONObject();
+    	JSON2.put("type", "user");
+    	JSON2.put("request", "NewUser");
 		JSON2.put("isTest", false);
 		JSON2.put("User", JSON.toString());
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
+		ClientCommunication.getInstance().getServerJSONResponse();
 		
 		if(isAccountSavingSuccess)
 			switchToAccountCreationSuccessPage();

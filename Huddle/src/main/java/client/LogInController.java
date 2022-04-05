@@ -29,13 +29,13 @@ public class LogInController {
     	
     	String value = "";
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "verify");
-		JSON.put("isTest", false);
+		JSON.put("type", "user");
+		JSON.put("request", "verify");
 		JSON.put("Password", password.getText());
 		JSON.put("UserName", userName.getText());
-		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray Arr=new JSONArray(value);		
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	JSONObject verifyUsersJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray Arr = verifyUsersJSON.getJSONArray("verifyUsers");
 		for(int i = 0; i < Arr.length(); i++) {
 			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
 					correct=true;

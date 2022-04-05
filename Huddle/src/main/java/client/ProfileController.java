@@ -23,12 +23,11 @@ public class ProfileController{
 		UserName.setText(holder);
 		String value = "";
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "getUsr");
-		JSON.put("isTest", false);
+		JSON.put("type", "user");
+		JSON.put("request", "getUsr");
 		JSON.put("UserName", holder);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONObject Arr=new JSONObject(value);
+		JSONObject Arr = ClientCommunication.getInstance().getServerJSONResponse();
 		bioText.setText(Arr.getString("bio"));
 		setField();
 	}
