@@ -79,9 +79,9 @@ public class AccountCreationController {
 		JSON2.put("isTest", false);
 		JSON2.put("User", JSON.toString());
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-		ClientCommunication.getInstance().getServerJSONResponse();
+    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
 		
-		if(isAccountSavingSuccess)
+		if(isAccountSavingSuccess && saveUserJsonResponse.getBoolean("isSuccess"))
 			switchToAccountCreationSuccessPage();
 		else
 			errorDuringSavingDataWarningText.setVisible(true);

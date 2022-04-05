@@ -34,8 +34,8 @@ public class PostController {
     	JSON2.put("request", "Post");
 		JSON2.put("Honk", JSON.toString());
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-    	ClientCommunication.getInstance().getServerJSONResponse();
-		
-		switchToHome();
+    	
+    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		if(postJsonResponse.getBoolean("isSuccess")) switchToHome();
     }
 }
