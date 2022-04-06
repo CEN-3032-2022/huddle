@@ -7,22 +7,33 @@ public class HonkRetriever {
 	
 	public JSONArray getAllHonks() {
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "HonkList");
-		JSON.put("isTest", false);
+		JSON.put("type", "honk");
+		JSON.put("request", "honkList");
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-    	String honksJSONArrayString = ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray allHonks = new JSONArray(honksJSONArrayString);
+    	JSONObject honksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray allHonks = honksJSON.getJSONArray("allHonks");
 		return allHonks;
 	}
 	
 	public JSONArray getHashtagHonks(String hashtag) {
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "hashtagSearch");
+		JSON.put("type", "honk");
+		JSON.put("request", "hashtagSearch");
 		JSON.put("value", hashtag);
-		JSON.put("isTest", false);
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-    	String hashtagHonksJSONArrayString = ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray hashtagHonks = new JSONArray(hashtagHonksJSONArrayString);
+    	JSONObject hashtagHonksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray hashtagHonks = hashtagHonksJSON.getJSONArray("hashtagHonks");
 		return hashtagHonks;
+	}
+
+	public JSONArray getUsrHonks(String username) {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "honk");
+		JSON.put("request", "usrHonks");
+		JSON.put("UserName", username);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	JSONObject userHonksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray userHonks = userHonksJSON.getJSONArray("userHonks");
+		return userHonks;
 	}
 }

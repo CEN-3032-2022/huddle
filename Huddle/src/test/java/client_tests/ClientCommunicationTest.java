@@ -17,28 +17,28 @@ public class ClientCommunicationTest {
 		return testJSON;
 	}
 	
-	@Test
-	public void sendingTestJSONToServer() {
-		JSONObject testJSON = getTestJSONRequest();
-		ClientCommunication.getInstance().sendJSONRequestToServer(testJSON);
-		JSONObject testJSONResponse = ClientCommunication.getInstance().getServerJSONResponse();
-		
-		System.out.println(testJSONResponse);
-		
-		assert(testJSONResponse.getString("type").equals("testResponse"));
-		assert(testJSONResponse.getBoolean("isTest"));
-		assert(testJSONResponse.getInt("number") == 12345);
-		assert(testJSONResponse.getJSONArray("array").getInt(0) == 0);
-		assert(testJSONResponse.getJSONArray("array").getInt(4) == 4);
-		assert(testJSONResponse.getJSONArray("array").getInt(9) == 9);
-	}
+//	@Test
+//	public void sendingTestJSONToServer() {
+//		JSONObject testJSON = getTestJSONRequest();
+//		ClientCommunication.getInstance().sendJSONRequestToServer(testJSON);
+//		JSONObject testJSONResponse = ClientCommunication.getInstance().getServerJSONResponse();
+//		
+//		System.out.println(testJSONResponse);
+//		
+//		assert(testJSONResponse.getString("type").equals("testResponse"));
+//		assert(testJSONResponse.getBoolean("isTest"));
+//		assert(testJSONResponse.getInt("number") == 12345);
+//		assert(testJSONResponse.getJSONArray("array").getInt(0) == 0);
+//		assert(testJSONResponse.getJSONArray("array").getInt(4) == 4);
+//		assert(testJSONResponse.getJSONArray("array").getInt(9) == 9);
+//	}
 
 	@Test
 	public void sendingUserDataToServer() {
 		User testUser = new User(1, "user1", "user1pw!", "test user with id 1");
 		
 		JSONObject testUserJSON = new JSONObject(testUser);
-		testUserJSON.put("type", "userData");
+		testUserJSON.put("type", "userDataTest");
 		
 		assert(testUserJSON.get("id").equals(1));
 		assert(testUserJSON.get("numHonks").equals(0));

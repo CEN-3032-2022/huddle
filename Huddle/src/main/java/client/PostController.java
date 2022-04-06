@@ -30,11 +30,12 @@ public class PostController {
     	JSON.put("content", content);
     	JSON.put("date", publishDate.toString());
     	JSONObject JSON2=new JSONObject();
-    	JSON2.put("type", "Post");
-		JSON2.put("isTest", false);
+    	JSON2.put("type", "honk");
+    	JSON2.put("request", "Post");
 		JSON2.put("Honk", JSON.toString());
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-		
-		switchToHome();
+    	
+    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		if(postJsonResponse.getBoolean("isSuccess")) switchToHome();
     }
 }

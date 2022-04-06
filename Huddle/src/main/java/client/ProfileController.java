@@ -23,27 +23,18 @@ public class ProfileController{
 		UserName.setText(holder);
 		String value = "";
 		JSONObject JSON = new JSONObject();
-		JSON.put("type", "UserList");
-		JSON.put("isTest", false);
+		JSON.put("type", "user");
+		JSON.put("request", "getUsr");
+		JSON.put("UserName", holder);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		value=ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray Arr=new JSONArray(value);		
-		for(int i = 0; i < Arr.length(); i++) {
-			if(Arr.getJSONObject(i).getString("UserName").equals(UserName.getText())) {
-				bioText.setText(Arr.getJSONObject(i).getString("bio"));
-				}
-			}
+		JSONObject Arr = ClientCommunication.getInstance().getServerJSONResponse();
+		bioText.setText(Arr.getString("bio"));
 		setField();
 	}
 	@FXML
 	private void setField() {
-		String value=""; 
-		JSONObject JSON = new JSONObject();
-		JSON.put("type", "HonkList");
-		JSON.put("isTest", false);
-    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-    	value=ClientCommunication.getInstance().getServerUsersJSONResponse();
-		JSONArray Arr=new JSONArray(value);
+		HonkRetriever honksRtr = new HonkRetriever();
+		JSONArray Arr = honksRtr.getUsrHonks(holder);
 		GridPane tPane=new GridPane();
 		for(int i=0;i<Arr.length();i++) {
 			if(Arr.getJSONObject(i).getString("UserName").equals(UserName.getText())) {
