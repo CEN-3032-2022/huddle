@@ -87,7 +87,7 @@ public class UserRequestResponse implements ServerResponse {
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Users.size(); i++) {
 			JSONObject x = new JSONObject(Users.get(i).toString());
-			x.remove("Password");
+			x.remove("password");
 			jsonArray.put(x);
 		}
 		JSONObject usersJSON = new JSONObject();
@@ -101,7 +101,7 @@ public class UserRequestResponse implements ServerResponse {
 		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Users.size(); i++) {
-			if(userName.equals(Users.get(i).getString("UserName")) && password.equals(Users.get(i).getString("Password"))) {
+			if(userName.equals(Users.get(i).getString("UserName")) && password.equals(Users.get(i).getString("password"))) {
 				JSONObject x = new JSONObject(Users.get(i).toString());
 				x.remove("password");
 				jsonArray.put(x);

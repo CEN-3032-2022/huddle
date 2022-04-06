@@ -1,1 +1,2 @@
 {"password":"Password1","UserName":"sbs35","usersFollowing":[],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"","id":101,"type":"saveUserRequest","followerCount":0}
+{"password":"Password2","UserName":"guest2","usersFollowing":[],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"","id":101,"type":"saveUserRequest","followerCount":0}
