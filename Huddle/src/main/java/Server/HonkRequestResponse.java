@@ -29,12 +29,12 @@ public class HonkRequestResponse implements ServerResponse {
 			case "honkList":
 				return getHonkList();
 			case "Post":
-				postHonk(new JSONObject(honkRequestJSON.getString("Honk")));
+				postHonk();
 				return getSuccessResponse();
 			case "hashtagSearch":
-				return getHashTagHonkList(honkRequestJSON.getString("value"));
+				return getHashTagHonkList();
 			case "usrHonks":
-				return getUserHonks(honkRequestJSON.getString("UserName"));
+				return getUserHonks();
 		}
 		
 		return getFailureResponse();
@@ -68,7 +68,9 @@ public class HonkRequestResponse implements ServerResponse {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	private JSONObject getUserHonks(String username) {
+	private JSONObject getUserHonks() {
+		String username = honkRequestJSON.getString("UserName");
+		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
 			if(username.equals(Honks.get(i).getString("UserName")))
@@ -79,8 +81,9 @@ public class HonkRequestResponse implements ServerResponse {
 		return userHonksJSON;
 	}
 	
-	private void postHonk(JSONObject jsonObject) {
-		Honks.add(jsonObject);
+	private void postHonk() {
+		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+		Honks.add(honkJSON);
 		writeToFile();
 	}
 	
@@ -94,7 +97,9 @@ public class HonkRequestResponse implements ServerResponse {
 		return allHonksJSON;
 	}
 	
-	private JSONObject getHashTagHonkList(String hashtag) {
+	private JSONObject getHashTagHonkList() {
+		String hashtag = honkRequestJSON.getString("value");
+		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i < Honks.size(); i++) {
 			String honkText = Honks.get(i).getString("content");

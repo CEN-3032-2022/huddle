@@ -22,12 +22,12 @@ public class UserRequestResponse implements ServerResponse {
 			case "UserList":
 				return getUsers();
 			case "NewUser":
-				AddNewUser(new JSONObject(userRequestJSON.getString("User")));
+				AddNewUser();
 				return getSuccessResponse();
 			case "verify":
-				return verify(userRequestJSON.getString("UserName"), userRequestJSON.getString("Password"));
+				return verify();
 			case "getUsr":
-				return getUser(userRequestJSON.getString("UserName"));
+				return getUser();
 			case "userDataTest":
 				return getTestUserDataJSONResponse();
 		}
@@ -63,7 +63,9 @@ public class UserRequestResponse implements ServerResponse {
 		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
-	private JSONObject getUser(String username) {
+	private JSONObject getUser() {
+		String username = userRequestJSON.getString("UserName");
+		
 		JSONObject json = new JSONObject();
 		for(int i = 0; i < Users.size(); i++) {
 			if(username.equals(Users.get(i).getString("UserName"))) {
@@ -75,8 +77,9 @@ public class UserRequestResponse implements ServerResponse {
 		return json;
 	}
 	
-	private void AddNewUser(JSONObject jsonObject) {
-		Users.add(jsonObject);
+	private void AddNewUser() {
+		JSONObject userJSON = new JSONObject(userRequestJSON.getString("User"));
+		Users.add(userJSON);
 		writeToFile();
 	}
 	
@@ -92,7 +95,10 @@ public class UserRequestResponse implements ServerResponse {
 		return usersJSON;
 	}
 	
-	public JSONObject verify(String userName,String password) {
+	public JSONObject verify() {
+		String userName = userRequestJSON.getString("UserName");
+		String password = userRequestJSON.getString("Password");
+		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Users.size(); i++) {
 			if(userName.equals(Users.get(i).getString("UserName")) && password.equals(Users.get(i).getString("Password"))) {
