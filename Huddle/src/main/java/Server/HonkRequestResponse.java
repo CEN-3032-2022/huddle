@@ -35,6 +35,8 @@ public class HonkRequestResponse implements ServerResponse {
 				return getHashTagHonkList();
 			case "usrHonks":
 				return getUserHonks();
+			case "followedHonks":
+				return getFollowedHonks();
 		}
 		
 		return getFailureResponse();
@@ -78,6 +80,22 @@ public class HonkRequestResponse implements ServerResponse {
 		}
 		JSONObject userHonksJSON = new JSONObject();
 		userHonksJSON.put("userHonks", jsonArray);
+		return userHonksJSON;
+	}
+	
+	private JSONObject getFollowedHonks() {
+		JSONArray followedUsers = honkRequestJSON.getJSONArray("followedUsers"); 
+		
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Honks.size(); i++) {
+			for(int j = 0; j < followedUsers.length(); ++j) {
+				if(Honks.get(i).getString("UserName").equals(followedUsers.getString(j))) {
+					jsonArray.put(Honks.get(i));
+				}
+			}
+		}
+		JSONObject userHonksJSON = new JSONObject();
+		userHonksJSON.put("followedHonks", jsonArray);
 		return userHonksJSON;
 	}
 	

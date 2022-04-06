@@ -14,14 +14,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class HomeScreenController{
+	HonkRetriever honkRtr;
+	
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML TextField searchBar;
 	@FXML Text UserName;
 	@FXML Text bioText;
 	@FXML public void initialize(){
+		honkRtr = new HonkRetriever();
 		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
 		UserName.setText(App.currentUser.getString("UserName"));
 		bioText.setText(App.currentUser.getString("bio"));
+		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
+		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
 	}
     @FXML
     private void switchToLogin() throws IOException {
@@ -29,8 +34,7 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToWall() throws IOException {
-		HonkRetriever honksRtr = new HonkRetriever();
-		JSONArray allHonks = honksRtr.getAllHonks();
+		JSONArray allHonks = honkRtr.getAllHonks();
 		honkScrollPaneContainer.setContent(createHonksGridpane(allHonks));
     }
     @FXML
