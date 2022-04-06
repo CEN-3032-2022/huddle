@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import client.App;
+
 public class UserRequestResponse implements ServerResponse {
 
     static private ArrayList<JSONObject> Users = new ArrayList<JSONObject>();
@@ -30,9 +32,17 @@ public class UserRequestResponse implements ServerResponse {
 				return getUser();
 			case "userDataTest":
 				return getTestUserDataJSONResponse();
+			case "followUser":
+				followUser();
+				return getSuccessResponse();
 		}
 		
 		return getFailureResponse();
+	}
+	
+	public UserRequestResponse(JSONObject userRequestJSON) {
+		readFile();
+		this.userRequestJSON = userRequestJSON;
 	}
     
 	// Remove Method When Database Fully Integrated
@@ -124,10 +134,24 @@ public class UserRequestResponse implements ServerResponse {
 		successJSON.put("isSuccess", false);
 		return successJSON;
 	}
-    
-	public UserRequestResponse(JSONObject userRequestJSON) {
-		readFile();
-		this.userRequestJSON = userRequestJSON;
+	
+	private void followUser() {
+		String userFollowing = userRequestJSON.getString("userFollowing");
+		String userToFollow = userRequestJSON.getString("userToFollow");
+		
+		for(int i = 0; i <Users.size(); i++) {
+			if(userFollowing.equals(Users.get(i).getString("UserName"))) {
+				JSONArray usersFollowing = Users.get(i).getJSONArray("usersFollowing");
+				usersFollowing.put(userToFollow);
+				Users.get(i).put("usersFollowing", usersFollowing);
+			}
+			else if(userToFollow.equals(Users.get(i).getString("UserName"))) {
+				int newFollowerCount = Users.get(i).getInt("followerCount") + 1;
+				Users.get(i).put("followerCount", newFollowerCount);
+			}
+		}
+		
+		writeToFile();
 	}
 	
 	// ---------- Temporary Testing Methods	------------

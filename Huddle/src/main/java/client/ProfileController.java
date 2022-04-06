@@ -13,22 +13,26 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 public class ProfileController{
+	int profileFollowerCount;
 	@FXML ScrollPane honkScrollPaneContainer;
+	@FXML Button followButton;
+	@FXML Text followersText;
 	static String holder;
 	@FXML
 	private Text UserName;
 	@FXML
 	private Text bioText;
 	@FXML public void initialize(){
+		if(holder.equalsIgnoreCase(App.currentUser.getString("UserName"))) {
+			   followButton.setVisible(false);
+		}
 		UserName.setText(holder);
-		String value = "";
-		JSONObject JSON = new JSONObject();
-		JSON.put("type", "user");
-		JSON.put("request", "getUsr");
-		JSON.put("UserName", holder);
-		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		JSONObject Arr = ClientCommunication.getInstance().getServerJSONResponse();
-		bioText.setText(Arr.getString("bio"));
+		
+		JSONObject profileData = getUserProfileData(holder);
+		if(isAlreadyFollowingUser()) disableFollowButton();		
+		bioText.setText(profileData.getString("bio"));
+		profileFollowerCount = profileData.getInt("followerCount");
+		followersText.setText("Followers: " + profileFollowerCount);
 		setField();
 	}
 	@FXML
@@ -46,7 +50,46 @@ public class ProfileController{
 		honkScrollPaneContainer.setContent(tPane);
 	}
     @FXML
+    private void followButtonOnClick() {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "user");
+		JSON.put("request", "followUser");
+		JSON.put("userFollowing", App.currentUser.getString("UserName"));
+		JSON.put("userToFollow", holder);
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		ClientCommunication.getInstance().getServerJSONResponse();
+		followersText.setText("Followers: " + ++profileFollowerCount);
+		disableFollowButton();
+    }
+    @FXML
     private void switchToMain() throws IOException {
     	App.setRoot("/fxml/HomeScreenUsr");
+    }
+    
+    private boolean isAlreadyFollowingUser() {
+		JSONObject currUserData = getUserProfileData(App.currentUser.getString("UserName"));
+    	JSONArray followedUsers = currUserData.getJSONArray("usersFollowing");
+    	for(int i = 0; i < followedUsers.length(); ++i) {
+    		if(holder.equalsIgnoreCase(followedUsers.getString(i))) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    private JSONObject getUserProfileData(String username) {
+		JSONObject profileRequest = new JSONObject();
+		profileRequest.put("type", "user");
+		profileRequest.put("request", "getUsr");
+		profileRequest.put("UserName", username);
+		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
+		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
+		return profileData;
+    }
+    
+    private void disableFollowButton() {
+    	followButton.setStyle("-fx-background-color: darkgreen;");
+    	followButton.setDisable(true);
+    	followButton.setText("Followed");
     }
  }

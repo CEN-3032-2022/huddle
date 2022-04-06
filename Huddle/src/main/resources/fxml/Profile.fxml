@@ -11,8 +11,9 @@
 <GridPane fx:id="pane" xmlns:fx="http://javafx.com/fxml" fx:controller="client.ProfileController" hgap="20" vgap="20" styleClass="gridPane"> 
 	<padding><Insets top="10" right="15" bottom="15" left="25"/></padding>
       <Text fx:id="UserName" GridPane.rowIndex = "1" GridPane.columnIndex = "0" styleClass="info-text"/>
-      <Text fx:id="bioText"  wrappingWidth = "200" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
+      <Text fx:id="followersText" GridPane.rowIndex = "2" GridPane.columnIndex = "0" styleClass="info-text"/>
+      <Text fx:id="bioText"  wrappingWidth = "200" GridPane.rowIndex = "3" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
       <Button fx:id="returnButton" Text="Return" onAction="#switchToMain" GridPane.rowIndex = "24" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="BackProfileButton"/>
-      <Button fx:id="followButton" Text="Follow" onAction="#switchToMain" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
+      <Button fx:id="followButton" Text="Follow" onAction="#followButtonOnClick" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
       <ScrollPane fx:id="honkScrollPaneContainer" prefWidth = "1550" prefHeight="1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "22" styleClass="scrollPane"/>
 </GridPane>

@@ -30,7 +30,7 @@ public class AccountSaver {
 		
     	userJSON.put("id", 101); // id will be automatically generated in database
 		userJSON.put("type", "saveUserRequest");
-		userJSON.put("bio", "");
+		userJSON.put("bio", "I am " + username);
 		userJSON.put("followerCount", 0);
 		userJSON.put("usersFollowing", new JSONArray());
 		userJSON.put("UserName", username);
