@@ -97,4 +97,8 @@ replay_pid*
 ### Mac ###
 *.DS_Store
 
+### Derby Embedded ###
+HuddleDB/
+*.dat
+
 # End of https://www.toptal.com/developers/gitignore/api/java
