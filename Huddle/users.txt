@@ -1,8 +1,1 @@
-{"UserName":"Bmw54","bio":"How many holes does a straw have?","id":7,"Password":"Bmw1215"}
-{"UserName":"guest","bio":"If you stack a lasagne on top of another lasagne how many lasagnes are there?","id":7,"Password":"Password1"}
-{"UserName":"Sbs35","bio":"I poor milk before the cereal","id":7,"Password":"Password1"}
-{"UserName":"guest2","bio":"","id":7,"Password":"Password2"}
-{"UserName":"guest2","bio":"","id":7,"Password":"Password2"}
-{"UserName":"guest3","bio":"","id":7,"Password":"Password3"}
-{"UserName":"guest4","bio":"","id":7,"Password":"Password4"}
-{"UserName":"guest5","bio":"","id":7,"Password":"Password5"}
+{"password":"Password1","UserName":"sbs35","usersFollowing":[],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"","id":101,"type":"saveUserRequest","followerCount":0}

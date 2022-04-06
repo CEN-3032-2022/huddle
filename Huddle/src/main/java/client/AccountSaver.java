@@ -1,5 +1,6 @@
 package client;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class AccountSaver {
@@ -17,26 +18,32 @@ public class AccountSaver {
 	}
 	
 	public boolean saveAccount() {
+		JSONObject saveUserRequestJSON = getSaveUserAccountJSONRequest();
+		ClientCommunication.getInstance().sendJSONRequestToServer(saveUserRequestJSON);
 		
-		@SuppressWarnings("unused")
-		JSONObject saveUserAccountJSON = getSaveUserAccountJSONRequest();
-		
-		// TODO: Send save user request and retrieve response
-		
-		return true;
+    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		return saveUserJsonResponse.getBoolean("isSuccess");
 	}
 	
 	private JSONObject getSaveUserAccountJSONRequest() {
-		JSONObject saveUserAccountJSON = new JSONObject();
+		JSONObject userJSON = new JSONObject();
 		
-		saveUserAccountJSON.put("type", "saveUserRequest");
-		saveUserAccountJSON.put("isTest", false);
-		saveUserAccountJSON.put("username", username);
-		saveUserAccountJSON.put("password", password);
-		saveUserAccountJSON.put("recoveryAnswer1", recoveryAnswer1);
-		saveUserAccountJSON.put("recoveryAnswer2", recoveryAnswer2);
+    	userJSON.put("id", 101); // id will be automatically generated in database
+		userJSON.put("type", "saveUserRequest");
+		userJSON.put("bio", "");
+		userJSON.put("followerCount", 0);
+		userJSON.put("usersFollowing", new JSONArray());
+		userJSON.put("UserName", username);
+		userJSON.put("password", password);
+		userJSON.put("recoveryAnswer1", recoveryAnswer1);
+		userJSON.put("recoveryAnswer2", recoveryAnswer2);
 		
-		return saveUserAccountJSON;
+    	JSONObject requestJSON = new JSONObject();
+    	requestJSON.put("type", "user");
+    	requestJSON.put("request", "NewUser");
+    	requestJSON.put("User", userJSON.toString());
+		
+		return requestJSON;
 	}
 	
 }

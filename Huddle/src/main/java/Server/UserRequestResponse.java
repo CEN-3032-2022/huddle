@@ -70,7 +70,7 @@ public class UserRequestResponse implements ServerResponse {
 		for(int i = 0; i < Users.size(); i++) {
 			if(username.equals(Users.get(i).getString("UserName"))) {
 				json=new JSONObject(Users.get(i).toString());
-				json.remove("Password");
+				json.remove("password");
 				break;
 			}
 		}
@@ -97,13 +97,13 @@ public class UserRequestResponse implements ServerResponse {
 	
 	public JSONObject verify() {
 		String userName = userRequestJSON.getString("UserName");
-		String password = userRequestJSON.getString("Password");
+		String password = userRequestJSON.getString("password");
 		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Users.size(); i++) {
 			if(userName.equals(Users.get(i).getString("UserName")) && password.equals(Users.get(i).getString("Password"))) {
 				JSONObject x = new JSONObject(Users.get(i).toString());
-				x.remove("Password");
+				x.remove("password");
 				jsonArray.put(x);
 				break;
 			}
