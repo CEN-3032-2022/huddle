@@ -57,13 +57,6 @@ public class ProfileController{
     private void followButtonOnClick() {		
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	userRepo.followUser(App.currentUser.getUsername(), holder);
-		
-//		JSON.put("type", "user");
-//		JSON.put("request", "followUser");
-//		JSON.put("userFollowing", App.currentUser.getUsername());
-//		JSON.put("userToFollow", holder);
-//		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-//		ClientCommunication.getInstance().getServerJSONResponse();
     	
 		followersText.setText("Followers: " + ++profileFollowerCount);
 		disableFollowButton();
@@ -87,13 +80,6 @@ public class ProfileController{
     private User getUserProfileData(String username) {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	User currUser = userRepo.getUserByUsername(App.currentUser.getUsername());
-    	
-//		JSONObject profileRequest = new JSONObject();
-//		profileRequest.put("type", "user");
-//		profileRequest.put("request", "getUsr");
-//		profileRequest.put("UserName", username);
-//		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
-//		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
     	
 		return currUser;
     }
