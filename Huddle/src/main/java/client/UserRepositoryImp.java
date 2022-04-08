@@ -54,7 +54,7 @@ public class UserRepositoryImp implements UserRepository {
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "user");
 		JSON.put("request", "followUser");
-		JSON.put("userFollowing", App.currentUser.getString("UserName"));
+		JSON.put("userFollowing", App.currentUser.getUsername());
 		JSON.put("userToFollow", userToFollow);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		JSONObject followUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();

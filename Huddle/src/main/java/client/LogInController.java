@@ -25,26 +25,12 @@ public class LogInController {
     }
     @FXML
     private void check() throws IOException {
-    	boolean correct = false;
+		UserRepositoryImp userRepo = new UserRepositoryImp();
+    	boolean correct = userRepo.verifiyUser(userName.getText(), password.getText());
     	
-    	String value = "";
-		JSONObject JSON = new JSONObject();
-		JSON.put("type", "user");
-		JSON.put("request", "verify");
-		JSON.put("password", password.getText());
-		JSON.put("UserName", userName.getText());
-    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-    	JSONObject verifyUsersJSON = ClientCommunication.getInstance().getServerJSONResponse();
-		JSONArray Arr = verifyUsersJSON.getJSONArray("verifyUsers");
-		for(int i = 0; i < Arr.length(); i++) {
-			if(Arr.getJSONObject(i).getString("UserName").equals(userName.getText())) {
-					correct=true;
-					App.currentUser = Arr.getJSONObject(i);
-					break;
-			}
-		}
     	if(correct) {
     		wrongLogin.setVisible(false);
+    		
         	App.setRoot("/fxml/HomeScreenUsr");
     	}
     	else {

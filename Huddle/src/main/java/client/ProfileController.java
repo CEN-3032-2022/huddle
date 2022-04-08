@@ -24,7 +24,7 @@ public class ProfileController{
 	@FXML
 	private Text bioText;
 	@FXML public void initialize(){
-		if(holder.equalsIgnoreCase(App.currentUser.getString("UserName"))) {
+		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
 		}
 		UserName.setText(holder);
@@ -57,7 +57,7 @@ public class ProfileController{
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "user");
 		JSON.put("request", "followUser");
-		JSON.put("userFollowing", App.currentUser.getString("UserName"));
+		JSON.put("userFollowing", App.currentUser.getUsername());
 		JSON.put("userToFollow", holder);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		ClientCommunication.getInstance().getServerJSONResponse();
@@ -70,7 +70,7 @@ public class ProfileController{
     }
     
     private boolean isAlreadyFollowingUser() {
-		JSONObject currUserData = getUserProfileData(App.currentUser.getString("UserName"));
+		JSONObject currUserData = getUserProfileData(App.currentUser.getUsername());
     	JSONArray followedUsers = currUserData.getJSONArray("usersFollowing");
     	for(int i = 0; i < followedUsers.length(); ++i) {
     		if(holder.equalsIgnoreCase(followedUsers.getString(i))) {
