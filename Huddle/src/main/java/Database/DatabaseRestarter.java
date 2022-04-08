@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DatabaseRestarter {
 	
-	private Connection connect = null;
+	private static Connection connect = null;
 	
-	public void dropAllTables() {
+	public static void dropAllTables() {
 		try {
 			PreparedStatement preparedStatement = connect.prepareStatement("DROP TABLE APP.USERS");
 			preparedStatement.execute();
@@ -18,7 +18,7 @@ public class DatabaseRestarter {
 		}
 	}
 	
-	public void createAllTables() {
+	public static void createAllTables() {
 		try {
 			PreparedStatement preparedStatement2 = connect.prepareStatement("CREATE TABLE APP.USERS"
 					+ "(ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY, "
@@ -30,10 +30,10 @@ public class DatabaseRestarter {
 		}
 	}
 
-	public void restartDatabase() {
+	public static void restartDatabase() {
 		connect = ConnectionFactory.getConnection();
-		dropAllTables();
-		createAllTables();
+		DatabaseRestarter.dropAllTables();
+		DatabaseRestarter.createAllTables();
 	}
 	
 }
