@@ -12,6 +12,16 @@ public class AccountCreationValidator {
 	private Pattern pwDigitPattern;
 	private Pattern pwCharLengthPattern;
 	
+//	private JSONObject getCheckUsernameJSONRequest(String username) {
+//		JSONObject checkUsernameJSON = new JSONObject();
+//		
+//		checkUsernameJSON.put("type", "checkUsernameRequest");
+//		checkUsernameJSON.put("isTest", false);
+//		checkUsernameJSON.put("username", username);
+//		
+//		return checkUsernameJSON;
+//	}
+	
 	public AccountCreationValidator() {
 		setUsernameCharLengthPattern("^.{5,20}$");
 		setPwCapLetterPattern("[A-Z]+");
