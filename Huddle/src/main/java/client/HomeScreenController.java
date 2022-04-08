@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,14 +36,16 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToWall() throws IOException {
-		JSONArray allHonks = honkRtr.getAllHonks();
-		honkScrollPaneContainer.setContent(createHonksGridpane(allHonks));
+    	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
+		ArrayList<Honk> honks = honksRtr.getHonkList();
+		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
 		isMasterWall = true;
     }
     @FXML
     private void switchToFollowed() {
-		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getUsername());
-		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
+    	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
+		ArrayList<Honk> honks = honksRtr.getFollowedHonks(App.currentUser.getUsername());
+		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
 		isMasterWall = false;
     }
     @FXML
@@ -50,18 +53,18 @@ public class HomeScreenController{
     	String searchText = searchBar.getText();
     	if(searchText.startsWith("#")) {
     		String hashtag = searchText.stripTrailing();
-    		HonkRetriever honksRtr = new HonkRetriever();
-    		JSONArray hashtagHonks = honksRtr.getHashtagHonks(hashtag);
-    		honkScrollPaneContainer.setContent(createHonksGridpane(hashtagHonks));
+    		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
+    		ArrayList<Honk> honks = honksRtr.getHashtagHonkList(hashtag);
+    		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
     	}
     	else{
     		String name = searchText.stripTrailing();
-    		HonkRetriever honksRtr = new HonkRetriever();
-    		JSONArray hashtagHonks = honksRtr.getUsrHonks(name);
+    		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
+    		ArrayList<Honk> honks = honksRtr.getUserHonks(name);
     		UserRepositoryImp x = new UserRepositoryImp();
     		User usr = x.getUserByUsername(searchText);
-    		if(hashtagHonks.length()>0&&usr.getUsername().equals(name))
-    			honkScrollPaneContainer.setContent(createUsrGridpane(usr,hashtagHonks));
+    		if(honks.size()>0&&usr.getUsername().equals(name))
+    			honkScrollPaneContainer.setContent(createUsrGridpane(usr,honks));
     	}
     }
     @FXML
@@ -91,31 +94,31 @@ public class HomeScreenController{
     	else
     		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     }
-    private GridPane createUsrGridpane(User usr,JSONArray honksData) {
+    private GridPane createUsrGridpane(User usr,ArrayList<Honk> honks) {
 		GridPane honksPane = new GridPane();
 		honksPane.add(new Text(usr.getUsername()+" Followers: "+usr.getFollowerCount()+"\n"), 0, 0);
 		honksPane.add(createViewProfileButton(usr.getUsername()), 0,2);
-		for(int i=0;i<honksData.length();i++) {
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+3);
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+3);
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 0, (i*4)+4);
-			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+4);
-			final String name = honksData.getJSONObject(i).getString("UserName");
+		for(int i=0;i<honks.size();i++) {
+			honksPane.add(new Text(honks.get(i).getUserName()), 0, (i*4)+3);
+			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 3, (i*4)+3);
+			honksPane.add(new Text(honks.get(i).getContent()), 0, (i*4)+4);
+			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 3, (i*4)+4);
+			final String name = honks.get(i).getUserName();
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+5);
-			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 1, (i*4)+5);
+			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+5);
 		}
     	return honksPane;
     }
-    private GridPane createHonksGridpane(JSONArray honksData) {
+    private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = new GridPane();
-		for(int i=0;i<honksData.length();i++) {
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+0);
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 0, (i*4)+1);
-			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+1);
-			final String name = honksData.getJSONObject(i).getString("UserName");
+		for(int i=0;i<honks.size();i++) {
+			honksPane.add(new Text(honks.get(i).getUserName()), 0, (i*4)+0);
+			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 3, (i*4)+0);
+			honksPane.add(new Text(honks.get(i).getContent()), 0, (i*4)+1);
+			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 3, (i*4)+2);
+			final String name = honks.get(i).getUserName();
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
-			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 1, (i*4)+2);
+			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+2);
 		}
     	return honksPane;
     }
