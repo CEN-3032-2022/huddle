@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +46,8 @@ public class ProfileController{
 				tPane.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
 				tPane.add(new Text(Arr.getJSONObject(i).getString("date")), 3, (i*4)+0);
 				tPane.add(new Text(Arr.getJSONObject(i).getString("content")), 1, (i*4)+1);
+				tPane.add(new Text("Likes: " + Arr.getJSONObject(i).getInt("numLikes")), 3, (i*4)+2);
+				tPane.add(createLikeButton(Arr.getJSONObject(i)), 0, (i*4)+2);
 			}
 		}
 		honkScrollPaneContainer.setContent(tPane);
@@ -91,5 +94,25 @@ public class ProfileController{
     	followButton.setStyle("-fx-background-color: darkgreen;");
     	followButton.setDisable(true);
     	followButton.setText("Followed");
+    }
+
+    private Button createLikeButton(JSONObject honkJSON) {
+    	Button likeButton = new Button("Like");
+    	likeButton.getStyleClass().clear();
+    	likeButton.getStyleClass().add("likeButton");
+    	
+    	likeButton.setOnAction(new EventHandler<>() {
+    		@Override
+    		public void handle(ActionEvent event) {    			
+    			try {
+					LikeHonkController.likeHonk(honkJSON);
+					setField();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	});
+    	
+    	return likeButton;
     }
  }

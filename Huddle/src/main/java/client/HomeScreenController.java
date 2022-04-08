@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.text.Text;
 
 public class HomeScreenController{
 	HonkRetriever honkRtr;
+	boolean isMasterWall;
 	
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML TextField searchBar;
@@ -25,8 +27,7 @@ public class HomeScreenController{
 		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
 		UserName.setText(App.currentUser.getString("UserName"));
 		bioText.setText(App.currentUser.getString("bio"));
-		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
-		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
+		switchToFollowed();
 	}
     @FXML
     private void switchToLogin() throws IOException {
@@ -36,6 +37,13 @@ public class HomeScreenController{
     private void switchToWall() throws IOException {
 		JSONArray allHonks = honkRtr.getAllHonks();
 		honkScrollPaneContainer.setContent(createHonksGridpane(allHonks));
+		isMasterWall = true;
+    }
+    @FXML
+    private void switchToFollowed() {
+		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
+		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
+		isMasterWall = false;
     }
     @FXML
     private void search() {
@@ -81,10 +89,33 @@ public class HomeScreenController{
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+0);
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 1, (i*4)+1);
+			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+1);
 			final String name = honksData.getJSONObject(i).getString("UserName");
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
+			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 0, (i*4)+2);
 		}
     	return honksPane;
+    }
+    
+    private Button createLikeButton(JSONObject honkJSON) {
+    	Button likeButton = new Button("Like");
+    	likeButton.getStyleClass().clear();
+    	likeButton.getStyleClass().add("likeButton");
+    	
+    	likeButton.setOnAction(new EventHandler<>() {
+    		@Override
+    		public void handle(ActionEvent event) {    			
+    			try {
+					LikeHonkController.likeHonk(honkJSON);
+					if(isMasterWall) switchToWall();
+					else switchToFollowed();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	});
+    	
+    	return likeButton;
     }
     
     private Button createViewProfileButton(String name) {

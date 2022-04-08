@@ -14,7 +14,8 @@
       <Text fx:id="bioText"  wrappingWidth = "200" GridPane.rowIndex = "2" GridPane.columnIndex = "0" GridPane.rowSpan = "4" GridPane.valignment="TOP" styleClass="info-text"/>
       <Button fx:id="postHonkButton" Text="Post" onAction="#switchToPost" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
       <Button fx:id="masterWallButton" text="Master Wall" onAction="#switchToWall" GridPane.rowIndex = "16" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
-      <Button fx:id="likedHonksButton" text="Liked" onAction="#switchToTagged" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
+      <Button fx:id="followedHonksButton" text="Followed" onAction="#switchToFollowed" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
+<!--       <Button fx:id="likedHonksButton" text="Liked" onAction="#switchToTagged" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/> -->
       <Button fx:id="taggedHonksButton" text="Tagged In" onAction="#switchToTagged" GridPane.rowIndex = "18" GridPane.columnIndex = "0" GridPane.columnSpan = "2" styleClass="button"/>
       <Button fx:id="editBioButton" Text="Edit Bio" onAction="#switchToBio" GridPane.rowIndex = "19" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>
       <Button fx:id="changeThemeButton" Text="Change Theme" onAction="#switchTheme" GridPane.rowIndex = "20" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="button"/>

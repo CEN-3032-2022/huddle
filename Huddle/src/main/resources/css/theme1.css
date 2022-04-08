@@ -226,6 +226,16 @@
     -fx-background-color: #5a6268;
 }
 
+#followedHonksButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: #6c757d;
+}
+##followedHonksButton:hover {
+    -fx-background-color: #5a6268;
+}
+
 #likedHonksButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
