@@ -1,4 +1,4 @@
-{"date":"4/5/2022","UserName":"guest2","numLikes":11,"content":"Guest2's First Post"}
-{"date":"3/30/2022","UserName":"guest","numLikes":14,"content":"hello World #test"}
-{"date":"3/11/2022","UserName":"Sbs35","numLikes":9,"content":"Penguins are cool"}
-{"date":"3/29/2022","UserName":"Bmw54","numLikes":14,"content":"(>'-')> <('-'<) ^('-')^ v('-')v(>'-')> (^-^)"}
+{"date":"4/5/2022","UserName":"guest2","numLikes":20,"content":"Guest2's First Post"}
+{"date":"3/30/2022","UserName":"guest","numLikes":25,"content":"hello World #test"}
+{"date":"3/11/2022","UserName":"Sbs35","numLikes":25,"content":"Penguins are cool"}
+{"date":"3/29/2022","UserName":"Bmw54","numLikes":34,"content":"(>'-')> <('-'<) ^('-')^ v('-')v(>'-')> (^-^)"}

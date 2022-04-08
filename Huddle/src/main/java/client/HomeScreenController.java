@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 
 public class HomeScreenController{
 	HonkRetriever honkRtr;
+	boolean isMasterWall;
 	
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML TextField searchBar;
@@ -26,8 +27,7 @@ public class HomeScreenController{
 		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
 		UserName.setText(App.currentUser.getString("UserName"));
 		bioText.setText(App.currentUser.getString("bio"));
-		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
-		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
+		switchToFollowed();
 	}
     @FXML
     private void switchToLogin() throws IOException {
@@ -37,6 +37,13 @@ public class HomeScreenController{
     private void switchToWall() throws IOException {
 		JSONArray allHonks = honkRtr.getAllHonks();
 		honkScrollPaneContainer.setContent(createHonksGridpane(allHonks));
+		isMasterWall = true;
+    }
+    @FXML
+    private void switchToFollowed() {
+		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
+		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
+		isMasterWall = false;
     }
     @FXML
     private void search() {
@@ -100,7 +107,8 @@ public class HomeScreenController{
     		public void handle(ActionEvent event) {    			
     			try {
 					LikeHonkController.likeHonk(honkJSON);
-					switchToWall();
+					if(isMasterWall) switchToWall();
+					else switchToFollowed();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
