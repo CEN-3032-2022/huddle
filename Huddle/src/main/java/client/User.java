@@ -9,37 +9,33 @@ import client.Honk;
 public class User {
 	private int id;
 	private String username;
-	private String password;
 	private String bio;
-	private ArrayList<Honk> honks;
+	private ArrayList<String> followedUsernames;
 	private int numHonks;
 	
 	public User(){
 		id = -1;
 		username = "unnamed user";
-		password = "password";
 		bio = "unwritten bio";
-		honks = new ArrayList<Honk>();
+		followedUsernames = new ArrayList<String>();
 		numHonks = 0;
 	}
 	public User(JSONObject json){
 		id = json.getInt("id");
-		honks=new ArrayList<Honk>();
-		username = json.getString("username");;
-		password = json.getString("password");
+		followedUsernames = new ArrayList<String>();
+		username = json.getString("UserName");;
 		bio = json.getString("bio");
 		numHonks = json.getInt("numHonks");
-		JSONArray array=new JSONArray(json.getJSONArray("honks").toString());
+		JSONArray array=new JSONArray(json.getJSONArray("usersFollowing").toString());
 		for(int i=0;i<array.length();i++) {
-			honks.add(new Honk(array.getJSONObject(i)));
+			followedUsernames.add(array.getString(i));
 		}
 	}
-	public User(int id, String username, String password, String bio){
+	public User(int id, String username, String bio){
 		this.id = id;
 		this.username = username;
-		this.password = password;
 		this.bio = bio;
-		honks = new ArrayList<Honk>();
+		followedUsernames = new ArrayList<String>();
 		numHonks = 0;
 	}
 	
@@ -51,20 +47,16 @@ public class User {
 		return username;
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-	
 	public String getBio() {
 		return bio;
 	}
 	
-	public ArrayList<Honk> getHonks() {
-		return honks;
+	public ArrayList<String> getFollowedUsernames() {
+		return followedUsernames;
 	}
 	
-	public Honk getHonk(int index) {
-		return honks.get(index);
+	public String getFollowedUser(int index) {
+		return followedUsernames.get(index);
 	}
 	
 	public int getNumHonks() {
@@ -79,53 +71,47 @@ public class User {
 		this.username = username;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	public void setBio(String bio) {
 		this.bio = bio;
 	}
 	
-	public void addHonk(Honk honk) {
-		honks.add(honk);
-		numHonks++;
-	}
-	
-	public void addHonk(int id, String content, Date publishDate) {
-		honks.add(new Honk(id, content, publishDate, username));
-		numHonks++;
-	}
-	
-	public void addHonk(int id, String content, int month, int day, int year) {
-		honks.add(new Honk(id, content, month, day, year,username));
-		numHonks++;
-	}
+//	public void addHonk(Honk honk) {
+//		honks.add(honk);
+//		numHonks++;
+//	}
+//	
+//	public void addHonk(int id, String content, Date publishDate) {
+//		honks.add(new Honk(id, content, publishDate, username));
+//		numHonks++;
+//	}
+//	
+//	public void addHonk(int id, String content, int month, int day, int year) {
+//		honks.add(new Honk(id, content, month, day, year,username));
+//		numHonks++;
+//	}
 	
 	public String toString() {
 		String output = "id: " + getId() + "\n" +
 				"username: " + getUsername() + "\n" +
-				"password: " + getPassword() + "\n" +
 				"bio: " + getBio() + "\n";
 		
 		return output;
 	}
 	
-	public String toJsonString() {
-		JSONObject userJson = new JSONObject();
-		userJson.put("id", getId());
-		userJson.put("UserName", getUsername());
-		userJson.put("Password", getPassword());
-		userJson.put("bio", getBio());
-		
-		JSONArray honksJson = new JSONArray();
-		
-		for(int i = 0; i < getNumHonks(); i++) {
-			honksJson.put(getHonk(i));
-		}
-		
-		userJson.put("honks", honksJson);
-		
-		return userJson.toString();
-	}
+//	public String toJsonString() {
+//		JSONObject userJson = new JSONObject();
+//		userJson.put("id", getId());
+//		userJson.put("UserName", getUsername());
+//		userJson.put("bio", getBio());
+//		
+//		JSONArray honksJson = new JSONArray();
+//		
+//		for(int i = 0; i < getNumHonks(); i++) {
+//			honksJson.put(getHonk(i));
+//		}
+//		
+//		userJson.put("honks", honksJson);
+//		
+//		return userJson.toString();
+//	}
 }
