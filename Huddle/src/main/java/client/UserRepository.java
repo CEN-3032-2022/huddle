@@ -8,7 +8,7 @@ public interface UserRepository {
 	
 	User getUserByUsername(String username);
 	
-	User getVerifiedUser();
+	boolean verifiyUser(String username, String password);
 	
 	boolean followUser(String userFollowing, String userToFollow);
 	

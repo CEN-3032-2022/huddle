@@ -18,32 +18,29 @@ public class AccountSaver {
 	}
 	
 	public boolean saveAccount() {
-		JSONObject saveUserRequestJSON = getSaveUserAccountJSONRequest();
-		ClientCommunication.getInstance().sendJSONRequestToServer(saveUserRequestJSON);
-		
-    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
-		return saveUserJsonResponse.getBoolean("isSuccess");
+		UserRepositoryImp userRepo = new UserRepositoryImp();
+		return userRepo.addNewUser(username, password, recoveryAnswer2, recoveryAnswer1);
 	}
 	
-	private JSONObject getSaveUserAccountJSONRequest() {
-		JSONObject userJSON = new JSONObject();
-		
-    	userJSON.put("id", 101); // id will be automatically generated in database
-		userJSON.put("type", "saveUserRequest");
-		userJSON.put("bio", "I am " + username);
-		userJSON.put("followerCount", 0);
-		userJSON.put("usersFollowing", new JSONArray());
-		userJSON.put("UserName", username);
-		userJSON.put("password", password);
-		userJSON.put("recoveryAnswer1", recoveryAnswer1);
-		userJSON.put("recoveryAnswer2", recoveryAnswer2);
-		
-    	JSONObject requestJSON = new JSONObject();
-    	requestJSON.put("type", "user");
-    	requestJSON.put("request", "NewUser");
-    	requestJSON.put("User", userJSON.toString());
-		
-		return requestJSON;
-	}
+//	private JSONObject getSaveUserAccountJSONRequest() {
+//		JSONObject userJSON = new JSONObject();
+//		
+//    	userJSON.put("id", 101); // id will be automatically generated in database
+//		userJSON.put("type", "saveUserRequest");
+//		userJSON.put("bio", "I am " + username);
+//		userJSON.put("followerCount", 0);
+//		userJSON.put("usersFollowing", new JSONArray());
+//		userJSON.put("UserName", username);
+//		userJSON.put("password", password);
+//		userJSON.put("recoveryAnswer1", recoveryAnswer1);
+//		userJSON.put("recoveryAnswer2", recoveryAnswer2);
+//		
+//    	JSONObject requestJSON = new JSONObject();
+//    	requestJSON.put("type", "user");
+//    	requestJSON.put("request", "NewUser");
+//    	requestJSON.put("User", userJSON.toString());
+//		
+//		return requestJSON;
+//	}
 	
 }

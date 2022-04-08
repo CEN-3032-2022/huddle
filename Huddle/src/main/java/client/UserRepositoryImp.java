@@ -6,47 +6,60 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class UserRepositoryImp implements UserRepository {
-
-	
-//case "UserList":
-//	return getUsers();
-//case "NewUser":
-//	AddNewUser();
-//	return getSuccessResponse();
-//case "verify":
-//	return verify();
-//case "getUsr":
-//	return getUser();
-//case "userDataTest":
-//	return getTestUserDataJSONResponse();
-//case "followUser":
-//	followUser();
-//	return getSuccessResponse();
 	
 	@Override
 	public ArrayList<User> getAllUsers() {
-		// Not Used Anywhere
+		
+		// TODO
+		// Not Used Anywhere Yet
+		// Implement When Needed
 		
 		return null;
 	}
 
 	@Override
 	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
+		JSONObject profileRequest = new JSONObject();
+		profileRequest.put("type", "user");
+		profileRequest.put("request", "getUsr");
+		profileRequest.put("UserName", username);
+		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
+		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
 		
-		return null;
+		return new User(profileData);
 	}
 
 	@Override
-	public User getVerifiedUser() {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean verifiyUser(String username, String password) {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "user");
+		JSON.put("request", "verify");
+		JSON.put("password", password);
+		JSON.put("UserName", username);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	JSONObject verifyUsersJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray Arr = verifyUsersJSON.getJSONArray("verifyUsers");
+		
+		for(int i = 0; i < Arr.length(); i++) {
+			if(Arr.getJSONObject(i).getString("UserName").equals(username)) {
+					return true;
+			}
+		}
+		
+		return false;
 	}
 
 	@Override
 	public boolean followUser(String userFollowing, String userToFollow) {
-		// TODO Auto-generated method stub
-		return false;
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "user");
+		JSON.put("request", "followUser");
+		JSON.put("userFollowing", App.currentUser.getString("UserName"));
+		JSON.put("userToFollow", userToFollow);
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		JSONObject followUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		
+		return followUserJsonResponse.getBoolean("isSuccess");
 	}
 
 	@Override
