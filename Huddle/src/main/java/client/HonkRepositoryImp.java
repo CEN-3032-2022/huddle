@@ -66,7 +66,6 @@ public class HonkRepositoryImp implements HonkRepository {
     	JSON2.put("request", "Update");
 		JSON2.put("Honk", JSON1.toString());
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-    	ClientCommunication.getInstance().getServerJSONResponse();
     	
     	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
 		return postJsonResponse.getBoolean("isSuccess");

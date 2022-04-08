@@ -1,6 +1,5 @@
-{"date":"4/5/2022","UserName":"guest2","numLikes":24,"content":"Guest2's First Post"}
-{"date":"3/30/2022","UserName":"guest","numLikes":33,"content":"hello World #test"}
-{"date":"3/11/2022","UserName":"Sbs35","numLikes":31,"content":"Penguins are cool"}
-{"date":"3/29/2022","UserName":"Bmw54","numLikes":43,"content":"(>'-')> <('-'<) ^('-')^ v('-')v(>'-')> (^-^)"}
-{"date":"4/8/2022","UserName":"guest","id":7,"numLikes":0,"content":"Hello World #test"}
-{"date":"4/8/2022","UserName":"guest","id":7,"numLikes":0,"content":"Hello World Again #test"}
+{"date":"4/5/2022","UserName":"guest2","numLikes":27,"content":"Guest2's First Post"}
+{"date":"3/30/2022","UserName":"guest","numLikes":63,"content":"hello World #test"}
+{"date":"3/11/2022","UserName":"Sbs35","numLikes":45,"content":"Penguins are cool"}
+{"date":"3/29/2022","UserName":"Bmw54","numLikes":55,"content":"(>'-')> <('-'<) ^('-')^ v('-')v(>'-')> (^-^)"}
+{"date":"3/30/2022","UserName":"guest","numLikes":63,"content":"hello World #test"}

@@ -24,10 +24,7 @@ public class LikeHonkController {
     	
     	HonkRepositoryImp honkRep = new HonkRepositoryImp();
     	
-    	if(honkRep.updateHonk(honkJSON.getString("UserName"), honkJSON.getString("date"), honkJSON.getString("content"),  honkJSON.getInt("numLikes") + 1)) {
-            App.setRoot("/fxml/HomeScreenUsr");
-    	}
-    	
+    	honkRep.updateHonk(honkJSON.getString("UserName"), honkJSON.getString("date"), honkJSON.getString("content"),  honkJSON.getInt("numLikes") + 1);
     	
 //    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
 //		if(postJsonResponse.getBoolean("isSuccess")) switchToHome();

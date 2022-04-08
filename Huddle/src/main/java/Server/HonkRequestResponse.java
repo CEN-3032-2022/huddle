@@ -39,7 +39,7 @@ package Server;
 				return getFollowedHonks();
  			case "Update":
  				updateHonk();
- 				return getHonkList();
+ 				return getSuccessResponse();
  		}
 
  		return getFailureResponse();
