@@ -25,8 +25,8 @@ public class HomeScreenController{
 	@FXML public void initialize(){
 		honkRtr = new HonkRetriever();
 		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
-		UserName.setText(App.currentUser.getString("UserName"));
-		bioText.setText(App.currentUser.getString("bio"));
+		UserName.setText(App.currentUser.getUsername());
+		bioText.setText(App.currentUser.getBio());
 		switchToFollowed();
 	}
     @FXML
@@ -41,7 +41,7 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToFollowed() {
-		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getString("UserName"));
+		JSONArray followedHonks = honkRtr.getAllFollowedUsersHonks(App.currentUser.getUsername());
 		honkScrollPaneContainer.setContent(createHonksGridpane(followedHonks));
 		isMasterWall = false;
     }

@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class App extends Application {
 
     private static Scene scene;
-    public static JSONObject currentUser;
+    public static User currentUser;
 
     @Override
     public void start(@SuppressWarnings("exports") Stage stage) throws IOException {

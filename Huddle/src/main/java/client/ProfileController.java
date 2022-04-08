@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,15 +25,15 @@ public class ProfileController{
 	@FXML
 	private Text bioText;
 	@FXML public void initialize(){
-		if(holder.equalsIgnoreCase(App.currentUser.getString("UserName"))) {
+		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
 		}
 		UserName.setText(holder);
 		
-		JSONObject profileData = getUserProfileData(holder);
+		User profileData = getUserProfileData(holder);
 		if(isAlreadyFollowingUser()) disableFollowButton();		
-		bioText.setText(profileData.getString("bio"));
-		profileFollowerCount = profileData.getInt("followerCount");
+		bioText.setText(profileData.getBio());
+		profileFollowerCount = profileData.getFollowerCount();
 		followersText.setText("Followers: " + profileFollowerCount);
 		setField();
 	}
@@ -53,14 +54,17 @@ public class ProfileController{
 		honkScrollPaneContainer.setContent(tPane);
 	}
     @FXML
-    private void followButtonOnClick() {
-		JSONObject JSON = new JSONObject();
-		JSON.put("type", "user");
-		JSON.put("request", "followUser");
-		JSON.put("userFollowing", App.currentUser.getString("UserName"));
-		JSON.put("userToFollow", holder);
-		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-		ClientCommunication.getInstance().getServerJSONResponse();
+    private void followButtonOnClick() {		
+		UserRepositoryImp userRepo = new UserRepositoryImp();
+    	userRepo.followUser(App.currentUser.getUsername(), holder);
+		
+//		JSON.put("type", "user");
+//		JSON.put("request", "followUser");
+//		JSON.put("userFollowing", App.currentUser.getUsername());
+//		JSON.put("userToFollow", holder);
+//		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+//		ClientCommunication.getInstance().getServerJSONResponse();
+    	
 		followersText.setText("Followers: " + ++profileFollowerCount);
 		disableFollowButton();
     }
@@ -70,24 +74,28 @@ public class ProfileController{
     }
     
     private boolean isAlreadyFollowingUser() {
-		JSONObject currUserData = getUserProfileData(App.currentUser.getString("UserName"));
-    	JSONArray followedUsers = currUserData.getJSONArray("usersFollowing");
-    	for(int i = 0; i < followedUsers.length(); ++i) {
-    		if(holder.equalsIgnoreCase(followedUsers.getString(i))) {
+		User currUserData = getUserProfileData(App.currentUser.getUsername());
+    	ArrayList<String> followedUsers = currUserData.getFollowedUsernames();
+    	for(int i = 0; i < followedUsers.size(); ++i) {
+    		if(holder.equalsIgnoreCase(followedUsers.get(i))) {
     			return true;
     		}
     	}
     	return false;
     }
     
-    private JSONObject getUserProfileData(String username) {
-		JSONObject profileRequest = new JSONObject();
-		profileRequest.put("type", "user");
-		profileRequest.put("request", "getUsr");
-		profileRequest.put("UserName", username);
-		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
-		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
-		return profileData;
+    private User getUserProfileData(String username) {
+		UserRepositoryImp userRepo = new UserRepositoryImp();
+    	User currUser = userRepo.getUserByUsername(App.currentUser.getUsername());
+    	
+//		JSONObject profileRequest = new JSONObject();
+//		profileRequest.put("type", "user");
+//		profileRequest.put("request", "getUsr");
+//		profileRequest.put("UserName", username);
+//		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
+//		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
+    	
+		return currUser;
     }
     
     private void disableFollowButton() {
