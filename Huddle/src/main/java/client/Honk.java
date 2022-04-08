@@ -7,12 +7,14 @@ public class Honk {
 	private String content;
 	private String UserName;
 	private Date publishDate;
+	private int numLikes;
 	
 	public Honk(){
 		id = -1;
 		content = "unwritten honk";
 		publishDate = new Date();
 		UserName="";
+		numLikes = 0;
 	}
 	
 	public Honk(int id, String content, Date publishDate,String username){
@@ -27,12 +29,14 @@ public class Honk {
 		content=json.getString("content");
 		id=json.getInt("id");
 		publishDate=new Date(Integer.parseInt(json.getString("date").split("/")[0]),Integer.parseInt(json.getString("date").split("/")[1]),Integer.parseInt(json.getString("date").split("/")[2]));
+		numLikes = json.getInt("numLikes");
 	}
 	public Honk(int id, String content, int month, int day, int year,String username) {
 		this.id = id;
 		this.content = content;
 		this.publishDate = new Date(month, day, year);
 		this.UserName=username;
+		this.numLikes = 0; 
 	}
 	public int getId() {
 		return id;
@@ -49,6 +53,10 @@ public class Honk {
 	public String getUserName() {
 		return UserName;
 	}
+	
+	public int getNumLikes() {
+		return numLikes;
+	}
 
 	public void setUserName(String userName) {
 		UserName = userName;
@@ -56,6 +64,10 @@ public class Honk {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
 	}
 	
 	public void setContent(String content) {
@@ -84,6 +96,7 @@ public class Honk {
 		honkJson.put("UserName", getUserName());
 		honkJson.put("Content", getContent());
 		honkJson.put("PublishDate", getPublishDate());
+		honkJson.put("numLikes", getNumLikes());
 				
 		return honkJson.toString();
 	}

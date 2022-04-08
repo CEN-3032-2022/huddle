@@ -35,6 +35,9 @@ public class HonkRequestResponse implements ServerResponse {
 				return getHashTagHonkList();
 			case "usrHonks":
 				return getUserHonks();
+			case "Update": 
+				updateHonk();
+				return getHonkList();
 		}
 		
 		return getFailureResponse();
@@ -87,6 +90,17 @@ public class HonkRequestResponse implements ServerResponse {
 		writeToFile();
 	}
 	
+	private void updateHonk() {
+		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+		for(int i = 0; i < Honks.size(); i++) {
+			if(Honks.get(i).getString("UserName").compareTo(honkJSON.getString("UserName")) == 0) {	
+				Honks.set(i, honkJSON);
+			}
+		}
+		writeToFile();
+		System.out.println(honkJSON);
+	}
+		
 	private JSONObject getHonkList() {
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
