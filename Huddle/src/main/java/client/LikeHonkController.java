@@ -34,6 +34,7 @@ public class LikeHonkController {
 		JSON2.put("Honk", JSON1.toString());
 //		System.out.println(JSON2);
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
+    	ClientCommunication.getInstance().getServerJSONResponse();
     	
     	
 //    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();

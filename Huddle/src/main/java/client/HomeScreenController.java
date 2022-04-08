@@ -93,9 +93,7 @@ public class HomeScreenController{
     	
     	likeButton.setOnAction(new EventHandler<>() {
     		@Override
-    		public void handle(ActionEvent event) {
-    			System.out.println("Like button clicked");
-    			
+    		public void handle(ActionEvent event) {    			
     			try {
 					LikeHonkController.likeHonk(honkJSON);
 					switchToWall();

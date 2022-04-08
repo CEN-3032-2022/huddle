@@ -98,7 +98,6 @@ package Server;
  			}
  		}
  		writeToFile();
- 		System.out.println(honkJSON);
  	}
 
  	private JSONObject getHonkList() {
