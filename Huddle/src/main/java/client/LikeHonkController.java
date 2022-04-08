@@ -22,20 +22,9 @@ public class LikeHonkController {
     @FXML
     static public void likeHonk(JSONObject honkJSON) throws IOException{
     	
-    	JSONObject JSON1 = new JSONObject();
-    	JSON1.put("UserName", honkJSON.getString("UserName"));
-    	JSON1.put("date", honkJSON.getString("date"));
-    	JSON1.put("content", honkJSON.getString("content"));
-    	JSON1.put("numLikes", honkJSON.getInt("numLikes") + 1);
+    	HonkRepositoryImp honkRep = new HonkRepositoryImp();
     	
-    	JSONObject JSON2 = new JSONObject();
-    	JSON2.put("type", "honk");
-    	JSON2.put("request", "Update");
-		JSON2.put("Honk", JSON1.toString());
-//		System.out.println(JSON2);
-    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-    	ClientCommunication.getInstance().getServerJSONResponse();
-    	
+    	honkRep.updateHonk(honkJSON.getString("UserName"), honkJSON.getString("date"), honkJSON.getString("content"),  honkJSON.getInt("numLikes") + 1);
     	
 //    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
 //		if(postJsonResponse.getBoolean("isSuccess")) switchToHome();

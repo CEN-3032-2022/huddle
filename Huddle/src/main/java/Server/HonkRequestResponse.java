@@ -39,7 +39,7 @@ package Server;
 				return getFollowedHonks();
  			case "Update":
  				updateHonk();
- 				return getHonkList();
+ 				return getSuccessResponse();
  		}
 
  		return getFailureResponse();
@@ -95,7 +95,10 @@ package Server;
  	private void updateHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
  		for(int i = 0; i < Honks.size(); i++) {
- 			if(Honks.get(i).getString("UserName").compareTo(honkJSON.getString("UserName")) == 0) {	
+ 			if(Honks.get(i).getString("UserName").equalsIgnoreCase(honkJSON.getString("UserName")) &&
+ 					Honks.get(i).getString("content").equalsIgnoreCase(honkJSON.getString("content")) &&
+ 					(Honks.get(i).getInt("numLikes") + 1) == (honkJSON.getInt("numLikes"))
+ 			){	
  				Honks.set(i, honkJSON);
  			}
  		}

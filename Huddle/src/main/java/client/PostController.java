@@ -21,22 +21,12 @@ public class PostController {
     }
     @FXML
     private void post() throws IOException{
-    	String content = writeHonkTextArea.getText();
-    	Date publishDate = new Date();
-    	publishDate.setToCurrentDate();
-		JSONObject JSON = new JSONObject();
-    	JSON.put("id", 7);
-    	JSON.put("UserName", App.currentUser.getUsername());
-    	JSON.put("content", content);
-    	JSON.put("numLikes", 0);
-    	JSON.put("date", publishDate.toString());
-    	JSONObject JSON2=new JSONObject();
-    	JSON2.put("type", "honk");
-    	JSON2.put("request", "Post");
-		JSON2.put("Honk", JSON.toString());
-    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
+    	HonkRepositoryImp honkRep = new HonkRepositoryImp();
     	
-    	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
-		if(postJsonResponse.getBoolean("isSuccess")) switchToHome();
+    	String content = writeHonkTextArea.getText();
+    	
+    	if (honkRep.postHonk(7, App.currentUser.getUsername(), content)) {
+    		switchToHome();
+    	}
     }
 }
