@@ -94,8 +94,8 @@ public class Honk {
 		JSONObject honkJson = new JSONObject();
 		honkJson.put("id", getId());
 		honkJson.put("UserName", getUserName());
-		honkJson.put("Content", getContent());
-		honkJson.put("PublishDate", getPublishDate());
+		honkJson.put("content", getContent());
+		honkJson.put("date", getPublishDate());
 		honkJson.put("numLikes", getNumLikes());
 				
 		return honkJson.toString();
