@@ -23,7 +23,7 @@ public class HonkRepositoryImp implements HonkRepository {
 			
 			JSONObject x = (JSONObject) allHonks.get(i);
 			
-			if(username.compareTo((String)x.get("Username")) == 0) {
+			if(username.compareTo((String)x.get("UserName")) == 0) {
 				honks.add(new Honk(x));
 			}
 			

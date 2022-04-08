@@ -27,7 +27,7 @@ public class Honk {
 	public Honk(JSONObject json){
 		UserName=json.getString("UserName");
 		content=json.getString("content");
-		id=json.getInt("id");
+	//	id=json.getInt("id");
 		publishDate=new Date(Integer.parseInt(json.getString("date").split("/")[0]),Integer.parseInt(json.getString("date").split("/")[1]),Integer.parseInt(json.getString("date").split("/")[2]));
 		numLikes = json.getInt("numLikes");
 	}
