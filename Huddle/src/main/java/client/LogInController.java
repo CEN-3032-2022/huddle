@@ -31,7 +31,7 @@ public class LogInController {
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "user");
 		JSON.put("request", "verify");
-		JSON.put("Password", password.getText());
+		JSON.put("password", password.getText());
 		JSON.put("UserName", userName.getText());
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
     	JSONObject verifyUsersJSON = ClientCommunication.getInstance().getServerJSONResponse();
