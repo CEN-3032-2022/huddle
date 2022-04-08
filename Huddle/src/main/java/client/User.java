@@ -21,6 +21,7 @@ public class User {
 		followererCount = 0;
 	}
 	public User(JSONObject json) {
+		try {
 		id = json.getInt("id");
 		followedUsernames = new ArrayList<String>();
 		username = json.getString("UserName");;
@@ -30,6 +31,14 @@ public class User {
 			followedUsernames.add(array.getString(i));
 		}
 		followererCount = json.getInt("followerCount");
+		}
+		catch(Exception e) {
+			id = -1;
+			username = "unnamed user";
+			bio = "unwritten bio";
+			followedUsernames = new ArrayList<String>();
+			followererCount = 0;
+		}
 	}
 	public User(int id, String username, String bio){
 		this.id = id;

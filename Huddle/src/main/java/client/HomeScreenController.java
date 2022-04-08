@@ -54,6 +54,15 @@ public class HomeScreenController{
     		JSONArray hashtagHonks = honksRtr.getHashtagHonks(hashtag);
     		honkScrollPaneContainer.setContent(createHonksGridpane(hashtagHonks));
     	}
+    	else{
+    		String name = searchText.stripTrailing();
+    		HonkRetriever honksRtr = new HonkRetriever();
+    		JSONArray hashtagHonks = honksRtr.getUsrHonks(name);
+    		UserRepositoryImp x = new UserRepositoryImp();
+    		User usr = x.getUserByUsername(searchText);
+    		if(hashtagHonks.length()>0&&usr.getUsername().equals(name))
+    			honkScrollPaneContainer.setContent(createUsrGridpane(usr,hashtagHonks));
+    	}
     }
     @FXML
     private void switchToLiked() throws IOException {
@@ -82,17 +91,31 @@ public class HomeScreenController{
     	else
     		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     }
-    
+    private GridPane createUsrGridpane(User usr,JSONArray honksData) {
+		GridPane honksPane = new GridPane();
+		honksPane.add(new Text(usr.getUsername()+" Followers: "+usr.getFollowerCount()+"\n"), 0, 0);
+		honksPane.add(createViewProfileButton(usr.getUsername()), 0,2);
+		for(int i=0;i<honksData.length();i++) {
+			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+3);
+			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+3);
+			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 0, (i*4)+4);
+			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+4);
+			final String name = honksData.getJSONObject(i).getString("UserName");
+			honksPane.add(createViewProfileButton(name), 0,(i*4)+5);
+			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 1, (i*4)+5);
+		}
+    	return honksPane;
+    }
     private GridPane createHonksGridpane(JSONArray honksData) {
 		GridPane honksPane = new GridPane();
 		for(int i=0;i<honksData.length();i++) {
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+0);
-			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 1, (i*4)+1);
+			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 0, (i*4)+1);
 			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+1);
 			final String name = honksData.getJSONObject(i).getString("UserName");
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
-			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 0, (i*4)+2);
+			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 1, (i*4)+2);
 		}
     	return honksPane;
     }
@@ -119,7 +142,7 @@ public class HomeScreenController{
     }
     
     private Button createViewProfileButton(String name) {
-    	Button viewProfileButton = new Button("View Profile");
+    	Button viewProfileButton = new Button("Profile");
     	viewProfileButton.getStyleClass().clear();
     	viewProfileButton.getStyleClass().add("profileButton");
         viewProfileButton.setOnAction(new EventHandler<>(){
