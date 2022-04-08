@@ -30,7 +30,7 @@ public class LogInController {
     	
     	if(correct) {
     		wrongLogin.setVisible(false);
-    		
+    		App.currentUser = userRepo.getUserByUsername(userName.getText());
         	App.setRoot("/fxml/HomeScreenUsr");
     	}
     	else {

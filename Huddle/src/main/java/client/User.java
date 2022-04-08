@@ -11,14 +11,16 @@ public class User {
 	private String username;
 	private String bio;
 	private ArrayList<String> followedUsernames;
+	int followererCount;
 	
 	public User(){
 		id = -1;
 		username = "unnamed user";
 		bio = "unwritten bio";
 		followedUsernames = new ArrayList<String>();
+		followererCount = 0;
 	}
-	public User(JSONObject json){
+	public User(JSONObject json) {
 		id = json.getInt("id");
 		followedUsernames = new ArrayList<String>();
 		username = json.getString("UserName");;
@@ -27,12 +29,14 @@ public class User {
 		for(int i=0;i<array.length();i++) {
 			followedUsernames.add(array.getString(i));
 		}
+		followererCount = json.getInt("followerCount");
 	}
 	public User(int id, String username, String bio){
 		this.id = id;
 		this.username = username;
 		this.bio = bio;
 		followedUsernames = new ArrayList<String>();
+		followererCount = 0;
 	}
 	
 	public int getId() {
@@ -65,6 +69,10 @@ public class User {
 	
 	public void setBio(String bio) {
 		this.bio = bio;
+	}
+	
+	public int getFollowerCount() {
+		return this.followererCount;
 	}
 	
 //	public void addHonk(Honk honk) {

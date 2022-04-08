@@ -37,7 +37,7 @@ package Server;
  				return getUserHonks();
 			case "followedHonks":
 				return getFollowedHonks();
- 			case "Update": 
+ 			case "Update":
  				updateHonk();
  				return getHonkList();
  		}
