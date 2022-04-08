@@ -69,6 +69,7 @@ public class ClientCommunication {
 	}
 
 	public void sendJSONRequestToServer(JSONObject jsonServerRequest) {
+		System.out.println(jsonServerRequest.toString());
 		serverOutput.println(jsonServerRequest.toString());
 		serverOutput.flush();
 	}

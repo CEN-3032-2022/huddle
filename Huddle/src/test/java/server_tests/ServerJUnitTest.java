@@ -31,5 +31,16 @@ public class ServerJUnitTest {
 	public void testNotFalse() {
 		assert(!false);
 	}
-
+	@Test
+	public void testFollow() {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "user");
+		JSON.put("request", "followUser");
+		JSON.put("userFollowing","Bmw54");
+		JSON.put("userToFollow", "benjamin");
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		JSONObject x = ClientCommunication.getInstance().getServerJSONResponse();
+		boolean y = x.getBoolean("isSuccess");
+		assert(y==true);
+	}
 }
