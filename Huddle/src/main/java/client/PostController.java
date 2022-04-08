@@ -28,6 +28,7 @@ public class PostController {
     	JSON.put("id", 7);
     	JSON.put("UserName", App.currentUser.getUsername());
     	JSON.put("content", content);
+    	JSON.put("numLikes", 0);
     	JSON.put("date", publishDate.toString());
     	JSONObject JSON2=new JSONObject();
     	JSON2.put("type", "honk");
