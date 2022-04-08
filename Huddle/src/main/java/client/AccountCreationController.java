@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class AccountCreationController {
@@ -66,22 +67,7 @@ public class AccountCreationController {
 		AccountSaver accSaver = new AccountSaver(username.getText(), password.getText(), Q1.getText(), Q2.getText());
 		boolean isAccountSavingSuccess = accSaver.saveAccount();
 		
-		String username = this.username.getText();
-    	String password = this.password.getText();
-		JSONObject JSON = new JSONObject();
-    	JSON.put("id", 7);
-    	JSON.put("UserName", username);
-    	JSON.put("Password", password);
-    	JSON.put("bio", "");
-    	JSONObject JSON2 = new JSONObject();
-    	JSON2.put("type", "user");
-    	JSON2.put("request", "NewUser");
-		JSON2.put("isTest", false);
-		JSON2.put("User", JSON.toString());
-		ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
-    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
-		
-		if(isAccountSavingSuccess && saveUserJsonResponse.getBoolean("isSuccess"))
+		if(isAccountSavingSuccess)
 			switchToAccountCreationSuccessPage();
 		else
 			errorDuringSavingDataWarningText.setVisible(true);
