@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,10 +82,32 @@ public class HomeScreenController{
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("date")), 3, (i*4)+0);
 			honksPane.add(new Text(honksData.getJSONObject(i).getString("content")), 1, (i*4)+1);
+			honksPane.add(new Text("Likes: " + honksData.getJSONObject(i).getInt("numLikes")), 3, (i*4)+1);
 			final String name = honksData.getJSONObject(i).getString("UserName");
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
+			honksPane.add(createLikeButton(honksData.getJSONObject(i)), 0, (i*4)+2);
 		}
     	return honksPane;
+    }
+    
+    private Button createLikeButton(JSONObject honkJSON) {
+    	Button likeButton = new Button("Like");
+    	likeButton.getStyleClass().clear();
+    	likeButton.getStyleClass().add("likeButton");
+    	
+    	likeButton.setOnAction(new EventHandler<>() {
+    		@Override
+    		public void handle(ActionEvent event) {    			
+    			try {
+					LikeHonkController.likeHonk(honkJSON);
+					switchToWall();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+    		}
+    	});
+    	
+    	return likeButton;
     }
     
     private Button createViewProfileButton(String name) {
