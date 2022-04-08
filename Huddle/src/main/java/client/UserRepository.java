@@ -12,5 +12,5 @@ public interface UserRepository {
 	
 	boolean followUser(String userFollowing, String userToFollow);
 	
-	boolean addNewUser();
+	boolean addNewUser(String username, String password, String recQ1, String recQ2);
 }
