@@ -50,31 +50,6 @@
   scrollbar-gutter: stable;
 }
 
-/*.replyButton{
-  -fx-background-color:#6f6f6f;
-      -fx-font-size: 20;
-      -color: #000000;
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: #6f6f6f;
-}
-.likeButton{
-  -fx-background-color:#6f6f6f;
-      -fx-font-size: 20;
-      -color: #000000;
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: #6f6f6f;
-}
-.profileButton{
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-color: black;
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: black;
-}*/
-
 .honks-pane {
   -fx-pref-width: 1250px;
 }
@@ -97,11 +72,19 @@
   -fx-background-color: #6c757d;
 }
 
+.likeButton:hover {
+  -fx-background-color: #5a6268;
+}
+
 .replyButton {
   -fx-padding: 7px 10px 7px 10px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-background-color: #2e2e2e;
+}
+
+.replyButton:hover {
+  -fx-background-color: #000000;
 }
 
 .viewRepliesButton {
@@ -111,12 +94,20 @@
   -fx-background-color: #6c757d;
 }
 
+.viewRepliesButton:hover {
+  -fx-background-color: #5a6268;
+}
+
 .profileButton {
   -fx-padding: 7px 10px 7px 10px;
   -fx-max-width: 120px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-background-color: #2e2e2e;
+}
+
+.profileButton:hover {
+  -fx-background-color: #000000;
 }
 
 /* For Login Page */
@@ -306,7 +297,7 @@
   -fx-min-width: 200px;
   -fx-background-color: #6c757d;
 }
-##followedHonksButton:hover {
+#followedHonksButton:hover {
     -fx-background-color: #5a6268;
 }
 
