@@ -80,6 +80,7 @@
 }
 
 .honk {
+  -fx-background-color: #e9ecef;
 	-fx-margin: 5px;
   -fx-border-width: 2px;
   -fx-border-color: #6c757d;
@@ -88,6 +89,8 @@
 }
 
 .likeButton {
+  -fx-margin: 5px;
+  -fx-padding: 7px 10px 7px 10px;
   -fx-max-width: 120px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
@@ -95,18 +98,21 @@
 }
 
 .replyButton {
+  -fx-padding: 7px 10px 7px 10px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-background-color: #2e2e2e;
 }
 
 .viewRepliesButton {
+  -fx-padding: 7px 10px 7px 10px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-background-color: #6c757d;
 }
 
 .profileButton {
+  -fx-padding: 7px 10px 7px 10px;
   -fx-max-width: 120px;
   -fx-text-fill: white;
   -fx-font-weight: bold;

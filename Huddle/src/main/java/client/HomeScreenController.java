@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -129,6 +130,7 @@ public class HomeScreenController{
 		
 		for(int i=0;i<honks.size();i++) {
 			GridPane honk = new GridPane();
+			honk.setPadding(new Insets(3));
 			honk.getStyleClass().add("honk");
 			honk.setHgap(5);
 			ColumnConstraints col2 = new ColumnConstraints();
