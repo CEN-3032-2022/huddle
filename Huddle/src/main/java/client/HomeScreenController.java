@@ -57,6 +57,12 @@ public class HomeScreenController{
     		ArrayList<Honk> honks = honksRtr.getHashtagHonkList(hashtag);
     		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
     	}
+    	else if(searchText.startsWith("@")) {
+    		String tag = searchText.stripTrailing();
+    		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
+    		ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
+    		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+    	}
     	else{
     		String name = searchText.stripTrailing();
     		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
@@ -115,7 +121,7 @@ public class HomeScreenController{
 			honksPane.add(new Text(honks.get(i).getUserName()), 0, (i*4)+0);
 			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 3, (i*4)+0);
 			honksPane.add(new Text(honks.get(i).getContent()), 0, (i*4)+1);
-			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 3, (i*4)+2);
+			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 4, (i*4)+2);
 			final String name = honks.get(i).getUserName();
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
 			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+2);
@@ -127,7 +133,6 @@ public class HomeScreenController{
     	Button likeButton = new Button("Like");
     	likeButton.getStyleClass().clear();
     	likeButton.getStyleClass().add("likeButton");
-    	
     	likeButton.setOnAction(new EventHandler<>() {
     		@Override
     		public void handle(ActionEvent event) {    			

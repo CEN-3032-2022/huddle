@@ -143,4 +143,21 @@ public class HonkRepositoryImp implements HonkRepository {
 		
 	}
 
+	@Override
+	public ArrayList<Honk> getTagHonkList(String tag) {
+		JSONObject taggedHonksRequest = new JSONObject();
+		taggedHonksRequest.put("type", "honk");
+		taggedHonksRequest.put("request", "taggedSearch");
+		taggedHonksRequest.put("tag", tag);
+		ClientCommunication.getInstance().sendJSONRequestToServer(taggedHonksRequest);
+		JSONObject taggedHonksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray taggedHonks = taggedHonksJSON.getJSONArray("taggedHonks");
+		ArrayList<Honk> honks = new ArrayList<Honk>(); 
+		for(int i = 0; i < taggedHonks.length(); i++) {
+			JSONObject x = (JSONObject) taggedHonks.get(i);
+			honks.add(new Honk(x));
+		}
+		return honks;
+	}
+
 }

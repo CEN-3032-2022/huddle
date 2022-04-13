@@ -33,6 +33,8 @@ package Server;
  				return getSuccessResponse();
  			case "hashtagSearch":
  				return getHashTagHonkList();
+ 			case "taggedSearch":
+ 				return getTagHonkList();
  			case "usrHonks":
  				return getUserHonks();
 			case "followedHonks":
@@ -45,7 +47,20 @@ package Server;
  		return getFailureResponse();
  	}
 
- 	// Remove Method When Database Fully Integrated
+ 	private JSONObject getTagHonkList() {
+ 		String tag = honkRequestJSON.getString("tag"); 
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Honks.size(); i++) {
+				if(Honks.get(i).getString("content").contains(tag)) {
+					jsonArray.put(Honks.get(i));
+			}
+		}
+		JSONObject taggedHonksJSON = new JSONObject();
+		taggedHonksJSON.put("taggedHonks", jsonArray);
+		return taggedHonksJSON;
+	}
+
+	// Remove Method When Database Fully Integrated
  	private void writeToFile() {
  		try {
  			FileWriter outHonk = new FileWriter("honks.txt",false);

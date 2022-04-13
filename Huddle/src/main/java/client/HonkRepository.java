@@ -12,6 +12,6 @@ public interface HonkRepository {
 	ArrayList<Honk> getHonkList();
 	
 	ArrayList<Honk> getHashtagHonkList(String hashtag);
-	
+	ArrayList<Honk> getTagHonkList(String tag);
 	ArrayList<Honk> getFollowedHonks(String username);
 }
