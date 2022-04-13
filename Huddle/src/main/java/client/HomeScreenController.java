@@ -123,41 +123,49 @@ public class HomeScreenController{
     	return honksPane;
     }
     private GridPane createUsrGridpane(User usr,ArrayList<Honk> honks) {
-		GridPane honksPane = new GridPane();
-		honksPane.add(new Text(usr.getUsername()+" Followers: "+usr.getFollowerCount()+"\n"), 0, 0);
-		honksPane.add(createViewProfileButton(usr.getUsername()), 0,2);
+		GridPane honksPane = createHonksGridpane();
+		honksPane.add(createViewProfileButton(usr.getUsername()), 0,0);
+		honksPane.add(new Text("User: " + usr.getUsername()+"\nFollowers: "+usr.getFollowerCount()+"\n"), 0, 1);
+		
 		for(int i=0;i<honks.size();i++) {
-			honksPane.add(new Text(honks.get(i).getUserName()), 0, (i*4)+3);
-			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 3, (i*4)+3);
-			honksPane.add(new Text(honks.get(i).getContent()), 0, (i*4)+4);
-			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 3, (i*4)+4);
+			GridPane honk = createHonkGridpane();
 			final String name = honks.get(i).getUserName();
-			honksPane.add(createViewProfileButton(name), 0,(i*4)+5);
-			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+5);
+			
+			honk.add(createViewProfileButton(name), 0,0);
+			honk.add(new Text(name), 1, 0);
+			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
+			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
+			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
+			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
+			honksPane.add(honk, 0, i + 2);
 		}
     	return honksPane;
     }
     private GridPane createRepliesGridpane(ArrayList<Honk> honks) {
-		GridPane honksPane = new GridPane();
+		GridPane honksPane = createReplyHonksGridpane();
 		
-		honksPane.add(new Text(honks.get(0).getUserName()), 0,0);
-		honksPane.add(new Text(honks.get(0).getPublishDate().toString()), 3,0);
-		honksPane.add(new Text(honks.get(0).getContent()), 0,1);
-		honksPane.add(new Text("Likes: " + honks.get(0).getNumLikes()), 4,2);
-		honksPane.add(createViewProfileButton(honks.get(0).getUserName()), 0,2);
-		honksPane.add(createLikeButton(new JSONObject(honks.get(0).toJsonString())), 1, 2);
-		honksPane.add(createReplyButton(new JSONObject(honks.get(0).toJsonString())), 2, 2);
-		honksPane.add(createViewRepliesButton(new JSONObject(honks.get(0).toJsonString())), 3, 2);
+		GridPane mainHonk = createHonkGridpane();
+		mainHonk.add(createViewProfileButton(honks.get(0).getUserName()), 0, 0);
+		mainHonk.add(new Text(honks.get(0).getUserName()), 1, 0);
+		mainHonk.add(new Text(honks.get(0).getPublishDate().toString()), 2,0);
+		mainHonk.add(new Text(honks.get(0).getContent()), 1,1);
+		mainHonk.add(new Text("Likes: " + honks.get(0).getNumLikes()), 1,2);
+		mainHonk.add(createLikeButton(new JSONObject(honks.get(0).toJsonString())), 0, 2);
+		mainHonk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
+		honksPane.add(mainHonk, 0, 0, 2, 1);
 		for(int i=1;i<honks.size();i++) {
-			honksPane.add(new Text(honks.get(i).getUserName()), 1, (i*4)+0);
-			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 4, (i*4)+0);
-			honksPane.add(new Text(honks.get(i).getContent()), 1, (i*4)+1);
-			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 5, (i*4)+2);
+			GridPane honk = createHonkGridpane();
 			final String name = honks.get(i).getUserName();
-			honksPane.add(createViewProfileButton(name), 1,(i*4)+2);
-			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 2, (i*4)+2);
-			honksPane.add(createReplyButton(new JSONObject(honks.get(i).toJsonString())), 3, (i*4)+2);
-			honksPane.add(createViewRepliesButton(new JSONObject(honks.get(i).toJsonString())), 4, (i*4)+2);
+			
+			honk.add(createViewProfileButton(name), 0, 0);
+			honk.add(new Text(honks.get(i).getUserName()), 1, 0);
+			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
+			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
+			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
+			mainHonk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
+			honksPane.add(honk, 1, i+1);
 		}
 		
     	return honksPane;
@@ -247,10 +255,23 @@ public class HomeScreenController{
     }
     private GridPane createHonksGridpane() {
 		GridPane honksPane = new GridPane();
-		ColumnConstraints column1 = new ColumnConstraints();
+		ColumnConstraints col1 = new ColumnConstraints();
 		honksPane.getStyleClass().add("honks-pane");
-	    column1.setPercentWidth(100);
-	    honksPane.getColumnConstraints().add(column1);
+	    col1.setPercentWidth(100);
+	    honksPane.getColumnConstraints().add(col1);
+		honksPane.setVgap(10);
+		
+		return honksPane;
+    }
+    private GridPane createReplyHonksGridpane() {
+		GridPane honksPane = new GridPane();
+		ColumnConstraints col1 = new ColumnConstraints();
+		ColumnConstraints col2 = new ColumnConstraints();
+		honksPane.getStyleClass().add("honks-pane");
+	    col1.setPercentWidth(10);
+	    col2.setPercentWidth(90);
+	    honksPane.getColumnConstraints().addAll(col1, col2);
+	    
 		honksPane.setVgap(10);
 		
 		return honksPane;
