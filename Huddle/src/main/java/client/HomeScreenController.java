@@ -104,6 +104,24 @@ public class HomeScreenController{
     	else
     		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     }
+    private GridPane createHonksGridpane(ArrayList<Honk> honks) {
+		GridPane honksPane = createHonksGridpane();
+
+		for(int i=0;i<honks.size();i++) {
+			GridPane honk = createHonkGridpane();
+			final String name = honks.get(i).getUserName();
+		
+			honk.add(createViewProfileButton(name), 0,0);
+			honk.add(new Text(name), 1, 0);
+			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
+			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
+			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
+			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
+			honksPane.add(honk, 0, i);
+		}
+    	return honksPane;
+    }
     private GridPane createUsrGridpane(User usr,ArrayList<Honk> honks) {
 		GridPane honksPane = new GridPane();
 		honksPane.add(new Text(usr.getUsername()+" Followers: "+usr.getFollowerCount()+"\n"), 0, 0);
@@ -116,41 +134,6 @@ public class HomeScreenController{
 			final String name = honks.get(i).getUserName();
 			honksPane.add(createViewProfileButton(name), 0,(i*4)+5);
 			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+5);
-		}
-    	return honksPane;
-    }
-    private GridPane createHonksGridpane(ArrayList<Honk> honks) {
-		GridPane honksPane = new GridPane();
-		ColumnConstraints column1 = new ColumnConstraints();
-	    column1.setPercentWidth(100);
-	    honksPane.getColumnConstraints().add(column1);
-	    
-		honksPane.setVgap(10);
-		honksPane.getStyleClass().add("honks-pane");
-		
-		for(int i=0;i<honks.size();i++) {
-			GridPane honk = new GridPane();
-			honk.setPadding(new Insets(3));
-			honk.getStyleClass().add("honk");
-			honk.setHgap(5);
-			ColumnConstraints col2 = new ColumnConstraints();
-			col2.setHgrow(Priority.ALWAYS);
-			col2.setHalignment(HPos.RIGHT);
-			honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
-			
-			final String name = honks.get(i).getUserName();
-		
-			honk.add(createViewProfileButton(name), 0,0);
-			honk.add(new Text(name), 1, 0);
-			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
-			
-			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
-			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
-			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
-			
-			honksPane.add(honk, 0, i);
 		}
     	return honksPane;
     }
@@ -261,5 +244,26 @@ public class HomeScreenController{
     	replyHbox.getChildren().add(createViewRepliesButton(honkJSON));
     	
     	return replyHbox;
+    }
+    private GridPane createHonksGridpane() {
+		GridPane honksPane = new GridPane();
+		ColumnConstraints column1 = new ColumnConstraints();
+		honksPane.getStyleClass().add("honks-pane");
+	    column1.setPercentWidth(100);
+	    honksPane.getColumnConstraints().add(column1);
+		honksPane.setVgap(10);
+		
+		return honksPane;
+    }
+    private GridPane createHonkGridpane() {
+		GridPane honk = new GridPane();
+		honk.setPadding(new Insets(3));
+		honk.getStyleClass().add("honk");
+		honk.setHgap(5);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col2.setHgrow(Priority.ALWAYS);
+		col2.setHalignment(HPos.RIGHT);
+		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
+		return honk;
     }
  }
