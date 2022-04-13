@@ -3,16 +3,20 @@ package client;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 
 public class HomeScreenController{
@@ -116,21 +120,41 @@ public class HomeScreenController{
     }
     private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = new GridPane();
+		ColumnConstraints column1 = new ColumnConstraints();
+	    column1.setPercentWidth(100);
+	    honksPane.getColumnConstraints().add(column1);
+	    
+		honksPane.setVgap(10);
+		honksPane.getStyleClass().add("honks-pane");
+		
 		for(int i=0;i<honks.size();i++) {
-			honksPane.add(new Text(honks.get(i).getUserName()), 0, (i*4)+0);
-			honksPane.add(new Text(honks.get(i).getPublishDate().toString()), 3, (i*4)+0);
-			honksPane.add(new Text(honks.get(i).getContent()), 0, (i*4)+1);
-			honksPane.add(new Text("Likes: " + honks.get(i).getNumLikes()), 4, (i*4)+2);
+			GridPane honk = new GridPane();
+			honk.getStyleClass().add("honk");
+			honk.setHgap(5);
+			ColumnConstraints col2 = new ColumnConstraints();
+			col2.setHgrow(Priority.ALWAYS);
+			col2.setHalignment(HPos.RIGHT);
+			honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
+			
 			final String name = honks.get(i).getUserName();
-			honksPane.add(createViewProfileButton(name), 0,(i*4)+2);
-			honksPane.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 1, (i*4)+2);
-			honksPane.add(createReplyButton(new JSONObject(honks.get(i).toJsonString())), 2, (i*4)+2);
-			honksPane.add(createViewRepliesButton(new JSONObject(honks.get(i).toJsonString())), 3, (i*4)+2);
+		
+			honk.add(createViewProfileButton(name), 0,0);
+			honk.add(new Text(name), 1, 0);
+			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
+			
+			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			
+			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
+			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
+			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
+			
+			honksPane.add(honk, 0, i);
 		}
     	return honksPane;
     }
     private GridPane createRepliesGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = new GridPane();
+		
 		honksPane.add(new Text(honks.get(0).getUserName()), 0,0);
 		honksPane.add(new Text(honks.get(0).getPublishDate().toString()), 3,0);
 		honksPane.add(new Text(honks.get(0).getContent()), 0,1);
@@ -150,12 +174,14 @@ public class HomeScreenController{
 			honksPane.add(createReplyButton(new JSONObject(honks.get(i).toJsonString())), 3, (i*4)+2);
 			honksPane.add(createViewRepliesButton(new JSONObject(honks.get(i).toJsonString())), 4, (i*4)+2);
 		}
+		
     	return honksPane;
     }
     private Button createLikeButton(JSONObject honkJSON) {
     	Button likeButton = new Button("Like");
     	likeButton.getStyleClass().clear();
     	likeButton.getStyleClass().add("likeButton");
+    	likeButton.getStyleClass().add("button");
     	likeButton.setOnAction(new EventHandler<>() {
     		@Override
     		public void handle(ActionEvent event) {    			
@@ -174,7 +200,8 @@ public class HomeScreenController{
     private Button createReplyButton(JSONObject honkJSON) {
     	Button likeButton = new Button("Reply");
     	likeButton.getStyleClass().clear();
-    	likeButton.getStyleClass().add("likeButton");
+    	likeButton.getStyleClass().add("replyButton");
+    	likeButton.getStyleClass().add("button");
     	likeButton.setOnAction(new EventHandler<>() {
     		@Override
     		public void handle(ActionEvent event) {    			
@@ -192,7 +219,8 @@ public class HomeScreenController{
     private Button createViewRepliesButton(JSONObject object) {
     	Button viewProfileButton = new Button("View Replies");
     	viewProfileButton.getStyleClass().clear();
-    	viewProfileButton.getStyleClass().add("profileButton");
+    	viewProfileButton.getStyleClass().add("viewRepliesButton");
+    	viewProfileButton.getStyleClass().add("button");
         viewProfileButton.setOnAction(new EventHandler<>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -208,6 +236,7 @@ public class HomeScreenController{
     	Button viewProfileButton = new Button("Profile");
     	viewProfileButton.getStyleClass().clear();
     	viewProfileButton.getStyleClass().add("profileButton");
+    	viewProfileButton.getStyleClass().add("button");
         viewProfileButton.setOnAction(new EventHandler<>(){
 			@Override
 			public void handle(ActionEvent event) {
@@ -220,5 +249,15 @@ public class HomeScreenController{
 			}
         });
     	return viewProfileButton;
+    }
+    private HBox createReplyHbox(JSONObject honkJSON) {
+    	HBox replyHbox = new HBox();
+    	replyHbox.setSpacing(5);
+    	replyHbox.setAlignment(Pos.CENTER_RIGHT);
+    	
+    	replyHbox.getChildren().add(createReplyButton(honkJSON));
+    	replyHbox.getChildren().add(createViewRepliesButton(honkJSON));
+    	
+    	return replyHbox;
     }
  }
