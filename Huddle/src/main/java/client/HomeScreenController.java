@@ -24,7 +24,7 @@ public class HomeScreenController{
 	@FXML Text bioText;
 	@FXML public void initialize(){
 		honkRtr = new HonkRetriever();
-		searchBar.setPromptText("#hashtag to seach for honks with containing the hashtag");
+		searchBar.setPromptText("[\"username\" to search for usernames] [\"#hashtag\" to seach for hashtags] [\"@username\" to search for tags]");
 		UserName.setText(App.currentUser.getUsername());
 		bioText.setText(App.currentUser.getBio());
 		switchToFollowed();
