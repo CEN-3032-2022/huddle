@@ -14,6 +14,8 @@ package Server;
  public class HonkRequestResponse implements ServerResponse {
 
  	private ArrayList<JSONObject> Honks = new ArrayList<JSONObject>();
+ 	private ArrayList<JSONObject> Replies = new ArrayList<JSONObject>();
+ 	private int PostC=0;
  	private JSONObject honkRequestJSON;
 
  	public HonkRequestResponse(JSONObject honkRequestJSON) {
@@ -24,12 +26,15 @@ package Server;
  	@Override
  	public JSONObject getResponse() {
  		String requestType = honkRequestJSON.getString("request");
-
+ 		System.out.println(honkRequestJSON.toString());
  		switch(requestType) {
  			case "honkList":
  				return getHonkList();
  			case "Post":
- 				postHonk();
+ 				if(honkRequestJSON.getInt("replyTo")<0)
+ 					postHonk();
+ 				else
+ 					postReply();
  				return getSuccessResponse();
  			case "hashtagSearch":
  				return getHashTagHonkList();
@@ -39,6 +44,8 @@ package Server;
  				return getUserHonks();
 			case "followedHonks":
 				return getFollowedHonks();
+			case "getReplies":
+				return getReplies();
  			case "Update":
  				updateHonk();
  				return getSuccessResponse();
@@ -73,6 +80,15 @@ package Server;
  			outHonk.close();
  		}
  		catch(Exception e) { e.printStackTrace(); }
+ 		try {
+ 			FileWriter outHonk2 = new FileWriter("replies.txt",false);
+ 			outHonk2.write(PostC+"\n");
+ 			for(int i=0;i < Replies.size(); i++) {
+ 					outHonk2.append(Replies.get(i).toString()+"\n");
+ 			}
+ 			outHonk2.close();
+ 		}
+ 		catch(Exception e) { e.printStackTrace(); }
  	}
 
  	// Remove Method When Database Fully Integrated
@@ -83,6 +99,16 @@ package Server;
  			String val;
  			while((val = Reader.readLine()) != null) {
  				Honks.add(new JSONObject(val));
+ 			}
+ 			Reader.close();
+ 		} catch (IOException e) { e.printStackTrace(); }
+ 		try {
+ 			Replies.clear();
+ 			BufferedReader Reader = new BufferedReader(new FileReader("replies.txt"));
+ 			PostC=Integer.parseInt(Reader.readLine());
+ 			String val;
+ 			while((val = Reader.readLine()) != null) {
+ 				Replies.add(new JSONObject(val));
  			}
  			Reader.close();
  		} catch (IOException e) { e.printStackTrace(); }
@@ -103,10 +129,20 @@ package Server;
 
  	private void postHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+ 		honkJSON.put("id",PostC);
+ 		PostC++;
+ 		honkJSON.put("replyTo",-1);
  		Honks.add(honkJSON);
  		writeToFile();
  	}
-
+ 	private void postReply() {
+ 		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+ 		honkJSON.put("id",PostC);
+ 		PostC++;
+ 		honkJSON.put("replyTo",honkRequestJSON.getInt("replyTo"));
+ 		Replies.add(honkJSON);
+ 		writeToFile();
+ 	}
  	private void updateHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
  		for(int i = 0; i < Honks.size(); i++) {
@@ -164,7 +200,18 @@ package Server;
 		userHonksJSON.put("followedHonks", jsonArray);
 		return userHonksJSON;
 	}
-
+	private JSONObject getReplies() {
+		int id = honkRequestJSON.getInt("id"); 
+		JSONArray jsonArray = new JSONArray();
+			for(int j = 0; j < Replies.size(); ++j) {
+				if(Replies.get(j).getInt("replyTo")==id) {
+					jsonArray.put(Replies.get(j));
+				}
+		}
+		JSONObject userHonksJSON = new JSONObject();
+		userHonksJSON.put("Honks", jsonArray);
+		return userHonksJSON;
+	}
  	private JSONObject getSuccessResponse() {
  		JSONObject successJSON = new JSONObject();
  		successJSON.put("isSuccess", true);

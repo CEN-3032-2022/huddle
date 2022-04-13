@@ -8,6 +8,7 @@ public class Honk {
 	private String UserName;
 	private Date publishDate;
 	private int numLikes;
+	private int replyTo;
 	
 	public Honk(){
 		id = -1;
@@ -15,22 +16,34 @@ public class Honk {
 		publishDate = new Date();
 		UserName="";
 		numLikes = 0;
+		replyTo=-1;
 	}
 	
-	public Honk(int id, String content, Date publishDate,String username){
+	public Honk(int id, String content, Date publishDate,String username,int replyTo){
 		this.id = id;
 		this.content = content;
 		this.publishDate = publishDate;
 		this.UserName=username;
+		this.numLikes=0;
+		this.replyTo=replyTo;
 	}
 	@SuppressWarnings("exports")
 	public Honk(JSONObject json){
 		UserName=json.getString("UserName");
 		content=json.getString("content");
-//		id=json.getInt("id");
+		id=json.getInt("id");
 		publishDate=new Date(Integer.parseInt(json.getString("date").split("/")[0]),Integer.parseInt(json.getString("date").split("/")[1]),Integer.parseInt(json.getString("date").split("/")[2]));
 		numLikes = json.getInt("numLikes");
+		replyTo=json.getInt("replyTo");
 	}
+	public int getReplyTo() {
+		return replyTo;
+	}
+
+	public void setReplyTo(int replyTo) {
+		this.replyTo = replyTo;
+	}
+
 	public Honk(int id, String content, int month, int day, int year,String username) {
 		this.id = id;
 		this.content = content;

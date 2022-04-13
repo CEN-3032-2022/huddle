@@ -13,8 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class PostController {
+	static int replyTo;
 	@FXML TextArea writeHonkTextArea;
-	
     @FXML
     private void switchToHome() throws IOException {
         App.setRoot("/fxml/HomeScreenUsr");
@@ -22,10 +22,11 @@ public class PostController {
     @FXML
     private void post() throws IOException{
     	HonkRepositoryImp honkRep = new HonkRepositoryImp();
-    	
+    	System.out.print(replyTo);
     	String content = writeHonkTextArea.getText();
     	
-    	if (honkRep.postHonk(7, App.currentUser.getUsername(), content)) {
+    	if (honkRep.postHonk(App.currentUser.getUsername(), content,replyTo)) {
+    		replyTo=-1;
     		switchToHome();
     	}
     }
