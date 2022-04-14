@@ -14,7 +14,6 @@ package Server;
  public class HonkRequestResponse implements ServerResponse {
 
  	private ArrayList<JSONObject> Honks = new ArrayList<JSONObject>();
- 	private ArrayList<JSONObject> Replies = new ArrayList<JSONObject>();
  	private int PostC=0;
  	private JSONObject honkRequestJSON;
 
@@ -26,7 +25,6 @@ package Server;
  	@Override
  	public JSONObject getResponse() {
  		String requestType = honkRequestJSON.getString("request");
- 		System.out.println(honkRequestJSON.toString());
  		switch(requestType) {
  			case "honkList":
  				return getHonkList();
@@ -58,7 +56,7 @@ package Server;
  		String tag = honkRequestJSON.getString("tag"); 
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
-				if(Honks.get(i).getString("content").contains(tag)) {
+				if(Honks.get(i).getString("content").contains(tag)&&Honks.get(i).getInt("replyTo")==-1) {
 					jsonArray.put(Honks.get(i));
 			}
 		}
@@ -80,15 +78,6 @@ package Server;
  			outHonk.close();
  		}
  		catch(Exception e) { e.printStackTrace(); }
- 		try {
- 			FileWriter outHonk2 = new FileWriter("replies.txt",false);
- 			outHonk2.write(PostC+"\n");
- 			for(int i=0;i < Replies.size(); i++) {
- 					outHonk2.append(Replies.get(i).toString()+"\n");
- 			}
- 			outHonk2.close();
- 		}
- 		catch(Exception e) { e.printStackTrace(); }
  	}
 
  	// Remove Method When Database Fully Integrated
@@ -101,16 +90,7 @@ package Server;
  				Honks.add(new JSONObject(val));
  			}
  			Reader.close();
- 		} catch (IOException e) { e.printStackTrace(); }
- 		try {
- 			Replies.clear();
- 			BufferedReader Reader = new BufferedReader(new FileReader("replies.txt"));
- 			PostC=Integer.parseInt(Reader.readLine());
- 			String val;
- 			while((val = Reader.readLine()) != null) {
- 				Replies.add(new JSONObject(val));
- 			}
- 			Reader.close();
+ 			PostC=Honks.size();
  		} catch (IOException e) { e.printStackTrace(); }
  	}
 
@@ -119,7 +99,7 @@ package Server;
 
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i <Honks.size(); i++) {
- 			if(username.equals(Honks.get(i).getString("UserName")))
+ 			if(username.equals(Honks.get(i).getString("UserName"))&&Honks.get(i).getInt("replyTo")==-1)
  				jsonArray.put(Honks.get(i));
  		}
  		JSONObject userHonksJSON = new JSONObject();
@@ -140,7 +120,7 @@ package Server;
  		honkJSON.put("id",PostC);
  		PostC++;
  		honkJSON.put("replyTo",honkRequestJSON.getInt("replyTo"));
- 		Replies.add(honkJSON);
+ 		Honks.add(honkJSON);
  		writeToFile();
  	}
  	private void updateHonk() {
@@ -159,7 +139,8 @@ package Server;
  	private JSONObject getHonkList() {
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i <Honks.size(); i++) {
- 			jsonArray.put(Honks.get(i));
+ 			if(Honks.get(i).getInt("replyTo")==-1)
+ 				jsonArray.put(Honks.get(i));
  		}
  		JSONObject allHonksJSON = new JSONObject();
  		allHonksJSON.put("allHonks", jsonArray);
@@ -174,7 +155,7 @@ package Server;
  			String honkText = Honks.get(i).getString("content");
  		    Matcher hashtagMatcher = Pattern.compile("(#\\w+)\\b").matcher(honkText);
  		    while(hashtagMatcher.find()) {
- 		        if(hashtag.equalsIgnoreCase(hashtagMatcher.group().strip())) {
+ 		        if(hashtag.equalsIgnoreCase(hashtagMatcher.group().strip())&&Honks.get(i).getInt("replyTo")==-1) {
  		        	jsonArray.put(Honks.get(i));
  		        	break;
  		        }
@@ -191,7 +172,7 @@ package Server;
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
 			for(int j = 0; j < followedUsers.length(); ++j) {
-				if(Honks.get(i).getString("UserName").equals(followedUsers.getString(j))) {
+				if(Honks.get(i).getString("UserName").equals(followedUsers.getString(j))&&Honks.get(i).getInt("replyTo")==-1) {
 					jsonArray.put(Honks.get(i));
 				}
 			}
@@ -203,9 +184,9 @@ package Server;
 	private JSONObject getReplies() {
 		int id = honkRequestJSON.getInt("id"); 
 		JSONArray jsonArray = new JSONArray();
-			for(int j = 0; j < Replies.size(); ++j) {
-				if(Replies.get(j).getInt("replyTo")==id) {
-					jsonArray.put(Replies.get(j));
+			for(int j = 0; j < Honks.size(); ++j) {
+				if(Honks.get(j).getInt("replyTo")==id) {
+					jsonArray.put(Honks.get(j));
 				}
 		}
 		JSONObject userHonksJSON = new JSONObject();

@@ -137,7 +137,6 @@ public class HomeScreenController{
 			honk.add(new Text(honks.get(i).getContent()), 1, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
-			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
 			honksPane.add(honk, 0, i + 2);
 		}
     	return honksPane;
@@ -164,6 +163,8 @@ public class HomeScreenController{
 			honk.add(new Text(honks.get(i).getContent()), 1, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
+			honk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
+			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
 			mainHonk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
 			honksPane.add(honk, 1, i+1);
 		}
