@@ -23,6 +23,9 @@ import javafx.scene.text.Text;
 public class HomeScreenController{
 	HonkRetriever honkRtr;
 	boolean isMasterWall;
+	boolean viewReply;
+	boolean searchBool;
+	JSONObject replyHolder;
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML TextField searchBar;
 	@FXML Text UserName;
@@ -36,10 +39,16 @@ public class HomeScreenController{
 	}
     @FXML
     private void switchToLogin() throws IOException {
+    	isMasterWall=false;
+    	viewReply=false;
+    	searchBool=false;
         App.setRoot("/fxml/Login");
     }
     @FXML
     private void switchToWall() throws IOException {
+    	isMasterWall=true;
+    	viewReply=false;
+    	searchBool=false;
     	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
 		ArrayList<Honk> honks = honksRtr.getHonkList();
 		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
@@ -47,6 +56,9 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToFollowed() {
+    	isMasterWall=false;
+    	viewReply=false;
+    	searchBool=false;
     	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
 		ArrayList<Honk> honks = honksRtr.getFollowedHonks(App.currentUser.getUsername());
 		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
@@ -54,6 +66,9 @@ public class HomeScreenController{
     }
     @FXML
     private void search() {
+    	isMasterWall=false;
+    	viewReply=false;
+    	searchBool=true;
     	String searchText = searchBar.getText();
     	if(searchText.startsWith("#")) {
     		String hashtag = searchText.stripTrailing();
@@ -142,8 +157,10 @@ public class HomeScreenController{
     	return honksPane;
     }
     private GridPane createRepliesGridpane(ArrayList<Honk> honks) {
+    	isMasterWall=false;
+    	viewReply=true;
+    	searchBool=false;
 		GridPane honksPane = createReplyHonksGridpane();
-		
 		GridPane mainHonk = createHonkGridpane();
 		mainHonk.add(createViewProfileButton(honks.get(0).getUserName()), 0, 0);
 		mainHonk.add(new Text(honks.get(0).getUserName()), 1, 0);
@@ -156,7 +173,6 @@ public class HomeScreenController{
 		for(int i=1;i<honks.size();i++) {
 			GridPane honk = createHonkGridpane();
 			final String name = honks.get(i).getUserName();
-			
 			honk.add(createViewProfileButton(name), 0, 0);
 			honk.add(new Text(honks.get(i).getUserName()), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
@@ -165,7 +181,6 @@ public class HomeScreenController{
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
-			mainHonk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
 			honksPane.add(honk, 1, i+1);
 		}
 		
@@ -182,6 +197,14 @@ public class HomeScreenController{
     			try {
 					LikeHonkController.likeHonk(honkJSON);
 					if(isMasterWall) switchToWall();
+					else if(viewReply) {
+						HonkRepositoryImp x = new HonkRepositoryImp();
+						ArrayList<Honk> temp =x.getReplyList(replyHolder,replyHolder.getInt("id"));
+						honkScrollPaneContainer.setContent(createRepliesGridpane(temp));
+						}
+					else if(searchBool) {
+						search();
+					}
 					else switchToFollowed();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -200,6 +223,7 @@ public class HomeScreenController{
     		@Override
     		public void handle(ActionEvent event) {    			
 					try {
+						replyHolder = honkJSON;
 						PostController.replyTo=honkJSON.getInt("id");
 						switchToPost();
 					} catch (IOException e) {
@@ -218,11 +242,15 @@ public class HomeScreenController{
         viewProfileButton.setOnAction(new EventHandler<>(){
 			@Override
 			public void handle(ActionEvent event) {
+				isMasterWall=false;
+		    	viewReply=true;
+		    	searchBool=false;
 				HonkRepositoryImp x = new HonkRepositoryImp();
 				ArrayList<Honk> temp =x.getReplyList(object,object.getInt("id"));
-				if(temp.size()>1)
+				if(temp.size()>1) {
+					replyHolder = object;
 					honkScrollPaneContainer.setContent(createRepliesGridpane(temp));
-			
+				}
 			}});
     	return viewProfileButton;
     }

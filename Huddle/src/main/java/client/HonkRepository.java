@@ -9,7 +9,7 @@ public interface HonkRepository {
 	
 	boolean postHonk(String username, String content,int replyTo);
 	
-	boolean updateHonk(String username, String date, String content, int numLikes);
+	boolean updateHonk(String username, String date, String content, int numLikes,int id);
 	
 	ArrayList<Honk> getHonkList();
 	

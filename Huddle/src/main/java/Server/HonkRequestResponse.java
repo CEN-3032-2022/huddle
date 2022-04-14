@@ -56,7 +56,8 @@ package Server;
  		String tag = honkRequestJSON.getString("tag"); 
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
-				if(Honks.get(i).getString("content").contains(tag)&&Honks.get(i).getInt("replyTo")==-1) {
+				if((Honks.get(i).getString("content").contains(" "+tag+" ")||Honks.get(i).getString("content").contains(tag+" ")||Honks.get(i).getString("content").equals(tag))
+						&&Honks.get(i).getInt("replyTo")==-1) {
 					jsonArray.put(Honks.get(i));
 			}
 		}
@@ -126,11 +127,11 @@ package Server;
  	private void updateHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
  		for(int i = 0; i < Honks.size(); i++) {
- 			if(Honks.get(i).getString("UserName").equalsIgnoreCase(honkJSON.getString("UserName")) &&
- 					Honks.get(i).getString("content").equalsIgnoreCase(honkJSON.getString("content")) &&
- 					(Honks.get(i).getInt("numLikes") + 1) == (honkJSON.getInt("numLikes"))
- 			){	
- 				Honks.set(i, honkJSON);
+ 			if(Honks.get(i).getInt("id")==honkJSON.getInt("id")){	
+ 				JSONObject x= Honks.get(i);
+ 				x.put("numLikes", Honks.get(i).getInt("numLikes")+1);
+ 				Honks.remove(i);
+ 				Honks.add(i, x);
  			}
  		}
  		writeToFile();

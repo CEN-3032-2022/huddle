@@ -24,6 +24,6 @@ public class LikeHonkController {
     	
     	HonkRepositoryImp honkRep = new HonkRepositoryImp();
     	
-    	honkRep.updateHonk(honkJSON.getString("UserName"), honkJSON.getString("date"), honkJSON.getString("content"),  honkJSON.getInt("numLikes") + 1);
+    	honkRep.updateHonk(honkJSON.getString("UserName"), honkJSON.getString("date"), honkJSON.getString("content"),  honkJSON.getInt("numLikes") + 1,honkJSON.getInt("id"));
     }
 }

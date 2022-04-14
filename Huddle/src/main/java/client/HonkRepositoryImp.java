@@ -55,13 +55,13 @@ public class HonkRepositoryImp implements HonkRepository {
 	}
 
 	@Override
-	public boolean updateHonk(String username, String date, String content, int numLikes) {
+	public boolean updateHonk(String username, String date, String content, int numLikes,int id) {
 		JSONObject JSON1 = new JSONObject();
     	JSON1.put("UserName", username);
     	JSON1.put("date", date);
     	JSON1.put("content", content);
     	JSON1.put("numLikes", numLikes);
-    	
+    	JSON1.put("id",id);
     	JSONObject JSON2 = new JSONObject();
     	JSON2.put("type", "honk");
     	JSON2.put("request", "Update");
