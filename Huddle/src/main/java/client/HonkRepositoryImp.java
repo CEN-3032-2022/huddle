@@ -33,19 +33,20 @@ public class HonkRepositoryImp implements HonkRepository {
 	}
 
 	@Override
-	public boolean postHonk(int id, String username, String content) {
+	public boolean postHonk(String username, String content, int replyTo) {
     	Date publishDate = new Date();
     	publishDate.setToCurrentDate();
 		JSONObject JSON = new JSONObject();
-    	JSON.put("id", id);
     	JSON.put("UserName", username);
     	JSON.put("content", content);
     	JSON.put("numLikes", 0);
+    	JSON.put("replyTo", replyTo);
     	JSON.put("date", publishDate.toString());
     	JSONObject JSON2=new JSONObject();
     	JSON2.put("type", "honk");
     	JSON2.put("request", "Post");
 		JSON2.put("Honk", JSON.toString());
+		JSON2.put("replyTo", replyTo);
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
     	
     	JSONObject postJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
@@ -54,13 +55,13 @@ public class HonkRepositoryImp implements HonkRepository {
 	}
 
 	@Override
-	public boolean updateHonk(String username, String date, String content, int numLikes) {
+	public boolean updateHonk(String username, String date, String content, int numLikes,int id) {
 		JSONObject JSON1 = new JSONObject();
     	JSON1.put("UserName", username);
     	JSON1.put("date", date);
     	JSON1.put("content", content);
     	JSON1.put("numLikes", numLikes);
-    	
+    	JSON1.put("id",id);
     	JSONObject JSON2 = new JSONObject();
     	JSON2.put("type", "honk");
     	JSON2.put("request", "Update");
@@ -90,7 +91,23 @@ public class HonkRepositoryImp implements HonkRepository {
 		
 		return honks;
 	}
-
+	@Override
+	public ArrayList<Honk> getReplyList(int id) {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "honk");
+		JSON.put("request", "getReplies");
+		JSON.put("id", id);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	JSONObject honksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray allHonks = honksJSON.getJSONArray("Honks");
+		ArrayList<Honk> honks = new ArrayList<Honk>();
+		for(int i = 0; i < allHonks.length(); i++) {
+			JSONObject x = (JSONObject) allHonks.get(i);
+			honks.add(new Honk(x));
+		}
+		
+		return honks;
+	}
 	@Override
 	public ArrayList<Honk> getHashtagHonkList(String hashtag) {
 		JSONObject JSON = new JSONObject();
@@ -141,6 +158,23 @@ public class HonkRepositoryImp implements HonkRepository {
 		
 		return honks;
 		
+	}
+
+	@Override
+	public ArrayList<Honk> getTagHonkList(String tag) {
+		JSONObject taggedHonksRequest = new JSONObject();
+		taggedHonksRequest.put("type", "honk");
+		taggedHonksRequest.put("request", "taggedSearch");
+		taggedHonksRequest.put("tag", tag);
+		ClientCommunication.getInstance().sendJSONRequestToServer(taggedHonksRequest);
+		JSONObject taggedHonksJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray taggedHonks = taggedHonksJSON.getJSONArray("taggedHonks");
+		ArrayList<Honk> honks = new ArrayList<Honk>(); 
+		for(int i = 0; i < taggedHonks.length(); i++) {
+			JSONObject x = (JSONObject) taggedHonks.get(i);
+			honks.add(new Honk(x));
+		}
+		return honks;
 	}
 
 }

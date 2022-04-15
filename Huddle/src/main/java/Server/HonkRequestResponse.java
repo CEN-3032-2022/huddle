@@ -14,6 +14,7 @@ package Server;
  public class HonkRequestResponse implements ServerResponse {
 
  	private ArrayList<JSONObject> Honks = new ArrayList<JSONObject>();
+ 	private int PostC=0;
  	private JSONObject honkRequestJSON;
 
  	public HonkRequestResponse(JSONObject honkRequestJSON) {
@@ -24,19 +25,25 @@ package Server;
  	@Override
  	public JSONObject getResponse() {
  		String requestType = honkRequestJSON.getString("request");
-
  		switch(requestType) {
  			case "honkList":
  				return getHonkList();
  			case "Post":
- 				postHonk();
+ 				if(honkRequestJSON.getInt("replyTo")<0)
+ 					postHonk();
+ 				else
+ 					postReply();
  				return getSuccessResponse();
  			case "hashtagSearch":
  				return getHashTagHonkList();
+ 			case "taggedSearch":
+ 				return getTagHonkList();
  			case "usrHonks":
  				return getUserHonks();
 			case "followedHonks":
 				return getFollowedHonks();
+			case "getReplies":
+				return getReplies();
  			case "Update":
  				updateHonk();
  				return getSuccessResponse();
@@ -45,7 +52,21 @@ package Server;
  		return getFailureResponse();
  	}
 
- 	// Remove Method When Database Fully Integrated
+ 	private JSONObject getTagHonkList() {
+ 		String tag = honkRequestJSON.getString("tag"); 
+		JSONArray jsonArray = new JSONArray();
+		for(int i = 0; i <Honks.size(); i++) {
+				if((Honks.get(i).getString("content").contains(" "+tag+" ")||Honks.get(i).getString("content").contains(tag+" ")||Honks.get(i).getString("content").equals(tag))
+						&&Honks.get(i).getInt("replyTo")==-1) {
+					jsonArray.put(Honks.get(i));
+			}
+		}
+		JSONObject taggedHonksJSON = new JSONObject();
+		taggedHonksJSON.put("taggedHonks", jsonArray);
+		return taggedHonksJSON;
+	}
+
+	// Remove Method When Database Fully Integrated
  	private void writeToFile() {
  		try {
  			FileWriter outHonk = new FileWriter("honks.txt",false);
@@ -70,6 +91,7 @@ package Server;
  				Honks.add(new JSONObject(val));
  			}
  			Reader.close();
+ 			PostC=Honks.size();
  		} catch (IOException e) { e.printStackTrace(); }
  	}
 
@@ -78,7 +100,7 @@ package Server;
 
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i <Honks.size(); i++) {
- 			if(username.equals(Honks.get(i).getString("UserName")))
+ 			if(username.equals(Honks.get(i).getString("UserName"))&&Honks.get(i).getInt("replyTo")==-1)
  				jsonArray.put(Honks.get(i));
  		}
  		JSONObject userHonksJSON = new JSONObject();
@@ -88,18 +110,28 @@ package Server;
 
  	private void postHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+ 		honkJSON.put("id",PostC);
+ 		PostC++;
+ 		honkJSON.put("replyTo",-1);
  		Honks.add(honkJSON);
  		writeToFile();
  	}
-
+ 	private void postReply() {
+ 		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
+ 		honkJSON.put("id",PostC);
+ 		PostC++;
+ 		honkJSON.put("replyTo",honkRequestJSON.getInt("replyTo"));
+ 		Honks.add(honkJSON);
+ 		writeToFile();
+ 	}
  	private void updateHonk() {
  		JSONObject honkJSON = new JSONObject(honkRequestJSON.getString("Honk"));
  		for(int i = 0; i < Honks.size(); i++) {
- 			if(Honks.get(i).getString("UserName").equalsIgnoreCase(honkJSON.getString("UserName")) &&
- 					Honks.get(i).getString("content").equalsIgnoreCase(honkJSON.getString("content")) &&
- 					(Honks.get(i).getInt("numLikes") + 1) == (honkJSON.getInt("numLikes"))
- 			){	
- 				Honks.set(i, honkJSON);
+ 			if(Honks.get(i).getInt("id")==honkJSON.getInt("id")){	
+ 				JSONObject x= Honks.get(i);
+ 				x.put("numLikes", Honks.get(i).getInt("numLikes")+1);
+ 				Honks.remove(i);
+ 				Honks.add(i, x);
  			}
  		}
  		writeToFile();
@@ -108,7 +140,8 @@ package Server;
  	private JSONObject getHonkList() {
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i <Honks.size(); i++) {
- 			jsonArray.put(Honks.get(i));
+ 			if(Honks.get(i).getInt("replyTo")==-1)
+ 				jsonArray.put(Honks.get(i));
  		}
  		JSONObject allHonksJSON = new JSONObject();
  		allHonksJSON.put("allHonks", jsonArray);
@@ -123,7 +156,7 @@ package Server;
  			String honkText = Honks.get(i).getString("content");
  		    Matcher hashtagMatcher = Pattern.compile("(#\\w+)\\b").matcher(honkText);
  		    while(hashtagMatcher.find()) {
- 		        if(hashtag.equalsIgnoreCase(hashtagMatcher.group().strip())) {
+ 		        if(hashtag.equalsIgnoreCase(hashtagMatcher.group().strip())&&Honks.get(i).getInt("replyTo")==-1) {
  		        	jsonArray.put(Honks.get(i));
  		        	break;
  		        }
@@ -140,7 +173,7 @@ package Server;
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0; i <Honks.size(); i++) {
 			for(int j = 0; j < followedUsers.length(); ++j) {
-				if(Honks.get(i).getString("UserName").equals(followedUsers.getString(j))) {
+				if(Honks.get(i).getString("UserName").equals(followedUsers.getString(j))&&Honks.get(i).getInt("replyTo")==-1) {
 					jsonArray.put(Honks.get(i));
 				}
 			}
@@ -149,7 +182,23 @@ package Server;
 		userHonksJSON.put("followedHonks", jsonArray);
 		return userHonksJSON;
 	}
-
+	private JSONObject getReplies() {
+		int id = honkRequestJSON.getInt("id"); 
+		JSONArray jsonArray = new JSONArray();
+		for(int j = 0; j < Honks.size(); ++j) {
+			if(Honks.get(j).getInt("id")==id) {
+				jsonArray.put(Honks.get(j));
+				break;
+			}}
+			for(int j = 0; j < Honks.size(); ++j) {
+				if(Honks.get(j).getInt("replyTo")==id) {
+					jsonArray.put(Honks.get(j));
+				}
+		}
+		JSONObject userHonksJSON = new JSONObject();
+		userHonksJSON.put("Honks", jsonArray);
+		return userHonksJSON;
+	}
  	private JSONObject getSuccessResponse() {
  		JSONObject successJSON = new JSONObject();
  		successJSON.put("isSuccess", true);

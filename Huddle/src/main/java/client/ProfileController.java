@@ -10,9 +10,15 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 public class ProfileController{
 	int profileFollowerCount;
@@ -41,14 +47,15 @@ public class ProfileController{
 	private void setField() {
 		HonkRetriever honksRtr = new HonkRetriever();
 		JSONArray Arr = honksRtr.getUsrHonks(holder);
-		GridPane tPane=new GridPane();
+		GridPane tPane = createHonksGridpane();
 		for(int i=0;i<Arr.length();i++) {
 			if(Arr.getJSONObject(i).getString("UserName").equals(UserName.getText())) {
-				tPane.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, (i*4)+0);
-				tPane.add(new Text(Arr.getJSONObject(i).getString("date")), 3, (i*4)+0);
-				tPane.add(new Text(Arr.getJSONObject(i).getString("content")), 1, (i*4)+1);
-				tPane.add(new Text("Likes: " + Arr.getJSONObject(i).getInt("numLikes")), 3, (i*4)+2);
-				tPane.add(createLikeButton(Arr.getJSONObject(i)), 0, (i*4)+2);
+				GridPane honk = createHonkGridpane();
+				honk.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, 0);
+				honk.add(new Text(Arr.getJSONObject(i).getString("date")), 2, 0);
+				honk.add(new Text(Arr.getJSONObject(i).getString("content")), 1, 1);
+				honk.add(createLikeHbox(Arr.getJSONObject(i)), 0, 2, 2, 1);
+				tPane.add(honk, 0, i);
 			}
 		}
 		honkScrollPaneContainer.setContent(tPane);
@@ -57,13 +64,6 @@ public class ProfileController{
     private void followButtonOnClick() {		
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	userRepo.followUser(App.currentUser.getUsername(), holder);
-		
-//		JSON.put("type", "user");
-//		JSON.put("request", "followUser");
-//		JSON.put("userFollowing", App.currentUser.getUsername());
-//		JSON.put("userToFollow", holder);
-//		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
-//		ClientCommunication.getInstance().getServerJSONResponse();
     	
 		followersText.setText("Followers: " + ++profileFollowerCount);
 		disableFollowButton();
@@ -88,13 +88,6 @@ public class ProfileController{
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	User currUser = userRepo.getUserByUsername(App.currentUser.getUsername());
     	
-//		JSONObject profileRequest = new JSONObject();
-//		profileRequest.put("type", "user");
-//		profileRequest.put("request", "getUsr");
-//		profileRequest.put("UserName", username);
-//		ClientCommunication.getInstance().sendJSONRequestToServer(profileRequest);
-//		JSONObject profileData = ClientCommunication.getInstance().getServerJSONResponse();
-    	
 		return currUser;
     }
     
@@ -108,6 +101,8 @@ public class ProfileController{
     	Button likeButton = new Button("Like");
     	likeButton.getStyleClass().clear();
     	likeButton.getStyleClass().add("likeButton");
+    	likeButton.getStyleClass().add("button");
+    	
     	
     	likeButton.setOnAction(new EventHandler<>() {
     		@Override
@@ -122,5 +117,36 @@ public class ProfileController{
     	});
     	
     	return likeButton;
+    }
+    private HBox createLikeHbox(JSONObject honkJSON) {
+    	HBox replyHbox = new HBox();
+    	replyHbox.setSpacing(5);
+    	replyHbox.setAlignment(Pos.CENTER_LEFT);
+    	
+    	replyHbox.getChildren().add(createLikeButton(honkJSON));
+    	replyHbox.getChildren().add(new Text("Likes: " + honkJSON.getInt("numLikes")));
+    	
+    	return replyHbox;
+    }
+    private GridPane createHonksGridpane() {
+		GridPane honksPane = new GridPane();
+		ColumnConstraints column1 = new ColumnConstraints();
+		honksPane.getStyleClass().add("honks-pane");
+	    column1.setPercentWidth(100);
+	    honksPane.getColumnConstraints().add(column1);
+		honksPane.setVgap(10);
+		
+		return honksPane;
+    }
+    private GridPane createHonkGridpane() {
+		GridPane honk = new GridPane();
+		honk.setPadding(new Insets(3));
+		honk.getStyleClass().add("honk");
+		honk.setHgap(5);
+		ColumnConstraints col2 = new ColumnConstraints();
+		col2.setHgrow(Priority.ALWAYS);
+		col2.setHalignment(HPos.RIGHT);
+		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
+		return honk;
     }
  }

@@ -4,12 +4,12 @@
   -color: #000000;
 }
 .textArea{
-	-fx-background-color: #FFFFFF;
+  -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
-	-fx-border-width: 2px;
-	-fx-border-style: solid;
-	-fx-border-color: #FFFFFF;
+  -fx-border-width: 2px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
 }
 .text-field {
     -fx-background-color: white;
@@ -21,7 +21,7 @@
     -fx-effect: dropshadow(gaussian, #00c8e3, 5, 0.5, 0.0, 0.0);
 }
 .button{
-	-fx-background-color: #FFFFFF;
+  -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
   -fx-alignment: CENTER;
@@ -30,12 +30,84 @@
   -fx-padding: 10px 10px 10px 10px;
 }
 .scrollPane{
-	-fx-background-color: #FFFFFF;
+  -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
-	-fx-border-width: 5px;
-	-fx-border-style: solid;
-	-fx-border-color: #FFFFFF;
+  -fx-border-width: 5px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
+}
+
+/* For Honks */
+
+#honkScrollPaneContainer {
+  -fx-background-color: white;
+  -fx-background-radius: 8px;
+  -fx-border-radius: 8px;
+  -fx-padding: 5px;
+  -fx-max-width: 1250px;
+  -fx-fit-to-width: true;
+  scrollbar-gutter: stable;
+}
+
+.honks-pane {
+  -fx-pref-width: 1250px;
+}
+
+.honk {
+  -fx-background-color: #e9ecef;
+  -fx-margin: 5px;
+  -fx-border-width: 2px;
+  -fx-border-color: #6c757d;
+  -fx-background-radius: 7px;
+  -fx-border-radius: 7px;
+}
+
+.likeButton {
+  -fx-margin: 5px;
+  -fx-padding: 7px 10px 7px 10px;
+  -fx-max-width: 120px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-color: #6c757d;
+}
+
+.likeButton:hover {
+  -fx-background-color: #5a6268;
+}
+
+.replyButton {
+  -fx-padding: 7px 10px 7px 10px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-color: #2e2e2e;
+}
+
+.replyButton:hover {
+  -fx-background-color: #000000;
+}
+
+.viewRepliesButton {
+  -fx-padding: 7px 10px 7px 10px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-color: #6c757d;
+}
+
+.viewRepliesButton:hover {
+  -fx-background-color: #5a6268;
+}
+
+.profileButton {
+  -fx-padding: 7px 10px 7px 10px;
+  -fx-max-width: 120px;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-color: #2e2e2e;
+}
+
+.profileButton:hover {
+  -fx-background-color: #000000;
 }
 
 /* For Login Page */
@@ -199,13 +271,6 @@
   min-width: 200px;
 }
 
-#honkScrollPaneContainer {
-  -fx-background-color: white;
-  -fx-background-radius: 8px;
-  -fx-border-radius: 8px;
-  -fx-padding: 5px;
-}
-
 #postHonkButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
@@ -232,7 +297,7 @@
   -fx-min-width: 200px;
   -fx-background-color: #6c757d;
 }
-##followedHonksButton:hover {
+#followedHonksButton:hover {
     -fx-background-color: #5a6268;
 }
 
@@ -284,6 +349,10 @@
 }
 #logoutButton:hover {
     -fx-background-color: darkred;
+}
+
+#searchBar {
+  -fx-max-width: 1250px;
 }
 
 #searchButton {
@@ -344,37 +413,6 @@
     -fx-background-color: darkgreen;
 }
 
-/* Honks */
-#honkScrollPaneContainer {
-  -fx-border-width: 10px;
-  -fx-border-style: solid;
-  -fx-border-color: #FFFFFF;
-  scrollbar-gutter: stable;
-}
-.replyButton{
-	-fx-background-color:#6f6f6f;
-      -fx-font-size: 20;
-      -color: #000000;
-	-fx-border-width: 10px;
-	-fx-border-style: solid;
-	-fx-border-color: #6f6f6f;
-}
-.likeButton{
-	-fx-background-color:#6f6f6f;
-      -fx-font-size: 20;
-      -color: #000000;
-	-fx-border-width: 10px;
-	-fx-border-style: solid;
-	-fx-border-color: #6f6f6f;
-}
-.profileButton{
-  	-fx-text-fill: white;
-  	-fx-font-weight: bold;
-  	-fx-background-color: black;
-	-fx-border-width: 10px;
-	-fx-border-style: solid;
-	-fx-border-color: black;
-}
 /*Profile page*/
 .FollowProfileButton {
   -fx-text-fill: white;
