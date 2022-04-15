@@ -185,6 +185,11 @@ package Server;
 	private JSONObject getReplies() {
 		int id = honkRequestJSON.getInt("id"); 
 		JSONArray jsonArray = new JSONArray();
+		for(int j = 0; j < Honks.size(); ++j) {
+			if(Honks.get(j).getInt("id")==id) {
+				jsonArray.put(Honks.get(j));
+				break;
+			}}
 			for(int j = 0; j < Honks.size(); ++j) {
 				if(Honks.get(j).getInt("replyTo")==id) {
 					jsonArray.put(Honks.get(j));

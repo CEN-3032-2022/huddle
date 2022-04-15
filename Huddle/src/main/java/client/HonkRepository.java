@@ -17,5 +17,5 @@ public interface HonkRepository {
 	ArrayList<Honk> getTagHonkList(String tag);
 	ArrayList<Honk> getFollowedHonks(String username);
 
-	ArrayList<Honk> getReplyList(JSONObject x,int i);
+	ArrayList<Honk> getReplyList(int i);
 }

@@ -92,7 +92,7 @@ public class HonkRepositoryImp implements HonkRepository {
 		return honks;
 	}
 	@Override
-	public ArrayList<Honk> getReplyList(JSONObject object, int id) {
+	public ArrayList<Honk> getReplyList(int id) {
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "honk");
 		JSON.put("request", "getReplies");
@@ -101,9 +101,6 @@ public class HonkRepositoryImp implements HonkRepository {
     	JSONObject honksJSON = ClientCommunication.getInstance().getServerJSONResponse();
 		JSONArray allHonks = honksJSON.getJSONArray("Honks");
 		ArrayList<Honk> honks = new ArrayList<Honk>();
-		if(!object.has("replyTo"))
-			object.put("replyTo", -1);
-		honks.add(new Honk(object));
 		for(int i = 0; i < allHonks.length(); i++) {
 			JSONObject x = (JSONObject) allHonks.get(i);
 			honks.add(new Honk(x));

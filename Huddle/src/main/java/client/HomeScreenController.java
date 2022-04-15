@@ -181,6 +181,7 @@ public class HomeScreenController{
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
+			mainHonk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
 			honksPane.add(honk, 1, i+1);
 		}
 		
@@ -199,7 +200,7 @@ public class HomeScreenController{
 					if(isMasterWall) switchToWall();
 					else if(viewReply) {
 						HonkRepositoryImp x = new HonkRepositoryImp();
-						ArrayList<Honk> temp =x.getReplyList(replyHolder,replyHolder.getInt("id"));
+						ArrayList<Honk> temp =x.getReplyList(replyHolder.getInt("id"));
 						honkScrollPaneContainer.setContent(createRepliesGridpane(temp));
 						}
 					else if(searchBool) {
@@ -246,7 +247,7 @@ public class HomeScreenController{
 		    	viewReply=true;
 		    	searchBool=false;
 				HonkRepositoryImp x = new HonkRepositoryImp();
-				ArrayList<Honk> temp =x.getReplyList(object,object.getInt("id"));
+				ArrayList<Honk> temp =x.getReplyList(object.getInt("id"));
 				if(temp.size()>1) {
 					replyHolder = object;
 					honkScrollPaneContainer.setContent(createRepliesGridpane(temp));
