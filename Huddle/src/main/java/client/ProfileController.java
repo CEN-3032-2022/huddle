@@ -86,9 +86,9 @@ public class ProfileController{
     
     private User getUserProfileData(String username) {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
-    	User currUser = userRepo.getUserByUsername(App.currentUser.getUsername());
+    	User profileUser = userRepo.getUserByUsername(username);
     	
-		return currUser;
+		return profileUser;
     }
     
     private void disableFollowButton() {
