@@ -54,8 +54,21 @@ public class UserRepositoryImp implements UserRepository {
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "user");
 		JSON.put("request", "followUser");
-		JSON.put("userFollowing", App.currentUser.getUsername());
+		JSON.put("userFollowing", userFollowing);
 		JSON.put("userToFollow", userToFollow);
+		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+		JSONObject followUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		
+		return followUserJsonResponse.getBoolean("isSuccess");
+	}
+	
+	@Override
+	public boolean unfollowUser(String userUnfollowing, String userToUnfollow) {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "user");
+		JSON.put("request", "unfollowUser");
+		JSON.put("userUnfollowing", userUnfollowing);
+		JSON.put("userToUnfollow", userToUnfollow);
 		ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
 		JSONObject followUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
 		

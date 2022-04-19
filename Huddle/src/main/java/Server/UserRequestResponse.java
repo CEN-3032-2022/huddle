@@ -35,6 +35,9 @@ public class UserRequestResponse implements ServerResponse {
 			case "followUser":
 				followUser();
 				return getSuccessResponse();
+			case "unfollowUser":
+				unfollowUser();
+				return getSuccessResponse();
 			case "updatePassword":
 				return updatePassword();
 			case "updateBio":
@@ -160,6 +163,27 @@ public class UserRequestResponse implements ServerResponse {
 		writeToFile();
 	}
 	
+	private void unfollowUser() {
+		String userUnfollowing = userRequestJSON.getString("userUnfollowing");
+		String userToUnfollow = userRequestJSON.getString("userToUnfollow");
+		
+		for(int i = 0; i <Users.size(); i++) {
+			if(userUnfollowing.equals(Users.get(i).getString("UserName"))) {
+				JSONArray usersFollowing = Users.get(i).getJSONArray("usersFollowing");
+				for(int j = 0; j < usersFollowing.length(); j++) {
+					if(usersFollowing.get(j).equals(userToUnfollow)) usersFollowing.remove(j);
+				}
+				Users.get(i).put("usersFollowing", usersFollowing);
+			}
+			else if(userToUnfollow.equals(Users.get(i).getString("UserName"))) {
+				int newFollowerCount = Users.get(i).getInt("followerCount") - 1;
+				Users.get(i).put("followerCount", newFollowerCount);
+			}
+		}
+		
+		writeToFile();
+	}
+	
 	private JSONObject updatePassword() {
 		String username = userRequestJSON.getString("UserName");
 		String newPassword = userRequestJSON.getString("newPassword");
@@ -172,7 +196,6 @@ public class UserRequestResponse implements ServerResponse {
 				JSONObject userJSON = Users.get(i);
 				if(userJSON.get("recoveryAnswer1").equals(recAnswr1)
 						&& userJSON.get("recoveryAnswer2").equals(recAnswr2)) {
-//	 				userJSON.put("password", newPassword);
 					Users.get(i).put("password", newPassword);
 	 				writeToFile();
 	 				return getSuccessResponse();

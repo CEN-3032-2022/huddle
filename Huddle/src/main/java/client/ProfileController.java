@@ -35,10 +35,12 @@ public class ProfileController{
 		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
 		}
-		UserName.setText(holder);
+		if(isAlreadyFollowingUser()) {
+			setAlreadyFollowingButton();
+		}
 		
+		UserName.setText(holder);
 		User profileData = getUserProfileData(holder);
-		if(isAlreadyFollowingUser()) disableFollowButton();		
 		bioText.setText(profileData.getBio());
 		profileFollowerCount = profileData.getFollowerCount();
 		followersText.setText("Followers: " + profileFollowerCount);
@@ -64,10 +66,17 @@ public class ProfileController{
     @FXML
     private void followButtonOnClick() {		
 		UserRepositoryImp userRepo = new UserRepositoryImp();
-    	userRepo.followUser(App.currentUser.getUsername(), holder);
-    	
-		followersText.setText("Followers: " + ++profileFollowerCount);
-		disableFollowButton();
+
+    	if(!isAlreadyFollowingUser()) {
+        	userRepo.followUser(App.currentUser.getUsername(), holder);
+    		followersText.setText("Followers: " + ++profileFollowerCount);
+    		setAlreadyFollowingButton();
+    	}
+    	else {
+        	userRepo.unfollowUser(App.currentUser.getUsername(), holder);
+    		followersText.setText("Followers: " + --profileFollowerCount);
+    		setNotFollowingButton();
+    	}
     }
     @FXML
     private void switchToMain() throws IOException {
@@ -92,10 +101,14 @@ public class ProfileController{
 		return profileUser;
     }
     
-    private void disableFollowButton() {
+    private void setAlreadyFollowingButton() {
     	followButton.setStyle("-fx-background-color: darkgreen;");
-    	followButton.setDisable(true);
-    	followButton.setText("Followed");
+    	followButton.setText("Unfollow");
+    }
+    
+    private void setNotFollowingButton() {
+    	followButton.setStyle("-fx-background-color: green;");
+    	followButton.setText("Follow");
     }
 
     private Button createLikeButton(JSONObject honkJSON) {

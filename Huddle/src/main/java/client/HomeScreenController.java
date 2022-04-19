@@ -43,7 +43,7 @@ public class HomeScreenController{
 		searchBar.setPromptText("[\"username\" to search for usernames] [\"#hashtag\" to seach for hashtags] [\"@username\" to search for tags]");
 		UserName.setText(App.currentUser.getUsername());
 		bioText.setText(App.currentUser.getBio());
-		switchToFollowed();
+		switchToWall();
 	}
     @FXML
     private void switchToLogin() throws IOException {
@@ -53,7 +53,7 @@ public class HomeScreenController{
         App.setRoot("/fxml/Login");
     }
     @FXML
-    private void switchToWall() throws IOException {
+    private void switchToWall() {
     	isMasterWall=true;
     	viewReply=false;
     	searchBool=false;
