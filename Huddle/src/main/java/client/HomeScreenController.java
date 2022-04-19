@@ -124,6 +124,10 @@ public class HomeScreenController{
     private void switchTheme() throws IOException {
     	if(App.getUserAgentStylesheet().contains("1"))
     		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
+    	else if(App.getUserAgentStylesheet().contains("2"))
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");
+    	else if(App.getUserAgentStylesheet().contains("3"))
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
     	else
     		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     }
