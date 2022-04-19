@@ -14,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -53,8 +54,8 @@ public class ProfileController{
 				GridPane honk = createHonkGridpane();
 				honk.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, 0);
 				honk.add(new Text(Arr.getJSONObject(i).getString("date")), 2, 0);
-				honk.add(new Text(Arr.getJSONObject(i).getString("content")), 1, 1);
-				honk.add(createLikeHbox(Arr.getJSONObject(i)), 0, 2, 2, 1);
+				honk.add(createHonkContent(Arr.getJSONObject(i).getString("content")), 1, 1, 2, 1);
+				honk.add(createLikeHbox(Arr.getJSONObject(i)), 0, 2, 3, 1);
 				tPane.add(honk, 0, i);
 			}
 		}
@@ -148,5 +149,11 @@ public class ProfileController{
 		col2.setHalignment(HPos.RIGHT);
 		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
 		return honk;
+    }
+    
+    private Label createHonkContent(String content) {
+        Label label = new Label(content);
+        label.setWrapText(true);
+        return label;
     }
  }

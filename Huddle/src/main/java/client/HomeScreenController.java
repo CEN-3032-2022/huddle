@@ -1,5 +1,13 @@
 package client;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -129,7 +137,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0,0);
 			honk.add(new Text(name), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
@@ -149,7 +157,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0,0);
 			honk.add(new Text(name), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honksPane.add(honk, 0, i + 2);
@@ -165,7 +173,7 @@ public class HomeScreenController{
 		mainHonk.add(createViewProfileButton(honks.get(0).getUserName()), 0, 0);
 		mainHonk.add(new Text(honks.get(0).getUserName()), 1, 0);
 		mainHonk.add(new Text(honks.get(0).getPublishDate().toString()), 2,0);
-		mainHonk.add(new Text(honks.get(0).getContent()), 1,1);
+		mainHonk.add(createHonkContent(honks.get(0).getContent()), 1, 1, 2, 1);
 		mainHonk.add(new Text("Likes: " + honks.get(0).getNumLikes()), 1,2);
 		mainHonk.add(createLikeButton(new JSONObject(honks.get(0).toJsonString())), 0, 2);
 		mainHonk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
@@ -176,7 +184,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0, 0);
 			honk.add(new Text(honks.get(i).getUserName()), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
@@ -186,6 +194,11 @@ public class HomeScreenController{
 		}
 		
     	return honksPane;
+    }
+    private Label createHonkContent(String content) {
+        Label label = new Label(content);
+        label.setWrapText(true);
+        return label;
     }
     private Button createLikeButton(JSONObject honkJSON) {
     	Button likeButton = new Button("Like");
