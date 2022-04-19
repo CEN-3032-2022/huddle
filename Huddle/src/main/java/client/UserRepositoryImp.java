@@ -101,4 +101,17 @@ public class UserRepositoryImp implements UserRepository {
 		return saveUserJsonResponse.getBoolean("isSuccess");
 	}
 
+	@Override
+	public boolean updateBio(String username, String newBio) {
+    	JSONObject requestJSON = new JSONObject();
+    	requestJSON.put("type", "user");
+    	requestJSON.put("request", "updateBio");
+    	requestJSON.put("UserName", username);
+    	requestJSON.put("newBio", newBio);
+    	
+		ClientCommunication.getInstance().sendJSONRequestToServer(requestJSON);
+    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		return saveUserJsonResponse.getBoolean("isSuccess");
+	}
+
 }

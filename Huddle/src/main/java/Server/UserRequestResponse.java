@@ -37,6 +37,8 @@ public class UserRequestResponse implements ServerResponse {
 				return getSuccessResponse();
 			case "updatePassword":
 				return updatePassword();
+			case "updateBio":
+				return updateBio();
 		}
 		
 		return getFailureResponse();
@@ -170,12 +172,25 @@ public class UserRequestResponse implements ServerResponse {
 				JSONObject userJSON = Users.get(i);
 				if(userJSON.get("recoveryAnswer1").equals(recAnswr1)
 						&& userJSON.get("recoveryAnswer2").equals(recAnswr2)) {
-	 				userJSON.put("password", newPassword);
-	 				Users.remove(i);
-	 				Users.add(i, userJSON);
+//	 				userJSON.put("password", newPassword);
+					Users.get(i).put("password", newPassword);
 	 				writeToFile();
 	 				return getSuccessResponse();
 				}
+			}
+		}
+		return getFailureResponse();
+	}
+	
+	private JSONObject updateBio() {
+		String username = userRequestJSON.getString("UserName");
+		String newBio = userRequestJSON.getString("newBio");
+		
+		for(int i = 0; i < Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				Users.get(i).put("bio", newBio);
+	 			writeToFile();
+	 			return getSuccessResponse();
 			}
 		}
 		return getFailureResponse();

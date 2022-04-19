@@ -24,7 +24,6 @@ public class PostController {
     @FXML
     private void post() throws IOException{
     	HonkRepositoryImp honkRep = new HonkRepositoryImp();
-    	System.out.print(replyTo);
     	String content = writeHonkTextArea.getText();
     	
     	if (honkRep.postHonk(App.currentUser.getUsername(), content, replyTo)) {

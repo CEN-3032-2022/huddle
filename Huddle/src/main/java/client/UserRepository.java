@@ -15,4 +15,6 @@ public interface UserRepository {
 	boolean addNewUser(String username, String password, String recAnswr1, String recAnswr2);
 	
 	boolean updatePassword(String username, String newPassword, String recAnswr1, String recAnswr2);
+	
+	boolean updateBio(String username, String newBio);
 }
