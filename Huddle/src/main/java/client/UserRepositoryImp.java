@@ -88,6 +88,7 @@ public class UserRepositoryImp implements UserRepository {
 		userJSON.put("password", password);
 		userJSON.put("recoveryAnswer1", recAnswr1);
 		userJSON.put("recoveryAnswer2", recAnswr2);
+		userJSON.put("chosenTheme", 1);
 		
     	JSONObject requestJSON = new JSONObject();
     	requestJSON.put("type", "user");
@@ -121,6 +122,19 @@ public class UserRepositoryImp implements UserRepository {
     	requestJSON.put("request", "updateBio");
     	requestJSON.put("UserName", username);
     	requestJSON.put("newBio", newBio);
+    	
+		ClientCommunication.getInstance().sendJSONRequestToServer(requestJSON);
+    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		return saveUserJsonResponse.getBoolean("isSuccess");
+	}
+
+	@Override
+	public boolean updateChosenTheme(String username, int theme) {
+    	JSONObject requestJSON = new JSONObject();
+    	requestJSON.put("type", "user");
+    	requestJSON.put("request", "updateTheme");
+    	requestJSON.put("UserName", username);
+    	requestJSON.put("chosenTheme", theme);
     	
 		ClientCommunication.getInstance().sendJSONRequestToServer(requestJSON);
     	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();

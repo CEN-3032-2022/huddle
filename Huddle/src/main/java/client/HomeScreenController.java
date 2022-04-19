@@ -43,6 +43,7 @@ public class HomeScreenController{
 		searchBar.setPromptText("[\"username\" to search for usernames] [\"#hashtag\" to seach for hashtags] [\"@username\" to search for tags]");
 		UserName.setText(App.currentUser.getUsername());
 		bioText.setText(App.currentUser.getBio());
+		setTheme(App.currentUser.getChosenTheme());
 		switchToWall();
 	}
     @FXML
@@ -122,14 +123,23 @@ public class HomeScreenController{
     }
     @FXML
     private void switchTheme() throws IOException {
-    	if(App.getUserAgentStylesheet().contains("1"))
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
-    	else if(App.getUserAgentStylesheet().contains("2"))
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");
-    	else if(App.getUserAgentStylesheet().contains("3"))
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
-    	else
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	UserRepositoryImp userRep = new UserRepositoryImp();
+    	if(App.getUserAgentStylesheet().contains("1")) {
+        	if (userRep.updateChosenTheme(App.currentUser.getUsername(), 2))
+        		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
+    	}
+    	else if(App.getUserAgentStylesheet().contains("2")) {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 3))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");
+    	}
+    	else if(App.getUserAgentStylesheet().contains("3")) {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 4))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
+    	}
+    	else {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 1))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	}
     }
     private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = createHonksGridpane();
@@ -245,7 +255,6 @@ public class HomeScreenController{
 						PostController.replyTo=honkJSON.getInt("id");
 						switchToPost();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
     	}});
@@ -333,5 +342,16 @@ public class HomeScreenController{
 		col2.setHalignment(HPos.RIGHT);
 		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
 		return honk;
+    }
+    @FXML
+    private void setTheme(int theme) {
+    	if(theme == 1) 
+        	App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	if(theme == 2)
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
+    	if(theme == 3) 
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");	
+    	if(theme == 4)
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
     }
  }
