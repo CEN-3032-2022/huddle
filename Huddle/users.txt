@@ -1,6 +1,6 @@
 {"password":"Password2","UserName":"Bmw54","usersFollowing":["benjamin","benjamin","benjamin","guest2"],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am Bmw54","id":101,"type":"saveUserRequest","followerCount":3}
 {"password":"Password1","UserName":"Sbs35","usersFollowing":[],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am sbs35","id":101,"type":"saveUserRequest","followerCount":3}
-{"password":"Password4","UserName":"guest","usersFollowing":["Sbs35","Bmw54","benjamin"],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am guest","id":101,"type":"saveUserRequest","followerCount":3}
+{"password":"Password1","UserName":"guest","usersFollowing":["Sbs35","Bmw54","benjamin"],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am guest","id":101,"type":"saveUserRequest","followerCount":3}
 {"password":"Password2","UserName":"guest2","usersFollowing":["Sbs35","Bmw54","benjamin","guest"],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am guest2","id":101,"type":"saveUserRequest","followerCount":1}
 {"password":"Password1","UserName":"benjamin","usersFollowing":["Sbs35","Bmw54","guest"],"recoveryAnswer1":"school","recoveryAnswer2":"car","bio":"I am benjamin","id":101,"type":"saveUserRequest","followerCount":5}
 {"password":"Password1","UserName":"newUser","usersFollowing":["guest"],"recoveryAnswer1":"car","recoveryAnswer2":"school","bio":"I am newUser","id":101,"type":"saveUserRequest","followerCount":0}

@@ -11,8 +11,16 @@ public class ResetController {
 	@FXML TextField recAns2TextField;
 	
     @FXML
+    private void switchToReset() throws IOException {
+        App.setRoot("/fxml/ResetPassword");
+    }
+    @FXML
     private void switchToLogin() throws IOException {
         App.setRoot("/fxml/Login");
+    }
+    @FXML
+    private void switchToSuccess() throws IOException {
+        App.setRoot("/fxml/ResetSuccess");
     }
     @FXML
     private void switchToErr() throws IOException {
@@ -27,7 +35,7 @@ public class ResetController {
     	
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	if(userRepo.updatePassword(username, newPassword, recAnswer1, recAnswer2))
-    		switchToLogin();
+    		switchToSuccess();
     	else
     		switchToErr();
         	
@@ -37,6 +45,4 @@ public class ResetController {
     private void returnToLoginPage() throws IOException{
     	switchToLogin();
     }
-    
-    
  }

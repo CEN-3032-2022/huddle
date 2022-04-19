@@ -118,7 +118,7 @@
   -fx-min-height: 180px;
 }
 
-.running-image {
+.group-image {
   -fx-background-image: url('file:src/main/resources/images/group-of-penguins.png');
   -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
@@ -174,9 +174,32 @@
   -fx-background-color: darkgreen;
 }
 
+#tryResetAgainButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 185px;
+  -fx-background-color: green;
+}
+#tryResetAgainButton:hover {
+  -fx-background-color: darkgreen;
+}
+
 /* For Reset Fail Page */
 .looking-down-image {
   -fx-background-image: url('file:src/main/resources/images/looking-down-penguin.png');
+  -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
+  -fx-background-size: contain;
+  -fx-background-repeat: no-repeat;
+  -fx-background-position: center;
+  -fx-max-width: 400px;
+  -fx-min-width: 400px;
+  -fx-max-height: 500px;
+  -fx-min-height: 500px;
+}
+
+/* For Reset Success Page */
+.running-image {
+  -fx-background-image: url('file:src/main/resources/images/running-penguin.png');
   -fx-effect: dropshadow(gaussian, white, 4, 0.5, 0.0, 0.0);
   -fx-background-size: contain;
   -fx-background-repeat: no-repeat;
