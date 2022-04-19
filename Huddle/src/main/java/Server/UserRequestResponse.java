@@ -35,6 +35,8 @@ public class UserRequestResponse implements ServerResponse {
 			case "followUser":
 				followUser();
 				return getSuccessResponse();
+			case "updatePassword":
+				return updatePassword();
 		}
 		
 		return getFailureResponse();
@@ -45,7 +47,6 @@ public class UserRequestResponse implements ServerResponse {
 		this.userRequestJSON = userRequestJSON;
 	}
     
-	// Remove Method When Database Fully Integrated
 	private void writeToFile() {
 		try {
 			FileWriter outUser = new FileWriter("users.txt",false);
@@ -60,7 +61,6 @@ public class UserRequestResponse implements ServerResponse {
 		catch(Exception e) { e.printStackTrace(); }
 	}
 	
-	// Remove Method When Database Fully Integrated
 	private void readFile(){
 		try {
 			Users.clear();
@@ -156,6 +156,29 @@ public class UserRequestResponse implements ServerResponse {
 		}
 		
 		writeToFile();
+	}
+	
+	private JSONObject updatePassword() {
+		String username = userRequestJSON.getString("UserName");
+		String newPassword = userRequestJSON.getString("newPassword");
+		String recAnswr1 = userRequestJSON.getString("recoveryAnswer1");
+		String recAnswr2 = userRequestJSON.getString("recoveryAnswer2");
+		
+		
+		for(int i = 0; i < Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				JSONObject userJSON = Users.get(i);
+				if(userJSON.get("recoveryAnswer1").equals(recAnswr1)
+						&& userJSON.get("recoveryAnswer2").equals(recAnswr2)) {
+	 				userJSON.put("password", newPassword);
+	 				Users.remove(i);
+	 				Users.add(i, userJSON);
+	 				writeToFile();
+	 				return getSuccessResponse();
+				}
+			}
+		}
+		return getFailureResponse();
 	}
 	
 	// ---------- Temporary Testing Methods	------------

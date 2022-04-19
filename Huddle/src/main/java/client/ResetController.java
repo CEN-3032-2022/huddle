@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class ResetController {
-	@FXML TextField password;
-	@FXML TextField q1;
-	@FXML TextField q2;
+	@FXML TextField usernameTextField;
+	@FXML TextField passwordTextField;
+	@FXML TextField recAns1TextField;
+	@FXML TextField recAns2TextField;
 	
     @FXML
     private void switchToLogin() throws IOException {
@@ -19,15 +20,17 @@ public class ResetController {
     }
     @FXML
     private void check() throws IOException {
-    	boolean correct;
-    	if(q2.getText().equals("Test")&&q1.getText().equals("Test"))
-    		correct=true;
+    	String username = usernameTextField.getText();
+    	String newPassword = passwordTextField.getText();
+    	String recAnswer1 = recAns1TextField.getText();
+    	String recAnswer2 = recAns2TextField.getText();
+    	
+		UserRepositoryImp userRepo = new UserRepositoryImp();
+    	if(userRepo.updatePassword(username, newPassword, recAnswer1, recAnswer2))
+    		switchToLogin();
     	else
-    		correct=false;
-        if(correct)
-        	switchToLogin();
-        else
-        	switchToErr();
+    		switchToErr();
+        	
     }
     
     @FXML

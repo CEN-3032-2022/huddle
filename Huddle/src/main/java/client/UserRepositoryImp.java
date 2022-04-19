@@ -63,7 +63,7 @@ public class UserRepositoryImp implements UserRepository {
 	}
 
 	@Override
-	public boolean addNewUser(String username, String password, String recA1, String recA2) {
+	public boolean addNewUser(String username, String password, String recAnswr1, String recAnswr2) {
 		JSONObject userJSON = new JSONObject();
 		
     	userJSON.put("id", 101); // id will be automatically generated in database
@@ -73,13 +73,28 @@ public class UserRepositoryImp implements UserRepository {
 		userJSON.put("usersFollowing", new JSONArray());
 		userJSON.put("UserName", username);
 		userJSON.put("password", password);
-		userJSON.put("recoveryAnswer1", recA1);
-		userJSON.put("recoveryAnswer2", recA2);
+		userJSON.put("recoveryAnswer1", recAnswr1);
+		userJSON.put("recoveryAnswer2", recAnswr2);
 		
     	JSONObject requestJSON = new JSONObject();
     	requestJSON.put("type", "user");
     	requestJSON.put("request", "NewUser");
     	requestJSON.put("User", userJSON.toString());
+    	
+		ClientCommunication.getInstance().sendJSONRequestToServer(requestJSON);
+    	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
+		return saveUserJsonResponse.getBoolean("isSuccess");
+	}
+
+	@Override
+	public boolean updatePassword(String username, String newPassword, String recAnswr1, String recAnswr2) {		
+    	JSONObject requestJSON = new JSONObject();
+    	requestJSON.put("type", "user");
+    	requestJSON.put("request", "updatePassword");
+    	requestJSON.put("UserName", username);
+    	requestJSON.put("newPassword", newPassword);
+    	requestJSON.put("recoveryAnswer1", recAnswr1);
+    	requestJSON.put("recoveryAnswer2", recAnswr2);
     	
 		ClientCommunication.getInstance().sendJSONRequestToServer(requestJSON);
     	JSONObject saveUserJsonResponse = ClientCommunication.getInstance().getServerJSONResponse();
