@@ -1,15 +1,15 @@
 .gridPane{
-	-fx-background-color: #2e2e2e;
-	-fx-font-size: 20;
-	-color: #000000;
-}
-.textArea{
-	-fx-background-color: #FFFFFF;
+	-fx-background-color:#0a3b1d;
   -fx-font-size: 20;
   -color: #000000;
-	-fx-border-width: 2px;
-	-fx-border-style: solid;
-	-fx-border-color: #FFFFFF;
+}
+.textArea{
+  -fx-background-color: #FFFFFF;
+  -fx-font-size: 20;
+  -color: #000000;
+  -fx-border-width: 2px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
 }
 .text-field {
     -fx-background-color: white;
@@ -21,7 +21,7 @@
     -fx-effect: dropshadow(gaussian, #00c8e3, 5, 0.5, 0.0, 0.0);
 }
 .button{
-	-fx-background-color: #FFFFFF;
+  -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
   -fx-alignment: CENTER;
@@ -33,9 +33,9 @@
   -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
-	-fx-border-width: 5px;
-	-fx-border-style: solid;
-	-fx-border-color: #FFFFFF;
+  -fx-border-width: 5px;
+  -fx-border-style: solid;
+  -fx-border-color: #FFFFFF;
 }
 
 /* For Honks */
@@ -56,7 +56,7 @@
 
 .honk {
   -fx-background-color: #e9ecef;
-	-fx-margin: 5px;
+  -fx-margin: 5px;
   -fx-border-width: 2px;
   -fx-border-color: #6c757d;
   -fx-background-radius: 7px;

@@ -1,5 +1,13 @@
 package client;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,7 +43,8 @@ public class HomeScreenController{
 		searchBar.setPromptText("[\"username\" to search for usernames] [\"#hashtag\" to seach for hashtags] [\"@username\" to search for tags]");
 		UserName.setText(App.currentUser.getUsername());
 		bioText.setText(App.currentUser.getBio());
-		switchToFollowed();
+		setTheme(App.currentUser.getChosenTheme());
+		switchToWall();
 	}
     @FXML
     private void switchToLogin() throws IOException {
@@ -45,7 +54,7 @@ public class HomeScreenController{
         App.setRoot("/fxml/Login");
     }
     @FXML
-    private void switchToWall() throws IOException {
+    private void switchToWall() {
     	isMasterWall=true;
     	viewReply=false;
     	searchBool=false;
@@ -114,10 +123,23 @@ public class HomeScreenController{
     }
     @FXML
     private void switchTheme() throws IOException {
-    	if(App.getUserAgentStylesheet().contains("1"))
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
-    	else
-    		App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	UserRepositoryImp userRep = new UserRepositoryImp();
+    	if(App.getUserAgentStylesheet().contains("1")) {
+        	if (userRep.updateChosenTheme(App.currentUser.getUsername(), 2))
+        		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
+    	}
+    	else if(App.getUserAgentStylesheet().contains("2")) {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 3))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");
+    	}
+    	else if(App.getUserAgentStylesheet().contains("3")) {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 4))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
+    	}
+    	else {
+    		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 1))
+    			App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	}
     }
     private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = createHonksGridpane();
@@ -129,7 +151,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0,0);
 			honk.add(new Text(name), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(i).toJsonString())), 2, 2);
@@ -149,7 +171,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0,0);
 			honk.add(new Text(name), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honksPane.add(honk, 0, i + 2);
@@ -165,7 +187,7 @@ public class HomeScreenController{
 		mainHonk.add(createViewProfileButton(honks.get(0).getUserName()), 0, 0);
 		mainHonk.add(new Text(honks.get(0).getUserName()), 1, 0);
 		mainHonk.add(new Text(honks.get(0).getPublishDate().toString()), 2,0);
-		mainHonk.add(new Text(honks.get(0).getContent()), 1,1);
+		mainHonk.add(createHonkContent(honks.get(0).getContent()), 1, 1, 2, 1);
 		mainHonk.add(new Text("Likes: " + honks.get(0).getNumLikes()), 1,2);
 		mainHonk.add(createLikeButton(new JSONObject(honks.get(0).toJsonString())), 0, 2);
 		mainHonk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
@@ -176,7 +198,7 @@ public class HomeScreenController{
 			honk.add(createViewProfileButton(name), 0, 0);
 			honk.add(new Text(honks.get(i).getUserName()), 1, 0);
 			honk.add(new Text(honks.get(i).getPublishDate().toString()), 2, 0);
-			honk.add(new Text(honks.get(i).getContent()), 1, 1);
+			honk.add(createHonkContent(honks.get(i).getContent()), 1, 1, 2, 1);
 			honk.add(createLikeButton(new JSONObject(honks.get(i).toJsonString())), 0, 2);
 			honk.add(new Text("Likes: " + honks.get(i).getNumLikes()), 1, 2);
 			honk.add(createReplyHbox(new JSONObject(honks.get(0).toJsonString())), 2, 2);
@@ -186,6 +208,11 @@ public class HomeScreenController{
 		}
 		
     	return honksPane;
+    }
+    private Label createHonkContent(String content) {
+        Label label = new Label(content);
+        label.setWrapText(true);
+        return label;
     }
     private Button createLikeButton(JSONObject honkJSON) {
     	Button likeButton = new Button("Like");
@@ -228,7 +255,6 @@ public class HomeScreenController{
 						PostController.replyTo=honkJSON.getInt("id");
 						switchToPost();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
     	}});
@@ -316,5 +342,16 @@ public class HomeScreenController{
 		col2.setHalignment(HPos.RIGHT);
 		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
 		return honk;
+    }
+    @FXML
+    private void setTheme(int theme) {
+    	if(theme == 1) 
+        	App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
+    	if(theme == 2)
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme2.css");
+    	if(theme == 3) 
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme3.css");	
+    	if(theme == 4)
+    		App.setUserAgentStylesheet("file:src/main/resources/css/theme4.css");
     }
  }

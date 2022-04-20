@@ -12,6 +12,7 @@ public class User {
 	private String bio;
 	private ArrayList<String> followedUsernames;
 	int followererCount;
+	int chosenTheme = 0;
 	
 	public User(){
 		id = -1;
@@ -19,6 +20,7 @@ public class User {
 		bio = "unwritten bio";
 		followedUsernames = new ArrayList<String>();
 		followererCount = 0;
+		chosenTheme = 1;
 	}
 	public User(JSONObject json) {
 		try {
@@ -31,6 +33,7 @@ public class User {
 			followedUsernames.add(array.getString(i));
 		}
 		followererCount = json.getInt("followerCount");
+		chosenTheme = json.getInt("chosenTheme");
 		}
 		catch(Exception e) {
 			id = -1;
@@ -44,6 +47,7 @@ public class User {
 		this.id = id;
 		this.username = username;
 		this.bio = bio;
+		chosenTheme = 1;
 		followedUsernames = new ArrayList<String>();
 		followererCount = 0;
 	}
@@ -84,20 +88,13 @@ public class User {
 		return this.followererCount;
 	}
 	
-//	public void addHonk(Honk honk) {
-//		honks.add(honk);
-//		numHonks++;
-//	}
-//	
-//	public void addHonk(int id, String content, Date publishDate) {
-//		honks.add(new Honk(id, content, publishDate, username));
-//		numHonks++;
-//	}
-//	
-//	public void addHonk(int id, String content, int month, int day, int year) {
-//		honks.add(new Honk(id, content, month, day, year,username));
-//		numHonks++;
-//	}
+	public void setChosenTheme(int theme) {
+		this.chosenTheme = theme;
+	}
+	
+	public int getChosenTheme() {
+		return this.chosenTheme;
+	}
 	
 	public String toString() {
 		String output = "id: " + getId() + "\n" +

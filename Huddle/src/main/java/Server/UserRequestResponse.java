@@ -35,6 +35,15 @@ public class UserRequestResponse implements ServerResponse {
 			case "followUser":
 				followUser();
 				return getSuccessResponse();
+			case "unfollowUser":
+				unfollowUser();
+				return getSuccessResponse();
+			case "updatePassword":
+				return updatePassword();
+			case "updateBio":
+				return updateBio();
+			case "updateTheme":
+				return updateTheme();
 		}
 		
 		return getFailureResponse();
@@ -45,7 +54,6 @@ public class UserRequestResponse implements ServerResponse {
 		this.userRequestJSON = userRequestJSON;
 	}
     
-	// Remove Method When Database Fully Integrated
 	private void writeToFile() {
 		try {
 			FileWriter outUser = new FileWriter("users.txt",false);
@@ -60,7 +68,6 @@ public class UserRequestResponse implements ServerResponse {
 		catch(Exception e) { e.printStackTrace(); }
 	}
 	
-	// Remove Method When Database Fully Integrated
 	private void readFile(){
 		try {
 			Users.clear();
@@ -156,6 +163,76 @@ public class UserRequestResponse implements ServerResponse {
 		}
 		
 		writeToFile();
+	}
+	
+	private void unfollowUser() {
+		String userUnfollowing = userRequestJSON.getString("userUnfollowing");
+		String userToUnfollow = userRequestJSON.getString("userToUnfollow");
+		
+		for(int i = 0; i <Users.size(); i++) {
+			if(userUnfollowing.equals(Users.get(i).getString("UserName"))) {
+				JSONArray usersFollowing = Users.get(i).getJSONArray("usersFollowing");
+				for(int j = 0; j < usersFollowing.length(); j++) {
+					if(usersFollowing.get(j).equals(userToUnfollow)) usersFollowing.remove(j);
+				}
+				Users.get(i).put("usersFollowing", usersFollowing);
+			}
+			else if(userToUnfollow.equals(Users.get(i).getString("UserName"))) {
+				int newFollowerCount = Users.get(i).getInt("followerCount") - 1;
+				Users.get(i).put("followerCount", newFollowerCount);
+			}
+		}
+		
+		writeToFile();
+	}
+	
+	private JSONObject updatePassword() {
+		String username = userRequestJSON.getString("UserName");
+		String newPassword = userRequestJSON.getString("newPassword");
+		String recAnswr1 = userRequestJSON.getString("recoveryAnswer1");
+		String recAnswr2 = userRequestJSON.getString("recoveryAnswer2");
+		
+		
+		for(int i = 0; i < Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				JSONObject userJSON = Users.get(i);
+				if(userJSON.get("recoveryAnswer1").equals(recAnswr1)
+						&& userJSON.get("recoveryAnswer2").equals(recAnswr2)) {
+					Users.get(i).put("password", newPassword);
+	 				writeToFile();
+	 				return getSuccessResponse();
+				}
+			}
+		}
+		return getFailureResponse();
+	}
+	
+	private JSONObject updateBio() {
+		String username = userRequestJSON.getString("UserName");
+		String newBio = userRequestJSON.getString("newBio");
+		
+		for(int i = 0; i < Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				Users.get(i).put("bio", newBio);
+	 			writeToFile();
+	 			return getSuccessResponse();
+			}
+		}
+		return getFailureResponse();
+	}
+	
+	private JSONObject updateTheme() {
+		String username = userRequestJSON.getString("UserName");
+		int chosenTheme = userRequestJSON.getInt("chosenTheme");
+		
+		for(int i = 0; i < Users.size(); i++) {
+			if(username.equals(Users.get(i).getString("UserName"))) {
+				Users.get(i).put("chosenTheme", chosenTheme);
+	 			writeToFile();
+	 			return getSuccessResponse();
+			}
+		}
+		return getFailureResponse();
 	}
 	
 	// ---------- Temporary Testing Methods	------------

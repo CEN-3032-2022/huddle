@@ -14,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -34,10 +35,12 @@ public class ProfileController{
 		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
 		}
-		UserName.setText(holder);
+		if(isAlreadyFollowingUser()) {
+			setAlreadyFollowingButton();
+		}
 		
+		UserName.setText(holder);
 		User profileData = getUserProfileData(holder);
-		if(isAlreadyFollowingUser()) disableFollowButton();		
 		bioText.setText(profileData.getBio());
 		profileFollowerCount = profileData.getFollowerCount();
 		followersText.setText("Followers: " + profileFollowerCount);
@@ -53,8 +56,8 @@ public class ProfileController{
 				GridPane honk = createHonkGridpane();
 				honk.add(new Text(Arr.getJSONObject(i).getString("UserName")), 0, 0);
 				honk.add(new Text(Arr.getJSONObject(i).getString("date")), 2, 0);
-				honk.add(new Text(Arr.getJSONObject(i).getString("content")), 1, 1);
-				honk.add(createLikeHbox(Arr.getJSONObject(i)), 0, 2, 2, 1);
+				honk.add(createHonkContent(Arr.getJSONObject(i).getString("content")), 1, 1, 2, 1);
+				honk.add(createLikeHbox(Arr.getJSONObject(i)), 0, 2, 3, 1);
 				tPane.add(honk, 0, i);
 			}
 		}
@@ -63,10 +66,17 @@ public class ProfileController{
     @FXML
     private void followButtonOnClick() {		
 		UserRepositoryImp userRepo = new UserRepositoryImp();
-    	userRepo.followUser(App.currentUser.getUsername(), holder);
-    	
-		followersText.setText("Followers: " + ++profileFollowerCount);
-		disableFollowButton();
+
+    	if(!isAlreadyFollowingUser()) {
+        	userRepo.followUser(App.currentUser.getUsername(), holder);
+    		followersText.setText("Followers: " + ++profileFollowerCount);
+    		setAlreadyFollowingButton();
+    	}
+    	else {
+        	userRepo.unfollowUser(App.currentUser.getUsername(), holder);
+    		followersText.setText("Followers: " + --profileFollowerCount);
+    		setNotFollowingButton();
+    	}
     }
     @FXML
     private void switchToMain() throws IOException {
@@ -86,15 +96,19 @@ public class ProfileController{
     
     private User getUserProfileData(String username) {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
-    	User currUser = userRepo.getUserByUsername(App.currentUser.getUsername());
+    	User profileUser = userRepo.getUserByUsername(username);
     	
-		return currUser;
+		return profileUser;
     }
     
-    private void disableFollowButton() {
+    private void setAlreadyFollowingButton() {
     	followButton.setStyle("-fx-background-color: darkgreen;");
-    	followButton.setDisable(true);
-    	followButton.setText("Followed");
+    	followButton.setText("Unfollow");
+    }
+    
+    private void setNotFollowingButton() {
+    	followButton.setStyle("-fx-background-color: green;");
+    	followButton.setText("Follow");
     }
 
     private Button createLikeButton(JSONObject honkJSON) {
@@ -148,5 +162,11 @@ public class ProfileController{
 		col2.setHalignment(HPos.RIGHT);
 		honk.getColumnConstraints().addAll(new ColumnConstraints(), new ColumnConstraints(), col2);
 		return honk;
+    }
+    
+    private Label createHonkContent(String content) {
+        Label label = new Label(content);
+        label.setWrapText(true);
+        return label;
     }
  }
