@@ -16,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -94,6 +95,15 @@ public class ProfileController{
     	return false;
     }
     
+    @FXML
+    private void sendMessageButtonOnClick() {		
+		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
+		
+		ArrayList<Message> messages = messageRepo.getRecievedMessages(App.currentUser.getUsername());
+	
+		honkScrollPaneContainer.setContent(createMessagesGridpane(messages));
+    }
+
     private User getUserProfileData(String username) {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	User profileUser = userRepo.getUserByUsername(username);
@@ -168,5 +178,66 @@ public class ProfileController{
         Label label = new Label(content);
         label.setWrapText(true);
         return label;
+    }
+    
+    private GridPane createMessagesGridpane(ArrayList<Message> messages) {
+        GridPane messagesPane = createMessageGridpane();
+        for(int i=0; i < messages.size(); i++) {
+            if(App.currentUser.getUsername().equals(messages.get(i).getSender())) {
+                GridPane message = createMessageGridpane();
+                message.add(new Text(messages.get(i).getSender()), 1, 0);
+                message.add(new Text(messages.get(i).getRecipient().toString()), 2, 0);
+                message.add(createMessageContent(messages.get(i).getContent()), 1, 1, 2, 1);
+                messagesPane.add(message, 2, i, 2, 1);
+            }
+            else {
+                GridPane message = createMessageGridpane();
+                message.add(new Text(messages.get(i).getRecipient()), 1, 0);
+                message.add(new Text(messages.get(i).getSender().toString()), 2, 0);
+                message.add(createMessageContent(messages.get(i).getContent()), 1, 1, 2, 1);
+                messagesPane.add(message, 0, i);
+            }
+        }
+        Button button = new Button("Reply");
+        button.getStyleClass().clear();
+        button.getStyleClass().add("replyButton");
+        button.getStyleClass().add("button");
+        messagesPane.add(button, 1, messages.size()+1,1,1);
+        
+//        TextField messageTextField = new TextField();
+//        messagesPane.add(messageTextField, 0, messages.size()+1);
+
+//        button.setOnAction(new EventHandler<>() {
+//    		@Override
+//    		public void handle(ActionEvent event) {    			
+//    			MessageRepositoryImp messageRep = new MessageRepositoryImp();
+//				
+//				String sender = App.currentUser.getUsername();
+//				String recipient = UserName.getText();
+//				String content = messageTextField.getText();
+//				
+//				messageRep.sendMessage(sender, recipient, content);
+//				sendMessageButtonOnClick();
+//	    	}
+//    	});
+        
+        return messagesPane;
+    }
+    
+    private Label createMessageContent(String content) {
+        Label label = new Label(content);
+        label.setWrapText(true);
+        return label;
+    }
+    
+    private GridPane createMessageGridpane() {
+        GridPane honksPane = new GridPane();
+        ColumnConstraints col1 = new ColumnConstraints();
+        honksPane.getStyleClass().add("messages-pane");
+        col1.setPercentWidth(100);
+        honksPane.getColumnConstraints().add(col1);
+        honksPane.setVgap(10);
+
+        return honksPane;
     }
  }
