@@ -22,6 +22,8 @@ public class MessageRequestResponse implements ServerResponse {
 	@Override
 	public JSONObject getResponse() {
 		String requestType = messageRequestJSON.getString("request");
+		
+		System.out.println(messageRequestJSON.toString());
  		switch(requestType) {
  			case "getSentMessages":
  				return getSentMessages();
@@ -37,24 +39,28 @@ public class MessageRequestResponse implements ServerResponse {
 	
 	private JSONObject getSentMessages() {
 		String sender = messageRequestJSON.getString("sender");
+		String recipient = messageRequestJSON.getString("recipient");
 
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i <Messages.size(); i++) {
- 			if(sender.equals(Messages.get(i).getString("sender")))
+ 			if(sender.equals(Messages.get(i).getString("sender")) && recipient.equals(Messages.get(i).getString("recipient")))
  				jsonArray.put(Messages.get(i));
  		}
  		
  		JSONObject sentMessagesJSON = new JSONObject();
  		sentMessagesJSON.put("sentMessages", jsonArray);
+ 		
  		return sentMessagesJSON;
 	}
 	
 	private JSONObject getReceivedMessages() {
 		String recipient = messageRequestJSON.getString("recipient");
+		String sender = messageRequestJSON.getString("sender");
+
 
  		JSONArray jsonArray = new JSONArray();
  		for(int i = 0; i < Messages.size(); i++) {
- 			if(recipient.equals(Messages.get(i).getString("recipient")))
+ 			if(recipient.equals(Messages.get(i).getString("recipient")) && sender.equals(Messages.get(i).getString("sender")))
  				jsonArray.put(Messages.get(i));
  		}
  		
