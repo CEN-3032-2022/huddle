@@ -32,6 +32,9 @@ public class ProfileController{
 	private Text UserName;
 	@FXML
 	private Text bioText;
+	@FXML
+	private TextField messageInput;
+
 	@FXML public void initialize(){
 		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
@@ -96,14 +99,54 @@ public class ProfileController{
     }
     
     @FXML
-    private void sendMessageButtonOnClick() {		
+    private void getSentMessagesButtonOnClick() {	
 		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
 		
-		ArrayList<Message> messages = messageRepo.getRecievedMessages(App.currentUser.getUsername());
-	
-		honkScrollPaneContainer.setContent(createMessagesGridpane(messages));
+    	MessageRepositoryImp honksRtr = new MessageRepositoryImp();
+		ArrayList<Message> Arr =honksRtr.getSentMessages(App.currentUser.getUsername(), UserName.getText());
+		GridPane tPane = createHonksGridpane();
+		for(int i=0;i<Arr.size();i++) {
+			if(Arr.get(i).getSender().equals(App.currentUser.getUsername())) {
+				GridPane honk = createHonkGridpane();
+				honk.add(new Text(Arr.get(i).getSender()), 0, 0);
+				honk.add(new Text(Arr.get(i).getRecipient()), 2, 0);
+				honk.add(createHonkContent(Arr.get(i).getContent()), 1, 1, 2, 1);
+				tPane.add(honk, 0, i);
+			}
+		}
+		honkScrollPaneContainer.setContent(tPane);
+    	
     }
-
+    
+    @FXML
+    private void getReceivedMessagesButtonOnClick() {	
+		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
+		
+    	MessageRepositoryImp honksRtr = new MessageRepositoryImp();
+		ArrayList<Message> Arr =honksRtr.getReceivedMessages(UserName.getText(), App.currentUser.getUsername());
+		GridPane tPane = createHonksGridpane();
+		for(int i=0;i<Arr.size();i++) {
+			if(Arr.get(i).getRecipient().equals(App.currentUser.getUsername())) {
+				GridPane honk = createHonkGridpane();
+				honk.add(new Text(Arr.get(i).getSender()), 0, 0);
+				honk.add(new Text(Arr.get(i).getRecipient()), 2, 0);
+				honk.add(createHonkContent(Arr.get(i).getContent()), 1, 1, 2, 1);
+				tPane.add(honk, 0, i);
+			}
+		}
+		honkScrollPaneContainer.setContent(tPane);
+    	
+    }
+    
+    @FXML
+    private void sendMessageButtonOnClick() {
+		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
+		
+		messageRepo.sendMessage(App.currentUser.getUsername(), UserName.getText(), messageInput.getText());
+		
+		messageInput.setText("");
+    }
+    
     private User getUserProfileData(String username) {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
     	User profileUser = userRepo.getUserByUsername(username);
@@ -180,64 +223,21 @@ public class ProfileController{
         return label;
     }
     
-    private GridPane createMessagesGridpane(ArrayList<Message> messages) {
-        GridPane messagesPane = createMessageGridpane();
-        for(int i=0; i < messages.size(); i++) {
-            if(App.currentUser.getUsername().equals(messages.get(i).getSender())) {
-                GridPane message = createMessageGridpane();
-                message.add(new Text(messages.get(i).getSender()), 1, 0);
-                message.add(new Text(messages.get(i).getRecipient().toString()), 2, 0);
-                message.add(createMessageContent(messages.get(i).getContent()), 1, 1, 2, 1);
-                messagesPane.add(message, 2, i, 2, 1);
-            }
-            else {
-                GridPane message = createMessageGridpane();
-                message.add(new Text(messages.get(i).getRecipient()), 1, 0);
-                message.add(new Text(messages.get(i).getSender().toString()), 2, 0);
-                message.add(createMessageContent(messages.get(i).getContent()), 1, 1, 2, 1);
-                messagesPane.add(message, 0, i);
-            }
-        }
-        Button button = new Button("Reply");
-        button.getStyleClass().clear();
-        button.getStyleClass().add("replyButton");
-        button.getStyleClass().add("button");
-        messagesPane.add(button, 1, messages.size()+1,1,1);
-        
-//        TextField messageTextField = new TextField();
-//        messagesPane.add(messageTextField, 0, messages.size()+1);
 
-//        button.setOnAction(new EventHandler<>() {
-//    		@Override
-//    		public void handle(ActionEvent event) {    			
-//    			MessageRepositoryImp messageRep = new MessageRepositoryImp();
-//				
-//				String sender = App.currentUser.getUsername();
-//				String recipient = UserName.getText();
-//				String content = messageTextField.getText();
-//				
-//				messageRep.sendMessage(sender, recipient, content);
-//				sendMessageButtonOnClick();
-//	    	}
-//    	});
-        
-        return messagesPane;
-    }
-    
     private Label createMessageContent(String content) {
         Label label = new Label(content);
         label.setWrapText(true);
         return label;
     }
     
-    private GridPane createMessageGridpane() {
-        GridPane honksPane = new GridPane();
+    private GridPane createMessagesGridpane() {
+        GridPane messagesPane = new GridPane();
         ColumnConstraints col1 = new ColumnConstraints();
-        honksPane.getStyleClass().add("messages-pane");
+        messagesPane.getStyleClass().add("messages-pane");
         col1.setPercentWidth(100);
-        honksPane.getColumnConstraints().add(col1);
-        honksPane.setVgap(10);
+        messagesPane.getColumnConstraints().add(col1);
+        messagesPane.setVgap(10);
 
-        return honksPane;
+        return messagesPane;
     }
  }

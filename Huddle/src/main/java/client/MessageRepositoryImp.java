@@ -6,11 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MessageRepositoryImp implements MessageRepository{
-	public ArrayList<Message> getSentMessages(String sender){
+	public ArrayList<Message> getSentMessages(String sender, String recipient){
 		
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "message");
 		JSON.put("request", "getSentMessages");
+		JSON.put("sender", sender);
+		JSON.put("recipient", recipient);
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
     	JSONObject messagesJSON = ClientCommunication.getInstance().getServerJSONResponse();
 		JSONArray sentMessagesJSON = messagesJSON.getJSONArray("sentMessages");
@@ -25,11 +27,12 @@ public class MessageRepositoryImp implements MessageRepository{
 		return sentMessages;
 	}
 	
-	public ArrayList<Message> getRecievedMessages(String recipient){
+	public ArrayList<Message> getReceivedMessages(String sender, String recipient){
 		JSONObject JSON = new JSONObject();
 		JSON.put("type", "message");
 		JSON.put("request", "getReceivedMessages");
 		JSON.put("recipient", recipient);
+		JSON.put("sender", sender);
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
     	JSONObject messagesJSON = ClientCommunication.getInstance().getServerJSONResponse();
 		JSONArray receivedMessagesJSON = messagesJSON.getJSONArray("receivedMessages");
@@ -53,7 +56,7 @@ public class MessageRepositoryImp implements MessageRepository{
 		JSONObject JSON2 = new JSONObject();
 		JSON2.put("type", "message");
 		JSON2.put("request", "sendMessage");
-		JSON.put("message", JSON.toString());
+		JSON2.put("message", JSON.toString());
 		
     	ClientCommunication.getInstance().sendJSONRequestToServer(JSON2);
     	
