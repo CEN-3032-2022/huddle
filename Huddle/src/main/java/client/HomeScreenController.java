@@ -107,7 +107,10 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToTagged() throws IOException {
-        App.setRoot("/fxml/Login");
+    	String tag = "@" + App.currentUser.getUsername();
+    	HonkRepositoryImp honksRtr = new HonkRepositoryImp();
+    	ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
+    	honkScrollPaneContainer.setContent(createHonksGridpane(honks));
     }
     @FXML
     private void switchToLogOut() throws IOException {
