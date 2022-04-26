@@ -143,6 +143,7 @@ public class HomeScreenController{
     		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 1))
     			App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     	}
+    	App.currentUser = userRep.getUserByUsername(App.currentUser.getUsername());
     }
     private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = createHonksGridpane();
