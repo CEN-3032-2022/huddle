@@ -44,9 +44,10 @@ public class ServerRequest implements Runnable {
 		
 		if(jsonRequest.getString("type").equalsIgnoreCase("user")) {
 			serverResponse = new UserRequestResponse(jsonRequest);
-		}
-		else if(jsonRequest.getString("type").equalsIgnoreCase("honk")) {
+		} else if(jsonRequest.getString("type").equalsIgnoreCase("honk")) {
 			serverResponse = new HonkRequestResponse(jsonRequest);
+		} else if(jsonRequest.getString("type").equalsIgnoreCase("message")) {
+			serverResponse = new MessageRequestResponse(jsonRequest);
 		}
 		
 		sendJSONResponseToClient(serverResponse.getResponse());
