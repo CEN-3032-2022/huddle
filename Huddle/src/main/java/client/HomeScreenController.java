@@ -44,6 +44,7 @@ public class HomeScreenController{
 		UserName.setText(App.currentUser.getUsername());
 		bioText.setText(App.currentUser.getBio());
 		setTheme(App.currentUser.getChosenTheme());
+		honkScrollPaneContainer.setVvalue(1.0);
 		switchToWall();
 	}
     @FXML
@@ -61,6 +62,7 @@ public class HomeScreenController{
     	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
 		ArrayList<Honk> honks = honksRtr.getHonkList();
 		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+		honkScrollPaneContainer.setVvalue(1.0);
 		isMasterWall = true;
     }
     @FXML
@@ -71,7 +73,16 @@ public class HomeScreenController{
     	HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
 		ArrayList<Honk> honks = honksRtr.getFollowedHonks(App.currentUser.getUsername());
 		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+		honkScrollPaneContainer.setVvalue(1.0);
 		isMasterWall = false;
+    }
+    @FXML
+    private void switchToTagged() throws IOException {
+    	String tag = "@" + App.currentUser.getUsername();
+    	HonkRepositoryImp honksRtr = new HonkRepositoryImp();
+    	ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
+    	honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+		honkScrollPaneContainer.setVvalue(1.0);
     }
     @FXML
     private void search() {
@@ -84,12 +95,14 @@ public class HomeScreenController{
     		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
     		ArrayList<Honk> honks = honksRtr.getHashtagHonkList(hashtag);
     		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+    		honkScrollPaneContainer.setVvalue(1.0);
     	}
     	else if(searchText.startsWith("@")) {
     		String tag = searchText.stripTrailing();
     		HonkRepositoryImp  honksRtr= new HonkRepositoryImp();
     		ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
     		honkScrollPaneContainer.setContent(createHonksGridpane(honks));
+    		honkScrollPaneContainer.setVvalue(1.0);
     	}
     	else{
     		String name = searchText.stripTrailing();
@@ -99,18 +112,12 @@ public class HomeScreenController{
     		User usr = x.getUserByUsername(searchText);
     		if(honks.size()>0&&usr.getUsername().equals(name))
     			honkScrollPaneContainer.setContent(createUsrGridpane(usr,honks));
+    			honkScrollPaneContainer.setVvalue(1.0);
     	}
     }
     @FXML
     private void switchToLiked() throws IOException {
         App.setRoot("/fxml/Login");
-    }
-    @FXML
-    private void switchToTagged() throws IOException {
-    	String tag = "@" + App.currentUser.getUsername();
-    	HonkRepositoryImp honksRtr = new HonkRepositoryImp();
-    	ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
-    	honkScrollPaneContainer.setContent(createHonksGridpane(honks));
     }
     @FXML
     private void switchToLogOut() throws IOException {
