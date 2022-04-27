@@ -448,6 +448,10 @@
 #FollowProfileButton:hover {
     -fx-background-color: darkgreen;
 }
+#messageInput {
+  -fx-min-width: 200px;
+  -fx-max-width: 200px;
+}
 .BackProfileButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
@@ -456,4 +460,40 @@
 }
 #BackProfileButton:hover {
     -fx-background-color: darkred;
+}
+#honks {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: #6c757d;
+}
+#honks:hover {
+  -fx-background-color: #5a6268;
+}
+#getSentMessagesButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: #6c757d;
+}
+#getSentMessagesButton:hover {
+  -fx-background-color: #5a6268;
+}
+#getRecievedMessagesButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: #6c757d;
+}
+#getRecievedMessagesButton:hover {
+  -fx-background-color: #5a6268;
+}
+#sendMessageButton {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-min-width: 200px;
+  -fx-background-color: green;
+}
+#sendMessageButton:hover {
+  -fx-background-color: darkgreen;
 }

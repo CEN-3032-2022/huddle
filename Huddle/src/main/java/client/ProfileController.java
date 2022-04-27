@@ -26,6 +26,10 @@ public class ProfileController{
 	int profileFollowerCount;
 	@FXML ScrollPane honkScrollPaneContainer;
 	@FXML Button followButton;
+	@FXML Button sendMessageButton;
+	@FXML Button getRecievedMessagesButton;
+	@FXML Button getSentMessagesButton;
+	@FXML Button honks;
 	@FXML Text followersText;
 	static String holder;
 	@FXML
@@ -38,6 +42,11 @@ public class ProfileController{
 	@FXML public void initialize(){
 		if(holder.equalsIgnoreCase(App.currentUser.getUsername())) {
 			   followButton.setVisible(false);
+			   sendMessageButton.setVisible(false);
+			   messageInput.setVisible(false);
+			   getRecievedMessagesButton.setVisible(false);
+			   getSentMessagesButton.setVisible(false);
+			   honks.setVisible(false);
 		}
 		if(isAlreadyFollowingUser()) {
 			setAlreadyFollowingButton();
@@ -120,10 +129,8 @@ public class ProfileController{
     
     @FXML
     private void getReceivedMessagesButtonOnClick() {	
-		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
-		
-    	MessageRepositoryImp honksRtr = new MessageRepositoryImp();
-		ArrayList<Message> Arr =honksRtr.getReceivedMessages(UserName.getText(), App.currentUser.getUsername());
+    	MessageRepository messageRepo = new MessageRepositoryImp();
+		ArrayList<Message> Arr = messageRepo.getReceivedMessages(UserName.getText(), App.currentUser.getUsername());
 		GridPane tPane = createHonksGridpane();
 		for(int i=0;i<Arr.size();i++) {
 			if(Arr.get(i).getRecipient().equals(App.currentUser.getUsername())) {
@@ -141,9 +148,8 @@ public class ProfileController{
     @FXML
     private void sendMessageButtonOnClick() {
 		MessageRepositoryImp messageRepo = new MessageRepositoryImp();
-		
-		messageRepo.sendMessage(App.currentUser.getUsername(), UserName.getText(), messageInput.getText());
-		
+		if(!messageInput.getText().isEmpty())
+			messageRepo.sendMessage(App.currentUser.getUsername(), UserName.getText(), messageInput.getText());
 		messageInput.setText("");
     }
     
