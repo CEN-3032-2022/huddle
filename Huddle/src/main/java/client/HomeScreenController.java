@@ -107,7 +107,10 @@ public class HomeScreenController{
     }
     @FXML
     private void switchToTagged() throws IOException {
-        App.setRoot("/fxml/Login");
+    	String tag = "@" + App.currentUser.getUsername();
+    	HonkRepositoryImp honksRtr = new HonkRepositoryImp();
+    	ArrayList<Honk> honks = honksRtr.getTagHonkList(tag);
+    	honkScrollPaneContainer.setContent(createHonksGridpane(honks));
     }
     @FXML
     private void switchToLogOut() throws IOException {
@@ -140,6 +143,7 @@ public class HomeScreenController{
     		if (userRep.updateChosenTheme(App.currentUser.getUsername(), 1))
     			App.setUserAgentStylesheet("file:src/main/resources/css/theme1.css");
     	}
+    	App.currentUser = userRep.getUserByUsername(App.currentUser.getUsername());
     }
     private GridPane createHonksGridpane(ArrayList<Honk> honks) {
 		GridPane honksPane = createHonksGridpane();
