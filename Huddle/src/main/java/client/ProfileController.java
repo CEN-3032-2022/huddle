@@ -128,13 +128,13 @@ public class ProfileController{
 				GridPane message = createMessageGridpane(true);
 				message.add(new Text("you |"), 0, 0);
 				message.add(createMessageContent(messages.get(i).getContent()), 1, 0, 2, 1);
-				messagesPane.add(message, 0, i);
+				messagesPane.add(message, 1, i);
 			}
 			else {
 				GridPane message = createMessageGridpane(false);
 				message.add(new Text("| " + messages.get(i).getSender()), 2, 0);
 				message.add(createMessageContent(messages.get(i).getContent()), 0, 0, 2, 1);
-				messagesPane.add(message, 1, i);
+				messagesPane.add(message, 0, i);
 			}
 		}
 		honkScrollPaneContainer.setContent(messagesPane);

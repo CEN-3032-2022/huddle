@@ -20,3 +20,4 @@
 {"sender":"demo1","recipient":"guest","content":"Hello guest"}
 {"sender":"guest","recipient":"demo1","content":"Hello"}
 {"sender":"demo1","recipient":"guest","content":"hjkhkjh"}
+{"sender":"guest","recipient":"guest2","content":"How is it going?"}
