@@ -56,4 +56,8 @@ public class Message {
 		
 		return out;
 	}
+	
+	boolean isFromCurrentUser() {
+		return sender.equals(App.currentUser.getUsername());
+	}
 }

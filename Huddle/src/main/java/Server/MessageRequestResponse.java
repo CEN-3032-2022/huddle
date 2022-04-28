@@ -23,18 +23,37 @@ public class MessageRequestResponse implements ServerResponse {
 	public JSONObject getResponse() {
 		String requestType = messageRequestJSON.getString("request");
 		
-		System.out.println(messageRequestJSON.toString());
  		switch(requestType) {
  			case "getSentMessages":
  				return getSentMessages();
  			case "getReceivedMessages":
  				return getReceivedMessages();
+ 			case "getSentAndRecievedMessages":
+ 				return getSentAndRecievedMessages();
  			case "sendMessage":
  				sendMessage();
  				return getSuccessResponse();
  		}
 
  		return getFailureResponse();
+	}
+	
+	private JSONObject getSentAndRecievedMessages() {
+		String user = messageRequestJSON.getString("user");
+		String otherAccount = messageRequestJSON.getString("otherAccount");
+
+ 		JSONArray jsonArray = new JSONArray();
+ 		for(int i = 0; i <Messages.size(); i++) {
+ 			if(user.equals(Messages.get(i).getString("sender")) && otherAccount.equals(Messages.get(i).getString("recipient")))
+ 				jsonArray.put(Messages.get(i));
+ 			else if(user.equals(Messages.get(i).getString("recipient")) && otherAccount.equals(Messages.get(i).getString("sender")))
+ 				jsonArray.put(Messages.get(i));
+ 		}
+ 		
+ 		JSONObject sentMessagesJSON = new JSONObject();
+ 		sentMessagesJSON.put("sentAndRecievedMessages", jsonArray);
+ 		
+ 		return sentMessagesJSON;
 	}
 	
 	private JSONObject getSentMessages() {
@@ -66,7 +85,6 @@ public class MessageRequestResponse implements ServerResponse {
  		
  		JSONObject receivedMessagesJSON = new JSONObject();
  		receivedMessagesJSON.put("receivedMessages", jsonArray);
- 		System.out.println(receivedMessagesJSON);
  		return receivedMessagesJSON;
 	}
 	

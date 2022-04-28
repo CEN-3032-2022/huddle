@@ -64,4 +64,24 @@ public class MessageRepositoryImp implements MessageRepository{
 		return postJsonResponse.getBoolean("isSuccess");
 		
 	}
+
+	@Override
+	public ArrayList<Message> getSentAndReceivedMessages(String user, String otherAccount) {
+		JSONObject JSON = new JSONObject();
+		JSON.put("type", "message");
+		JSON.put("request", "getSentAndRecievedMessages");
+		JSON.put("user", user);
+		JSON.put("otherAccount", otherAccount);
+    	ClientCommunication.getInstance().sendJSONRequestToServer(JSON);
+    	JSONObject messagesJSON = ClientCommunication.getInstance().getServerJSONResponse();
+		JSONArray receivedMessagesJSON = messagesJSON.getJSONArray("sentAndRecievedMessages");
+		ArrayList<Message> receivedMessages = new ArrayList<Message>(); 
+		
+		for(int i = 0; i < receivedMessagesJSON.length(); i++) {
+			JSONObject currentMessage = (JSONObject) receivedMessagesJSON.get(i);
+			receivedMessages.add(new Message(currentMessage));
+		}
+		
+		return receivedMessages;
+	}
 }

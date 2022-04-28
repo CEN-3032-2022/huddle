@@ -3,7 +3,7 @@
   -fx-font-size: 20;
   -color: #000000;
 }
-textArea{
+.textArea{
   -fx-background-color: #FFFFFF;
   -fx-font-size: 20;
   -color: #000000;
@@ -470,22 +470,13 @@ textArea{
 #honks:hover {
   -fx-background-color: #5a6268;
 }
-#getSentMessagesButton {
+#getSendAndRecievedMessagesButton {
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-min-width: 200px;
   -fx-background-color: #6c757d;
 }
-#getSentMessagesButton:hover {
-  -fx-background-color: #5a6268;
-}
-#getRecievedMessagesButton {
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-min-width: 200px;
-  -fx-background-color: #6c757d;
-}
-#getRecievedMessagesButton:hover {
+#getSendAndRecievedMessagesButton:hover {
   -fx-background-color: #5a6268;
 }
 #sendMessageButton {
@@ -496,4 +487,23 @@ textArea{
 }
 #sendMessageButton:hover {
   -fx-background-color: darkgreen;
+}
+
+/* Messages */
+.messageCurrUser {
+  -fx-background-color: #b8e5fc;
+  -fx-margin: 5px;
+  -fx-border-width: 2px;
+  -fx-border-color: #088dd4;
+  -fx-background-radius: 20px 20px 20px 0px;
+  -fx-border-radius: 20px 20px 20px 0px;
+}
+
+.messageOtherAccount {
+  -fx-background-color: #e9ecef;
+  -fx-margin: 5px;
+  -fx-border-width: 2px;
+  -fx-border-color: #6c757d;
+  -fx-background-radius: 20px 20px 0px 20px;
+  -fx-border-radius: 20px 20px 0px 20px;
 }
