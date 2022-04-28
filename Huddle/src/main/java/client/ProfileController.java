@@ -51,7 +51,7 @@ public class ProfileController{
 		if(isAlreadyFollowingUser()) {
 			setAlreadyFollowingButton();
 		}
-		
+		honkScrollPaneContainer.setVvalue(1.0);
 		UserName.setText(holder);
 		User profileData = getUserProfileData(holder);
 		bioText.setText(profileData.getBio());
