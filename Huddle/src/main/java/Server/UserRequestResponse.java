@@ -192,14 +192,14 @@ public class UserRequestResponse implements ServerResponse {
 		String recAnswr1 = userRequestJSON.getString("recoveryAnswer1");
 		String recAnswr2 = userRequestJSON.getString("recoveryAnswer2");
 		
-		
 		for(int i = 0; i < Users.size(); i++) {
 			if(username.equals(Users.get(i).getString("UserName"))) {
 				JSONObject userJSON = Users.get(i);
-				if(userJSON.get("recoveryAnswer1").equals(recAnswr1)
-						&& userJSON.get("recoveryAnswer2").equals(recAnswr2)) {
+				if(userJSON.getString("recoveryAnswer1").equalsIgnoreCase(recAnswr1)
+						&& userJSON.getString("recoveryAnswer2").equalsIgnoreCase(recAnswr2)) {
 					Users.get(i).put("password", newPassword);
 	 				writeToFile();
+	 				System.out.println("success");
 	 				return getSuccessResponse();
 				}
 			}

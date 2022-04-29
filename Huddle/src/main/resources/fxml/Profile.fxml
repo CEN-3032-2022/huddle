@@ -16,8 +16,15 @@
       <Button fx:id="returnToHomeButton" Text="Return" onAction="#switchToMain" GridPane.rowIndex = "24" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="BackProfileButton"/>
 	<Button fx:id="honks" Text="Honks" onAction="#setField" GridPane.rowIndex = "16" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
       <Button fx:id="getSendAndRecievedMessagesButton" Text="Direct Messages" onAction="#getSentAndReceivedMessagesButtonOnClick" GridPane.rowIndex = "17" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
-      <TextField fx:id="messageInput" GridPane.rowIndex = "18" GridPane.columnIndex = "0" GridPane.columnSpan = "1"/>
-      <Button fx:id="sendMessageButton" Text="Send Message" onAction="#sendMessageButtonOnClick" GridPane.rowIndex = "19" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
       <Button fx:id="followButton" Text="Follow" onAction="#followButtonOnClick" GridPane.rowIndex = "15" GridPane.columnIndex = "0" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
       <ScrollPane fx:id="honkScrollPaneContainer" prefWidth = "1550" prefHeight="1550" GridPane.rowIndex = "2" GridPane.columnIndex = "2" GridPane.columnSpan = "19" GridPane.rowSpan = "22" styleClass="scrollPane"/>
+      <GridPane hgap="10" vgap="5" fx:id="sendMessagePane" GridPane.rowIndex = "24" GridPane.columnIndex = "2" GridPane.columnSpan = "19">
+            <padding><Insets top="5" right="10" bottom="5" left="10"/></padding>
+            <TextField fx:id="messageInput" GridPane.rowIndex = "0" GridPane.columnIndex = "0" GridPane.columnSpan = "1"/>
+            <Button fx:id="sendMessageButton" Text="Send Message" onAction="#sendMessageButtonOnClick" GridPane.rowIndex = "0" GridPane.columnIndex = "1" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/>
+      </GridPane>
+
+
+<!--       <TextField fx:id="messageInput" GridPane.rowIndex = "24" GridPane.columnIndex = "2" GridPane.columnSpan = "19"/>
+      <Button fx:id="sendMessageButton" Text="Send Message" onAction="#sendMessageButtonOnClick" GridPane.rowIndex = "24" GridPane.columnIndex = "22" GridPane.columnSpan = "1" styleClass="FollowProfileButton"/> -->
 </GridPane>

@@ -11,8 +11,6 @@ public class Server {
 
 		try {
 			
-			// Initialize Database connection here probably
-			
 			@SuppressWarnings("resource")
 			ServerSocket huddleServer = new ServerSocket(HUDDLE_PORT);
 			System.out.println("Waiting for clients to connect...");

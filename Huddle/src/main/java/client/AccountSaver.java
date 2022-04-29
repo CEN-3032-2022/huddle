@@ -16,7 +16,7 @@ public class AccountSaver {
 	
 	public boolean saveAccount() {
 		UserRepositoryImp userRepo = new UserRepositoryImp();
-		return userRepo.addNewUser(username, password, recoveryAnswer2, recoveryAnswer1);
+		return userRepo.addNewUser(username, password, recoveryAnswer1, recoveryAnswer2);
 	}
 	
 }
