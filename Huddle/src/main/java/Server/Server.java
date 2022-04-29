@@ -27,8 +27,7 @@ public class Server {
 			e.printStackTrace();
 		}
 		finally {
-			// Any closing statements
-			
+
 		}
 		
 	}
