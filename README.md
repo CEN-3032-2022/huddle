@@ -1,5 +1,4 @@
-# semester-projects-group-7
-semester-projects-group-7 created by GitHub Classroom
+# Huddle (Twitter Clone)
 
 Huddle is a social media platform where users can post messages with a 450 character limit. Users can interact publicly with the messages of other users (these messages are referred to as “honks”), or they can privately message another user via direct messaging.
 
